@@ -1,7 +1,7 @@
 ﻿#pragma once
 #include "..\vector.hpp"
 #include "..\color.hpp"
-#include "..\..\source-sdk\IEntity.h"
+#include "..\..\source-sdk\i_entity.hpp"
 
 #define IN_ATTACK		(1 << 0)
 #define IN_JUMP			(1 << 1)
@@ -36,18 +36,18 @@ const float LINE_WIDTH = 1;
 typedef void* (*CreateInterfaceFn) (const char* pName, int* pReturnCode);
 typedef void (*pfnDemoCustomDataCallback) (unsigned char* pData, size_t iSize);
 
-typedef struct PlayerInfo_s
+typedef struct player_info_s
 {
 	char			name[32];
 	int				userID;
 	char			guid[33];
-	unsigned long	friendsID;
-	char			friendsName[32];
+	unsigned long	friends_id;
+	char			friends_name[32];
 	bool			fakeplayer;
 	bool			ishltv;
 	unsigned long	customFiles[4];
-	unsigned char	filesDownloaded;
-} PlayerInfo_t; // fixed for tf2.
+	unsigned char	files_downloaded;
+} player_info_t;
 
 struct cplane_t
 {
@@ -59,7 +59,7 @@ struct cplane_t
 
 };
 
-enum VGuiPanel_t
+enum vgui_panel_t
 {
 	PANEL_ROOT = 0,
 	PANEL_GAMEUIDLL,
@@ -70,14 +70,14 @@ enum VGuiPanel_t
 	PANEL_CLIENTDLL_TOOLS
 };
 
-enum PaintMode_t
+enum paint_mode_t
 {
 	PAINT_UIPANELS = (1 << 0),
 	PAINT_INGAMEPANELS = (1 << 1),
 	PAINT_CURSOR = (1 << 2)
 };
 
-enum EFontFlags
+enum e_font_flags
 {
 	FONTFLAG_NONE,
 	FONTFLAG_ITALIC = 0x001,
@@ -202,7 +202,7 @@ enum source_lifestates
 	LIFE_DISCARDBODY,
 };
 
-enum EntityFlags : int
+enum entity_flags : int
 {
 	FL_ONGROUND = (1 << 0),
 	FL_DUCKING = (1 << 1),
@@ -215,10 +215,10 @@ enum EntityFlags : int
 	FL_FAKECLIENT = (1 << 8)
 };
 
-class CUserCmd final
+class c_user_cmd final
 {
 public:
-	virtual ~CUserCmd() {}; //Destructor 0
+	virtual ~c_user_cmd() {}; //Destructor 0
 	int command_number; //4
 	int tick_count; //8
 	vector viewangles; //C
@@ -232,39 +232,8 @@ public:
 	int random_seed; //34
 	short mousedx; //38
 	short mousedy; //3A
-	bool hasbeenpredicted; //3C;
-	/**
-		// For matching server and client commands for debugging
-	int		command_number;
+	bool has_been_predicted; //3C;
 
-	// the tick the client created this command
-	int		tick_count;
-
-	// Player instantaneous view angles.
-	QAngle	viewangles;
-	// Intended velocities
-	//	forward velocity.
-	float	forwardmove;
-	//  sideways velocity.
-	float	sidemove;
-	//  upward velocity.
-	float	upmove;
-	// Attack button states
-	int		buttons;
-	// Impulse command issued.
-	byte    impulse;
-	// Current weapon id
-	int		weaponselect;
-	int		weaponsubtype;
-	int		random_seed;	// For shared random functions
-#ifdef GAME_DLL
-	int		server_random_seed; // Only the server populates this seed
-#endif
-	short	mousedx;		// mouse accum in x from create move
-	short	mousedy;		// mouse accum in y from create move
-	// Client only, tracks whether we've predicted this command at least once
-	bool	hasbeenpredicted;
-	**/
 };
 
 static const char* get_class_name_string(int class_id) {
@@ -290,7 +259,7 @@ static const char* get_class_name_string(int class_id) {
 	}
 }
 
-static color get_team_color(C_BaseEntity* entity) {
+static color get_team_color(c_base_entity* entity) {
 	return (entity->get_team_num() == 2
 		? color(255, 102, 0, 255)
 		: entity->get_team_num() == 3

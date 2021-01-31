@@ -21,22 +21,22 @@ public:
 
 private:
 	void PopulateNodes(class RecvTable* recv_table, MapType* map);
-	static int GetOffsetRecursive(MapType& map, int acc, const char* name)
+	static int get_offset_recursive(MapType& map, int acc, const char* name)
 	{
 		return acc + map[name]->offset;
 	}
 	template<typename ...args_t>
-	int GetOffsetRecursive(MapType& map, int acc, const char* name, args_t ...args)
+	int get_offset_recursive(MapType& map, int acc, const char* name, args_t ...args)
 	{
 		const auto& node = map[name];
-		return this->GetOffsetRecursive(node->nodes, acc + node->offset, args...);
+		return this->get_offset_recursive(node->nodes, acc + node->offset, args...);
 	}
 
 public:
 	template<typename ...args_t>
-	int GetOffset(const char* name, args_t ...args)
+	int get_offset(const char* name, args_t ...args)
 	{
 		const auto& node = nodes[name];
-		return this->GetOffsetRecursive(node->nodes, node->offset, args...);
+		return this->get_offset_recursive(node->nodes, node->offset, args...);
 	}
 }; extern std::unique_ptr<netvar> g_netvar;

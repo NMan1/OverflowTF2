@@ -1,7 +1,7 @@
 #include "..\hook.hpp"
 #include "..\..\interfaces\interfaces.hpp"
 
-void bunny_hop(CUserCmd* cmd) {
+void bunny_hop(c_user_cmd* cmd) {
 	static bool released = true;
 	static auto local_player = interfaces::entity_list->get_client_entity(interfaces::engine->get_local_player());
 
@@ -23,7 +23,7 @@ void bunny_hop(CUserCmd* cmd) {
 	}
 }
 
-bool __stdcall hooks::client_mode::create_move::fn(float input_sample_time, CUserCmd* cmd)
+bool __stdcall hooks::client_mode::create_move::fn(float input_sample_time, c_user_cmd* cmd)
 {
 	static const auto original_return_value = m_client_mode->get_original<t>(index)(input_sample_time, cmd);
 

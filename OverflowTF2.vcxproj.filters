@@ -47,37 +47,10 @@
     <ClInclude Include="core\memory\memory.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="core\source-sdk\IBaseClientDLL.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="core\source-sdk\IClientNetworkable.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="core\source-sdk\IEntity.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="core\source-sdk\ISurface.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="core\source-sdk\IVDebugOverlay.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="core\source-sdk\IVEngineClient.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="core\utils\netvars\netvars.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="core\interfaces\interfaces.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="core\source-sdk\Panels.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="core\source-sdk\IPlayerInfoManager.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="core\source-sdk\CHandle.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="core\utils\vector.hpp">
@@ -98,19 +71,46 @@
     <ClInclude Include="core\hooks\hook.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="core\utils\game\misc.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="core\utils\game\draw.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="core\utils\color.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="core\source-sdk\EngineVGui.h">
+    <ClInclude Include="core\features\visuals\esp.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="core\features\visuals\esp.hpp">
+    <ClInclude Include="core\source-sdk\i_base_client_dll.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="core\source-sdk\i_engine_vgui.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="core\source-sdk\c_handle.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="core\source-sdk\i_client_networkable.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="core\source-sdk\i_entity.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="core\source-sdk\i_player_info_manager.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="core\source-sdk\i_surface.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="core\source-sdk\iv_debug_overlay.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="core\source-sdk\iv_engine_client.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="core\source-sdk\i_panels.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="core\utils\game\defines.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

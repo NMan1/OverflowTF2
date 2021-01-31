@@ -1,27 +1,27 @@
 #pragma once
 
-#include "..\source-sdk\CHandle.h"
-#include "..\source-sdk\IClientNetworkable.h"
-#include "..\source-sdk\IBaseClientDLL.h"
-#include "..\source-sdk\IVEngineClient.h"
-#include "..\source-sdk\IEntity.h"
-#include "..\source-sdk\Panels.h"
-#include "..\source-sdk\ISurface.h"
-#include "..\source-sdk\IVDebugOverlay.h"
-#include "..\source-sdk\IPlayerInfoManager.h"
-#include "../source-sdk/EngineVGui.h"
+#include "..\source-sdk\c_handle.hpp"
+#include "..\source-sdk\i_client_networkable.hpp"
+#include "..\source-sdk\i_base_client_dll.hpp"
+#include "..\source-sdk\iv_engine_client.hpp"
+#include "..\source-sdk\i_entity.hpp"
+#include "..\source-sdk\i_panels.hpp"
+#include "..\source-sdk\i_surface.hpp"
+#include "..\source-sdk\iv_debug_overlay.hpp"
+#include "..\source-sdk\i_player_info_manager.hpp"
+#include "..\source-sdk\i_engine_vgui.hpp"
 
 namespace interfaces {
-	extern IBaseClientDLL* client_dll;
-	extern IVEngineClient* engine;
-	extern IClientEntityList* entity_list;
-	extern IGlobalVars* globals;
-	extern IClientModeShared* client_mode;
-	extern Panel* panels;
-	extern ISurface* surface;
-	extern IEngineVGui* engine_vgui;
-	extern IVDebugOverlay* debug_overlay;
-	extern IPlayerInfoManager* player_info;
+	extern i_base_client_dll*		client_dll;
+	extern iv_engine_client*		engine;
+	extern i_client_entityList*		entity_list;
+	extern i_global_vars*			globals;
+	extern i_client_mode_shared*	client_mode;
+	extern i_panel*					panels;
+	extern i_surface*				surface;
+	extern i_engine_vgui*			engine_vgui;
+	extern iv_debug_overlay*		debug_overlay;
+	extern i_player_info_manager*	player_info;
 
 	void init_interfaces();
 }

@@ -1,29 +1,29 @@
 #pragma once
-#include "IEntity.h"
+#include "i_entity.hpp"
 #include "..\utils\utils.hpp"
-#include "../utils/game/misc.hpp"
+#include "../utils/game/defines.hpp"
 
-class ClientClass
+class c_client_class
 {
 public:
 	unsigned char _chPadding[8];
 	char* szName;
 	RecvTable* rtTable;
-	ClientClass* pNextClass;
+	c_client_class* pNextClass;
 	int iClassID;
 };
 
-class IBaseClientDLL
+class i_base_client_dll
 {
 public:
-	ClientClass * get_all_classes()
+	c_client_class * get_all_classes()
 	{
-		typedef ClientClass* (__thiscall* GetAllClassesFn)(void*);
-		return utils::get_vfunc<GetAllClassesFn>(this, 8)(this);
+		typedef c_client_class* (__thiscall* fn)(void*);
+		return utils::get_vfunc<fn>(this, 8)(this);
 	}
 };
 
-class IGlobalVars
+class i_global_vars
 {
 	// Absolute time (per frame still - Use Plat_FloatTime() for a high precision real time 
 	//  perf clock, but not that it doesn't obey host_timescale/host_framerate)
@@ -81,33 +81,33 @@ private:
 	int				nTimestampRandomizeWindow;
 };
 
-class IClientModeShared
+class i_client_mode_shared
 {
 public:
-		virtual             ~IClientModeShared() {}
-		virtual void        Init() = 0;
-		virtual void        InitViewport() = 0;
-		virtual void        Shutdown() = 0;
-		virtual void	LevelInit(const char* newmap);
-		virtual void	LevelShutdown(void);
-		virtual void        Enable() = 0;
-		virtual void        Disable() = 0;
-		virtual void        Layout() = 0;
-		virtual void	ReloadScheme(bool flushLowLevel) = 0;
-		virtual void	OverrideView(unsigned long* pSetup) = 0;
-		virtual bool	ShouldDrawDetailObjects() = 0;
-		virtual bool	ShouldDrawEntity(C_BaseEntity* pEnt) = 0;
-		virtual bool	ShouldDrawLocalPlayer(C_BaseEntity* pPlayer) = 0;
-		virtual bool	ShouldDrawViewModel() = 0;
-		virtual bool	ShouldDrawParticles() = 0;
-		virtual bool	ShouldDrawCrosshair(void) = 0;
-		virtual bool	ShouldBlackoutAroundHUD() = 0;
-		virtual unsigned long ShouldOverrideHeadtrackControl() = 0;
-		virtual void	AdjustEngineViewport(int& x, int& y, int& width, int& height) = 0;
-		virtual void	PreRender(unsigned long* pSetup) = 0;
-		virtual void	PostRender() = 0;
-		virtual void	PostRenderVGui() = 0;
-		virtual void	ProcessInput(bool bActive) = 0;
-		virtual bool	CreateMove(float flInputSampleTime, CUserCmd* cmd) = 0;
-		virtual void	Update() = 0;
+		virtual             ~i_client_mode_shared() {}
+		virtual void        init() = 0;
+		virtual void        init_viewport() = 0;
+		virtual void        shutdown() = 0;
+		virtual void		level_init(const char* newmap);
+		virtual void		level_shutdown(void);
+		virtual void        enable() = 0;
+		virtual void        disable() = 0;
+		virtual void        layout() = 0;
+		virtual void		reload_scheme(bool flushLowLevel) = 0;
+		virtual void		override_view(unsigned long* pSetup) = 0;
+		virtual bool		should_draw_detail_objects() = 0;
+		virtual bool		should_draw_entity(c_base_entity* pEnt) = 0;
+		virtual bool		should_draw_local_player(c_base_entity* pPlayer) = 0;
+		virtual bool		should_draw_view_model() = 0;
+		virtual bool		should_draw_particles() = 0;
+		virtual bool		should_draw_crosshair(void) = 0;
+		virtual bool		should_blackout_around_hud() = 0;
+		virtual unsigned long should_override_headtrack_control() = 0;
+		virtual void		adjust_engine_viewport(int& x, int& y, int& width, int& height) = 0;
+		virtual void		pre_render(unsigned long* pSetup) = 0;
+		virtual void		post_render() = 0;
+		virtual void		post_render_vgui() = 0;
+		virtual void		process_input(bool bActive) = 0;
+		virtual bool		create_move(float flInputSampleTime, c_user_cmd* cmd) = 0;
+		virtual void		update() = 0;
 };

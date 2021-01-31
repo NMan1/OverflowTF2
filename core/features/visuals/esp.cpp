@@ -1,9 +1,9 @@
 #include "esp.hpp"
 
 namespace esp {
-	void box_esp(C_BaseEntity* entity);
+	void box_esp(c_base_entity* entity);
 
-	void misc_esp(C_BaseEntity* entity);
+	void misc_esp(c_base_entity* entity);
 
 	void run() {
 		auto local_player = interfaces::entity_list->get_client_entity(interfaces::engine->get_local_player());
@@ -31,10 +31,10 @@ namespace esp {
 		}
 	}
 
-	void box_esp(C_BaseEntity* entity) {
+	void box_esp(c_base_entity* entity) {
 		vector	 vec_bottom;
-		vector2D vec_screen_bottom;
-		vector2D vec_screen_origin;
+		vector_2d vec_screen_bottom;
+		vector_2d vec_screen_origin;
 		auto vec_origin{ vec_bottom = entity->get_origin() };
 
 		constexpr auto DUCK{ 54.f };
@@ -58,19 +58,19 @@ namespace esp {
 
 		edge_width /= EWIDTH;
 
-		auto top_left = vector2D(vec_screen_origin.x - line_width - LINE_WIDTH, vec_screen_bottom.y);
-		auto top_right = vector2D(vec_screen_origin.x + line_width, vec_screen_bottom.y);
-		auto bottom_left = vector2D(vec_screen_origin.x - line_width, vec_screen_origin.y);
-		auto bottom_right = vector2D(vec_screen_origin.x + line_width, vec_screen_origin.y);
+		auto top_left = vector_2d(vec_screen_origin.x - line_width - LINE_WIDTH, vec_screen_bottom.y);
+		auto top_right = vector_2d(vec_screen_origin.x + line_width, vec_screen_bottom.y);
+		auto bottom_left = vector_2d(vec_screen_origin.x - line_width, vec_screen_origin.y);
+		auto bottom_right = vector_2d(vec_screen_origin.x + line_width, vec_screen_origin.y);
 
 		draw::box(top_left, bottom_right, get_team_color(entity), 2);
 	}
 
-	void misc_esp(C_BaseEntity* entity) {
+	void misc_esp(c_base_entity* entity) {
 		int screen_x, screen_y;
 		interfaces::engine->get_screen_size(screen_x, screen_y);
 
-		vector2D origin_screen;
+		vector_2d origin_screen;
 		if (draw::w2s(entity->get_origin(), origin_screen)) {
 			draw::line(screen_x / 2, screen_y, origin_screen.x, origin_screen.y, get_team_color(entity));
 			draw::text(get_class_name_string(entity->get_class_name()), origin_screen, color(255, 255, 255), 17, true);

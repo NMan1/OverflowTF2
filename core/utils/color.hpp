@@ -14,15 +14,15 @@ public:
 
 	color(int _r, int _g, int _b)
 	{
-		SetColor(_r, _g, _b, 255);
+		set_color(_r, _g, _b, 255);
 	}
 
 	color(int _r, int _g, int _b, int _a)
 	{
-		SetColor(_r, _g, _b, _a);
+		set_color(_r, _g, _b, _a);
 	}
 
-	void SetColor(int _r, int _g, int _b, int _a = 255)
+	void set_color(int _r, int _g, int _b, int _a = 255)
 	{
 		_color[0] = (unsigned char)_r;
 		_color[1] = (unsigned char)_g;
@@ -30,7 +30,7 @@ public:
 		_color[3] = (unsigned char)_a;
 	}
 
-	void GetColor(int& _r, int& _g, int& _b, int& _a) const
+	void get_color(int& _r, int& _g, int& _b, int& _a) const
 	{
 		_r = _color[0];
 		_g = _color[1];
@@ -38,17 +38,17 @@ public:
 		_a = _color[3];
 	}
 
-	void SetRawColor(int color32)
+	void set_raw_color(int color32)
 	{
 		*((int*)this) = color32;
 	}
 
-	int GetRawColor() const
+	int get_raw_color() const
 	{
 		return *((int*)this);
 	}
 
-	int GetD3DColor() const
+	int get_d3d_color() const
 	{
 		return ((int)((((_color[3]) & 0xff) << 24) | (((_color[0]) & 0xff) << 16) | (((_color[1]) & 0xff) << 8) | ((_color[2]) & 0xff)));
 	}
@@ -73,22 +73,22 @@ public:
 		return _color[3];
 	}
 
-	inline float rBase() const
+	inline float r_base() const
 	{
 		return _color[0] / 255.0f;
 	}
 
-	inline float gBase() const
+	inline float g_base() const
 	{
 		return _color[1] / 255.0f;
 	}
 
-	inline float bBase() const
+	inline float b_base() const
 	{
 		return _color[2] / 255.0f;
 	}
 
-	inline float aBase() const
+	inline float a_base() const
 	{
 		return _color[3] / 255.0f;
 	}
@@ -115,11 +115,11 @@ public:
 
 	color& operator=(const color& rhs)
 	{
-		SetRawColor(rhs.GetRawColor());
+		set_raw_color(rhs.get_raw_color());
 		return *this;
 	}
 
-	float* Base()
+	float* base()
 	{
 		float clr[3];
 
@@ -130,7 +130,7 @@ public:
 		return &clr[0];
 	}
 
-	float* BaseAlpha()
+	float* base_alpha()
 	{
 		float clr[4];
 
@@ -142,7 +142,7 @@ public:
 		return &clr[0];
 	}
 
-	float Hue() const
+	float hue() const
 	{
 		if (_color[0] == _color[1] && _color[1] == _color[2])
 		{
@@ -179,7 +179,7 @@ public:
 		return hue;
 	}
 
-	float Saturation() const
+	float saturation() const
 	{
 		float r = _color[0] / 255.0f;
 		float g = _color[1] / 255.0f;
@@ -200,7 +200,7 @@ public:
 		return s;
 	}
 
-	float Brightness() const
+	float brightness() const
 	{
 		float r = _color[0] / 255.0f;
 		float g = _color[1] / 255.0f;
@@ -211,7 +211,7 @@ public:
 		return (max + min) / 2;
 	}
 
-	static color FromHSB(float hue, float saturation, float brightness)
+	static color from_hsb(float hue, float saturation, float brightness)
 	{
 		float h = hue == 1.0f ? 0 : hue * 6.0f;
 		float f = h - (int)h;
@@ -269,93 +269,93 @@ public:
 		}
 	}
 
-	static color Red()
+	static color red()
 	{
 		return color(255, 0, 0);
 	}
 
-	static color Green()
+	static color green()
 	{
 		return color(0, 255, 0);
 	}
 
-	static color Blue()
+	static color blue()
 	{
 		return color(0, 0, 255);
 	}
 
-	static color LightBlue()
+	static color light_blue()
 	{
 		return color(100, 100, 255);
 	}
 
-	static color Grey()
+	static color grey()
 	{
 		return color(128, 128, 128);
 	}
 
-	static color DarkGrey()
+	static color dark_grey()
 	{
 		return color(45, 45, 45);
 	}
 
-	static color Black()
+	static color black()
 	{
 		return color(0, 0, 0);
 	}
 
-	static color White()
+	static color white()
 	{
 		return color(255, 255, 255);
 	}
 
-	static color Purple()
+	static color purple()
 	{
 		return color(220, 0, 220);
 	}
 
 	//Menu
-	static color Background()
+	static color background()
 	{
 		return color(55, 55, 55);
 	}
 
-	static color FrameBorder()
+	static color frame_border()
 	{
 		return color(80, 80, 80);
 	}
 
-	static color MainText()
+	static color main_text()
 	{
 		return color(230, 230, 230);
 	}
 
-	static color HeaderText()
+	static color header_text()
 	{
 		return color(49, 124, 230);
 	}
 
-	static color CurrentTab()
+	static color current_tab()
 	{
 		return color(55, 55, 55);
 	}
 
-	static color Tabs()
+	static color tabs()
 	{
 		return color(23, 23, 23);
 	}
 
-	static color Highlight()
+	static color highlight()
 	{
 		return color(49, 124, 230);
 	}
 
-	static color ElementBorder()
+	static color element_border()
 	{
 		return color(0, 0, 0);
 	}
 
-	static color SliderScroll()
+	static color slider_scroll()
 	{
 		return color(78, 143, 230);
 	}

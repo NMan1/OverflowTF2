@@ -4,7 +4,7 @@
 #include "hooks/hook.hpp"
 #include "interfaces/interfaces.hpp"
 
-DWORD WINAPI init(PVOID dll_instance) {
+DWORD WINAPI init(void* dll_instance) {
 #ifdef _DEBUG      
 	AllocConsole();                                
 	freopen_s((FILE**)stdin, "CONIN$", "r", stdin);  

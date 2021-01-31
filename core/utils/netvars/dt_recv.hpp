@@ -37,8 +37,8 @@ public:
 
 
 //-----------------------------------------------------------------------------
-// pStruct = the base structure of the datatable this variable is in (like C_BaseEntity)
-// pOut    = the variable that this this proxy represents (like C_BaseEntity::m_SomeValue).
+// pStruct = the base structure of the datatable this variable is in (like c_base_entity)
+// pOut    = the variable that this this proxy represents (like c_base_entity::m_SomeValue).
 //
 // Convert the network-standard-type value in m_Value into your own format in pStruct/pOut.
 //-----------------------------------------------------------------------------
@@ -107,7 +107,7 @@ public:
 	DataTableRecvVarProxyFn	GetDataTableProxyFn() const;
 	void					SetDataTableProxyFn(DataTableRecvVarProxyFn fn);
 
-	int						GetOffset() const;
+	int						get_offset() const;
 	void					SetOffset(int o);
 
 	// Arrays only.
@@ -255,16 +255,16 @@ inline bool RecvTable::IsInMainList() const
 		RecvPropDataTable("baseclass", 0, 0, className::BaseClass::m_pClassRecvTable, DataTableRecvProxy_StaticDataTable),
 
 #define BEGIN_RECV_TABLE_NOBASE(className, tableName) \
-	template <typename T> int ClientClassInit(T *); \
+	template <typename T> int c_client_classInit(T *); \
 	namespace tableName { \
 		struct ignored; \
 	} \
-	template <> int ClientClassInit<tableName::ignored>(tableName::ignored *); \
+	template <> int c_client_classInit<tableName::ignored>(tableName::ignored *); \
 	namespace tableName {	\
 		RecvTable g_RecvTable; \
-		int g_RecvTableInit = ClientClassInit((tableName::ignored *)NULL); \
+		int g_RecvTableInit = c_client_classInit((tableName::ignored *)NULL); \
 	} \
-	template <> int ClientClassInit<tableName::ignored>(tableName::ignored *) \
+	template <> int c_client_classInit<tableName::ignored>(tableName::ignored *) \
 	{ \
 		typedef className currentRecvDTClass; \
 		const char *pRecvTableName = #tableName; \
@@ -493,7 +493,7 @@ inline void RecvProp::SetDataTableProxyFn(DataTableRecvVarProxyFn fn)
 	m_DataTableProxyFn = fn;
 }
 
-inline int RecvProp::GetOffset() const
+inline int RecvProp::get_offset() const
 {
 	return m_Offset;
 }

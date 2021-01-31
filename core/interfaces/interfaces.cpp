@@ -1,22 +1,22 @@
 #include "interfaces.hpp"
 
 namespace interfaces {
-	IBaseClientDLL*			client_dll = nullptr;
-	IVEngineClient*			engine = nullptr;
-	IClientEntityList*		entity_list = nullptr;
-	IGlobalVars*			globals = nullptr;
-	IClientModeShared*		client_mode = nullptr;
-	Panel*					panels = nullptr;
-	ISurface*				surface = nullptr;
-	IEngineVGui*			engine_vgui = nullptr;
-	IVDebugOverlay*			debug_overlay = nullptr;
-	IPlayerInfoManager*		player_info = nullptr;
+	i_base_client_dll*			client_dll = nullptr;
+	iv_engine_client*			engine = nullptr;
+	i_client_entityList*		entity_list = nullptr;
+	i_global_vars*				globals = nullptr;
+	i_client_mode_shared*		client_mode = nullptr;
+	i_panel*					panels = nullptr;
+	i_surface*					surface = nullptr;
+	i_engine_vgui*				engine_vgui = nullptr;
+	iv_debug_overlay*			debug_overlay = nullptr;
+	i_player_info_manager*		player_info = nullptr;
 
-	using original_fn = void* (*)(const char*, int*);
+	using fn = void* (*)(const char*, int*);
 
 	template <typename t = void*>
 	t get_interface(const char* module_name, const char* interface_name) {
-		void* (*create_interface)(const char*, int*) = reinterpret_cast<original_fn>(GetProcAddress(
+		void* (*create_interface)(const char*, int*) = reinterpret_cast<fn>(GetProcAddress(
 			GetModuleHandleA(module_name), "CreateInterface"));
 		return reinterpret_cast<t>(create_interface(interface_name, nullptr));
 	}
@@ -32,7 +32,7 @@ namespace interfaces {
 			strininterface += interface_version;
 			strininterface += std::to_string(i);
 
-			original_fn create_interface = (original_fn)GetProcAddress(GetModuleHandleA(pinterface), "CreateInterface");
+			fn create_interface = (fn)GetProcAddress(GetModuleHandleA(pinterface), "CreateInterface");
 
 			void* func_ptr{ create_interface(strininterface.c_str(), NULL) };
 
@@ -51,17 +51,17 @@ namespace interfaces {
 
 	void init_interfaces()
 	{
-		client_dll = get_interface<IBaseClientDLL*>("client.dll", "VClient017");
-		engine = static_cast<IVEngineClient*>(brute_iface("EngineClient", "VEngineClient", "pEngine", "engine.dll"));
-		entity_list = get_interface<IClientEntityList*>("client.dll", "VClientEntityList003");
-		panels = get_interface<Panel*>("vgui2.dll", "VGUI_Panel009");
-		surface = get_interface<ISurface*>("vguimatsurface.dll", "VGUI_Surface030");
-		engine_vgui = get_interface<IEngineVGui*>("engine.dll", "VEngineVGui001");
-		debug_overlay = get_interface<IVDebugOverlay*>("engine.dll", "VDebugOverlay003");
-		player_info = get_interface<IPlayerInfoManager*>("server.dll", "PlayerInfoManager002");
+		client_dll = get_interface<i_base_client_dll*>("client.dll", "VClient017");
+		engine = static_cast<iv_engine_client*>(brute_iface("EngineClient", "VEngineClient", "pEngine", "engine.dll"));
+		entity_list = get_interface<i_client_entityList*>("client.dll", "VClientEntityList003");
+		panels = get_interface<i_panel*>("vgui2.dll", "VGUI_Panel009");
+		surface = get_interface<i_surface*>("vguimatsurface.dll", "VGUI_Surface030");
+		engine_vgui = get_interface<i_engine_vgui*>("engine.dll", "VEngineVGui001");
+		debug_overlay = get_interface<iv_debug_overlay*>("engine.dll", "VDebugOverlay003");
+		player_info = get_interface<i_player_info_manager*>("server.dll", "PlayerInfoManager002");
 
 		const auto dw_chl_client_table = reinterpret_cast<DWORD*>(*reinterpret_cast<DWORD*>(client_dll));
-		client_mode = **reinterpret_cast<IClientModeShared***>(static_cast<DWORD>(dw_chl_client_table[10]) + 0x05);
+		client_mode = **reinterpret_cast<i_client_mode_shared***>(static_cast<DWORD>(dw_chl_client_table[10]) + 0x05);
 		globals = player_info->get_global_vars();
 
 		utils::log("[-] Grabbed Interfaces");

@@ -8,7 +8,7 @@
 
 namespace memory {
 	struct protect_t {
-		protect_t(LPVOID addr, uint32_t size, DWORD flags) {
+		protect_t(void* addr, uint32_t size, DWORD flags) {
 			m_size = size;
 			m_addr = addr;
 
@@ -19,7 +19,7 @@ namespace memory {
 
 		DWORD m_flags = 0ul;
 		uint32_t m_size = 0u;
-		LPVOID m_addr = nullptr;
+		void* m_addr = nullptr;
 	};
 
 	struct hook_t {

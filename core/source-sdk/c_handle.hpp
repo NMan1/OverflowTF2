@@ -7,24 +7,24 @@
 #define NUM_SERIAL_NUM_SHIFT_BITS (32 - NUM_SERIAL_NUM_BITS)
 #define ENT_ENTRY_MASK             (( 1 << NUM_SERIAL_NUM_BITS) - 1)
 
-class CBaseHandle;
+class c_base_handle;
 
 class IHandleEntity
 {
 public:
 	virtual ~IHandleEntity() {}
-	virtual void SetRefEHandle(const CBaseHandle &handle) = 0;
-	virtual const CBaseHandle& GetRefEHandle() const = 0;
+	virtual void SetRefEHandle(const c_base_handle &handle) = 0;
+	virtual const c_base_handle& GetRefEHandle() const = 0;
 };
 
-class CBaseHandle
+class c_base_handle
 {
-	friend class C_BaseEntityList;
+	friend class c_base_entity_list;
 public:
-	CBaseHandle();
-	CBaseHandle(const CBaseHandle &other);
-	CBaseHandle(unsigned long value);
-	CBaseHandle(int iEntry, int iSerialNumber);
+	c_base_handle();
+	c_base_handle(const c_base_handle &other);
+	c_base_handle(unsigned long value);
+	c_base_handle(int iEntry, int iSerialNumber);
 
 	void Init(int iEntry, int iSerialNumber);
 	void Term();
@@ -37,16 +37,16 @@ public:
 	int GetSerialNumber() const;
 
 	int ToInt() const;
-	bool operator !=(const CBaseHandle &other) const;
-	bool operator ==(const CBaseHandle &other) const;
+	bool operator !=(const c_base_handle &other) const;
+	bool operator ==(const c_base_handle &other) const;
 	bool operator ==(const IHandleEntity* pEnt) const;
 	bool operator !=(const IHandleEntity* pEnt) const;
-	bool operator <(const CBaseHandle &other) const;
+	bool operator <(const c_base_handle &other) const;
 	bool operator <(const IHandleEntity* pEnt) const;
 
 	// Assign a value to the handle.
-	const CBaseHandle& operator=(const IHandleEntity *pEntity);
-	const CBaseHandle& Set(const IHandleEntity *pEntity);
+	const c_base_handle& operator=(const IHandleEntity *pEntity);
+	const c_base_handle& Set(const IHandleEntity *pEntity);
 
 	IHandleEntity* Get() const;
 protected:
@@ -54,13 +54,13 @@ protected:
 };
 
 template< class T >
-class CHandle : public CBaseHandle
+class CHandle : public c_base_handle
 {
 public:
 
 	CHandle();
 	CHandle(int iEntry, int iSerialNumber);
-	CHandle(const CBaseHandle &handle);
+	CHandle(const c_base_handle &handle);
 	CHandle(T *pVal);
 
 	static CHandle<T> FromIndex(int index);
@@ -74,7 +74,7 @@ public:
 	bool operator !() const;
 	bool operator==(T *val) const;
 	bool operator!=(T *val) const;
-	const CBaseHandle& operator=(const T *val);
+	const c_base_handle& operator=(const T *val);
 
 	T*        operator->() const;
 };
@@ -91,8 +91,8 @@ CHandle<T>::CHandle(int iEntry, int iSerialNumber)
 }
 
 template<class T>
-CHandle<T>::CHandle(const CBaseHandle &handle)
-	: CBaseHandle(handle)
+CHandle<T>::CHandle(const c_base_handle &handle)
+	: c_base_handle(handle)
 {
 }
 
@@ -114,7 +114,7 @@ inline CHandle<T> CHandle<T>::FromIndex(int index)
 template<class T>
 inline T* CHandle<T>::Get() const
 {
-	return (T*)CBaseHandle::Get();
+	return (T*)c_base_handle::Get();
 }
 
 template<class T>
@@ -150,11 +150,11 @@ inline bool CHandle<T>::operator!=(T *val) const
 template<class T>
 void CHandle<T>::Set(const T* pVal)
 {
-	CBaseHandle::Set(reinterpret_cast<const IHandleEntity*>(pVal));
+	c_base_handle::Set(reinterpret_cast<const IHandleEntity*>(pVal));
 }
 
 template<class T>
-inline const CBaseHandle& CHandle<T>::operator=(const T *val)
+inline const c_base_handle& CHandle<T>::operator=(const T *val)
 {
 	Set(val);
 	return *this;
@@ -166,42 +166,42 @@ T* CHandle<T>::operator -> () const
 	return Get();
 }
 
-inline CBaseHandle::CBaseHandle()
+inline c_base_handle::c_base_handle()
 {
 	m_Index = INVALID_EHANDLE_INDEX;
 }
 
-inline CBaseHandle::CBaseHandle(const CBaseHandle &other)
+inline c_base_handle::c_base_handle(const c_base_handle &other)
 {
 	m_Index = other.m_Index;
 }
 
-inline CBaseHandle::CBaseHandle(unsigned long value)
+inline c_base_handle::c_base_handle(unsigned long value)
 {
 	m_Index = value;
 }
 
-inline CBaseHandle::CBaseHandle(int iEntry, int iSerialNumber)
+inline c_base_handle::c_base_handle(int iEntry, int iSerialNumber)
 {
 	Init(iEntry, iSerialNumber);
 }
 
-inline void CBaseHandle::Init(int iEntry, int iSerialNumber)
+inline void c_base_handle::Init(int iEntry, int iSerialNumber)
 {
 	m_Index = (unsigned long)(iEntry | (iSerialNumber << NUM_SERIAL_NUM_SHIFT_BITS));
 }
 
-inline void CBaseHandle::Term()
+inline void c_base_handle::Term()
 {
 	m_Index = INVALID_EHANDLE_INDEX;
 }
 
-inline bool CBaseHandle::IsValid() const
+inline bool c_base_handle::IsValid() const
 {
 	return m_Index != INVALID_EHANDLE_INDEX;
 }
 
-inline int CBaseHandle::GetEntryIndex() const
+inline int c_base_handle::GetEntryIndex() const
 {
 	// There is a hack here: due to a bug in the original implementation of the 
 	// entity handle system, an attempt to look up an invalid entity index in 
@@ -220,53 +220,53 @@ inline int CBaseHandle::GetEntryIndex() const
 	return m_Index & ENT_ENTRY_MASK;
 }
 
-inline int CBaseHandle::GetSerialNumber() const
+inline int c_base_handle::GetSerialNumber() const
 {
 	return m_Index >> NUM_SERIAL_NUM_SHIFT_BITS;
 }
 
-inline int CBaseHandle::ToInt() const
+inline int c_base_handle::ToInt() const
 {
 	return (int)m_Index;
 }
 
-inline bool CBaseHandle::operator !=(const CBaseHandle &other) const
+inline bool c_base_handle::operator !=(const c_base_handle &other) const
 {
 	return m_Index != other.m_Index;
 }
 
-inline bool CBaseHandle::operator ==(const CBaseHandle &other) const
+inline bool c_base_handle::operator ==(const c_base_handle &other) const
 {
 	return m_Index == other.m_Index;
 }
 
-inline bool CBaseHandle::operator ==(const IHandleEntity* pEnt) const
+inline bool c_base_handle::operator ==(const IHandleEntity* pEnt) const
 {
 	return Get() == pEnt;
 }
 
-inline bool CBaseHandle::operator !=(const IHandleEntity* pEnt) const
+inline bool c_base_handle::operator !=(const IHandleEntity* pEnt) const
 {
 	return Get() != pEnt;
 }
 
-inline bool CBaseHandle::operator <(const CBaseHandle &other) const
+inline bool c_base_handle::operator <(const c_base_handle &other) const
 {
 	return m_Index < other.m_Index;
 }
 
-inline bool CBaseHandle::operator <(const IHandleEntity *pEntity) const
+inline bool c_base_handle::operator <(const IHandleEntity *pEntity) const
 {
 	unsigned long otherIndex = (pEntity) ? pEntity->GetRefEHandle().m_Index : INVALID_EHANDLE_INDEX;
 	return m_Index < otherIndex;
 }
 
-inline const CBaseHandle& CBaseHandle::operator=(const IHandleEntity *pEntity)
+inline const c_base_handle& c_base_handle::operator=(const IHandleEntity *pEntity)
 {
 	return Set(pEntity);
 }
 
-inline const CBaseHandle& CBaseHandle::Set(const IHandleEntity *pEntity)
+inline const c_base_handle& c_base_handle::Set(const IHandleEntity *pEntity)
 {
 	if (pEntity)
 		*this = pEntity->GetRefEHandle();

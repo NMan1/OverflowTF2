@@ -1,7 +1,7 @@
 #include <d3d9.h>
-#include "../utils/game/misc.hpp"
+#include "..\utils\game\defines.hpp"
 #include "..\memory\memory.hpp"
-#include "../source-sdk/EngineVGui.h"
+#include "..\source-sdk\i_engine_vgui.hpp"
 
 namespace hooks {
 	void hook();
@@ -10,23 +10,23 @@ namespace hooks {
 	namespace client_mode {
 		namespace create_move {
 			constexpr int index = 21u;
-			using t = bool(__stdcall*)(float, CUserCmd*);
-			bool __stdcall fn(float flInputSampleTime, CUserCmd* cmd);
+			using t = bool(__stdcall*)(float, c_user_cmd*);
+			bool __stdcall fn(float flInputSampleTime, c_user_cmd* cmd);
 		}
 	}
 
 	namespace panel {
 		namespace paint_traverse {
 			constexpr int index = 41u;
-			using t = void(__thiscall*)(PVOID panels, unsigned int, bool, bool);
-			void __fastcall fn(PVOID panels, int edx, unsigned int vgui_panel, bool force_repaint, bool allow_force);
+			using t = void(__thiscall*)(void* panels, unsigned int, bool, bool);
+			void __fastcall fn(void* panels, int edx, unsigned int vgui_panel, bool force_repaint, bool allow_force);
 		}
 	}
 
 	namespace engine_vgui {
 		namespace paint {
 			constexpr int index = 13;
-			using t = void(__thiscall*)(IEngineVGui*, int);
+			using t = void(__thiscall*)(i_engine_vgui*, int);
 			void __stdcall fn(int mode);
 		}
 	}
