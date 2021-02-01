@@ -1,7 +1,7 @@
 #include <d3d9.h>
-#include "..\utils\game\structs.hpp"
+#include "..\source-sdk\structs\structs.hpp"
 #include "..\utils\memory\memory.hpp"
-#include "..\source-sdk\i_engine_vgui.hpp"
+#include "..\source-sdk\interfaces\i_engine_vgui.hpp"
 
 namespace hooks {
 	void hook();

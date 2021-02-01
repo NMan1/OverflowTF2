@@ -1,4 +1,7 @@
 #include "draw.hpp"
+#include "..\..\source-sdk\structs\enums.hpp"
+
+typedef float matrix3x4[3][4];
 
 namespace draw {
 	unsigned long font = NULL;
@@ -13,7 +16,7 @@ namespace draw {
 		}
 
 		font = interfaces::surface->create_font();
-		interfaces::surface->set_font_glyph(font, "Tahoma", default_font_size, default_font_weight, 0, 0, FONTFLAG_ANTIALIAS);
+		interfaces::surface->set_font_glyph(font, "Tahoma", default_font_size, default_font_weight, 0, 0, font_flags::ANTIALIAS);
 	}
 
 	bool w2s(const vector& origin, vector_2d& screen) {
@@ -59,7 +62,7 @@ namespace draw {
 		auto w_text = std::wstring(text.begin(), text.end());
 
 		if (font_size != default_font_size) {
-			interfaces::surface->set_font_glyph(font, "Tahoma", font_size, default_font_weight, 0, 0, FONTFLAG_ANTIALIAS);
+			interfaces::surface->set_font_glyph(font, "Tahoma", font_size, default_font_weight, 0, 0, font_flags::ANTIALIAS);
 		}
 
 		if (!center) {

@@ -1,6 +1,7 @@
 #pragma once
-#include "..\..\vector.hpp"
-#include "../../../source-sdk/iv_engine_client.hpp"
+#include "vector.hpp"
+
+typedef float matrix3x4[3][4];
 
 namespace math {
 	void vector_transform(const vector& input, const matrix3x4& matrix, vector& output);

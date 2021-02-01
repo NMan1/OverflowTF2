@@ -11,7 +11,7 @@ namespace misc {
 
 		if (cmd->buttons & IN_JUMP) {
 			if (!released) {
-				if (!(local_player->get_flags() & FL_ONGROUND))
+				if (!(local_player->get_flags() & entity_flags::GROUND))
 					cmd->buttons &= ~(1 << 1);
 			}
 			else {

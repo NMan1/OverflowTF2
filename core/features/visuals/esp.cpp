@@ -1,5 +1,5 @@
 #include "esp.hpp"
-#include "../../utils/game/helpers.hpp"
+#include "../../utils/helpers.hpp"
 
 namespace esp {
 	void box_esp(c_base_entity* entity);
@@ -39,7 +39,7 @@ namespace esp {
 		constexpr auto STAND{ 72.f };
 		constexpr auto EWIDTH{ 1.5f };
 
-		if ((entity->get_flags() & FL_DUCKING)) {
+		if ((entity->get_flags() & entity_flags::DUCKING)) {
 			vec_bottom.z += DUCK;
 		}
 		else {

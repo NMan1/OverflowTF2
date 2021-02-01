@@ -1,12 +1,12 @@
 #pragma once
 #include "i_entity.hpp"
-#include "..\utils\netvars\netvars.hpp"
-#include "..\utils\vector.hpp"
-#include "..\utils\utils.hpp"
-#include "..\utils\memory\memory.hpp"
-#include "..\utils\game\structs.hpp"
-#include "../utils/game/math/math.hpp"
-#include "../interfaces/interfaces.hpp"
+#include "..\..\utils\netvars\netvars.hpp"
+#include "..\..\utils\math\vector.hpp"
+#include "..\..\utils\utils.hpp"
+#include "..\..\utils\memory\memory.hpp"
+#include "..\structs\structs.hpp"
+#include "..\..\utils\math\math.hpp"
+#include "..\..\interfaces\interfaces.hpp"
 
 class c_base_combat_weapon;
 
@@ -22,7 +22,7 @@ bool c_base_entity::get_life_state() {
 }
 
 bool c_base_entity::is_alive() {
-	return (this->get_life_state() == LIFE_ALIVE);
+	return (this->get_life_state() == life_states::ALIVE);
 }
 
 int c_base_entity::get_health() {
@@ -72,23 +72,23 @@ bool c_base_entity::is_dormant() {
 }
 
 bool c_base_entity::is_taunting() {
-	return (this->get_condition() & TFCond_Taunting);
+	return (this->get_condition() & conditions::TAUNTING);
 }
 
 bool c_base_entity::is_ducking() {
-	return (this->get_flags() & FL_DUCKING);
+	return (this->get_flags() & entity_flags::DUCKING);
 }
 
 bool c_base_entity::is_ubered() {
-	return (this->get_condition() & TFCond_Ubercharged);
+	return (this->get_condition() & conditions::UBERCHARGED);
 }
 
 bool c_base_entity::is_bonked() {
-	return (this->get_condition() & TFCond_Bonked);
+	return (this->get_condition() & conditions::BONKED);
 }
 
 bool c_base_entity::is_cloaked() {
-	return (this->get_condition() & TFCond_Cloaked);
+	return (this->get_condition() & conditions::CLOAKED);
 }
 
 client_class* c_base_entity::get_client_class() {

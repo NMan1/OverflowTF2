@@ -1,7 +1,7 @@
 ﻿#pragma once
-#include "..\vector.hpp"
-#include "..\color.hpp"
-#include "..\..\source-sdk\i_entity.hpp"
+#include "math\vector.hpp"
+#include "color.hpp"
+#include "..\source-sdk\interfaces\i_entity.hpp"
 
 static const char* get_class_name_string(int class_id) {
 	switch (class_id) {

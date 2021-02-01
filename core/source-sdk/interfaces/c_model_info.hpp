@@ -1,7 +1,7 @@
 #pragma once
 #include "iv_engine_client.hpp"
-#include "..\utils\utils.hpp"
-#include "..\utils\game\structs.hpp"
+#include "..\..\utils\utils.hpp"
+#include "..\structs\structs.hpp"
 
 class c_model_info_client
 {

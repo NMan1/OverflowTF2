@@ -9,7 +9,7 @@ class i_client_networkable
 public:
 	virtual i_client_unknown* get_i_client_unknown() = 0;
 	virtual void             release() = 0;
-	virtual c_client_class* getc_client_class() = 0;
+	virtual c_client_class*  get_client_class() = 0;
 	virtual void             notify_should_transmit(int state) = 0;
 	virtual void             on_pre_data_changed(int updateType) = 0;
 	virtual void             on_data_changed(int updateType) = 0;

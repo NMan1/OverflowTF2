@@ -1,9 +1,9 @@
 #pragma once
 #include "i_entity.hpp"
-#include "..\utils\utils.hpp"
-#include "../utils/game/structs.hpp"
-#include "../utils/netvars/dt_recv.hpp"
+#include "..\..\utils\utils.hpp"
+#include "..\structs\structs.hpp"
 
+class RecvTable;
 class c_client_class
 {
 public:

@@ -1,5 +1,5 @@
 #pragma once
-#include "..\utils\vector.hpp"
+#include "..\..\utils\math\vector.hpp"
 
 class c_base_combat_weapon;
 class client_class;

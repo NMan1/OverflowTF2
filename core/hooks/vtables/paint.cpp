@@ -1,6 +1,6 @@
 #include "..\hook.hpp"
 #include "..\..\interfaces\interfaces.hpp"
-#include "..\..\utils\game\draw\draw.hpp"
+#include "..\..\utils\draw\draw.hpp"
 #include "..\..\features\visuals\esp.hpp"
 
 void __stdcall hooks::engine_vgui::paint::fn(int mode) {
@@ -15,7 +15,7 @@ void __stdcall hooks::engine_vgui::paint::fn(int mode) {
 
 	m_paint->get_original<t>(index)(interfaces::engine_vgui, mode);
 
-	if (mode & PAINT_UIPANELS) {
+	if (mode & paint_mode::UIPANELS) {
 		start_drawing(interfaces::surface);
 
 		draw::text("Overflow", vector_2d(10, 10), color(255, 0, 0));

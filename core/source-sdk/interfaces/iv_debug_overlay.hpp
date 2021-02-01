@@ -1,5 +1,6 @@
 #pragma once
-
+#include <wtypes.h>
+#include "..\..\utils\math\vector.hpp"
 
 class iv_debug_overlay
 {

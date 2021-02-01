@@ -1,15 +1,15 @@
 #pragma once
 
-#include "..\source-sdk\c_handle.hpp"
-#include "..\source-sdk\i_client_networkable.hpp"
-#include "..\source-sdk\i_base_client_dll.hpp"
-#include "..\source-sdk\iv_engine_client.hpp"
-#include "..\source-sdk\i_panels.hpp"
-#include "..\source-sdk\i_surface.hpp"
-#include "..\source-sdk\iv_debug_overlay.hpp"
-#include "..\source-sdk\i_player_info_manager.hpp"
-#include "..\source-sdk\i_engine_vgui.hpp"
-#include "..\source-sdk\c_model_info.hpp"
+#include "..\source-sdk\interfaces\c_handle.hpp"
+#include "..\source-sdk\interfaces\i_client_networkable.hpp"
+#include "..\source-sdk\interfaces\i_base_client_dll.hpp"
+#include "..\source-sdk\interfaces\iv_engine_client.hpp"
+#include "..\source-sdk\interfaces\i_panels.hpp"
+#include "..\source-sdk\interfaces\i_surface.hpp"
+#include "..\source-sdk\interfaces\iv_debug_overlay.hpp"
+#include "..\source-sdk\interfaces\i_player_info_manager.hpp"
+#include "..\source-sdk\interfaces\i_engine_vgui.hpp"
+#include "..\source-sdk\interfaces\c_model_info.hpp"
 
 namespace interfaces {
 	extern i_base_client_dll*		client_dll;

@@ -1,6 +1,7 @@
 #pragma once
-#include "..\..\vector.hpp"
-#include "..\..\..\interfaces\interfaces.hpp"
+#include "..\math\vector.hpp"
+#include "..\color.hpp"
+#include "..\..\interfaces\interfaces.hpp"
 
 namespace draw {
 	extern unsigned long font;

@@ -1,5 +1,6 @@
 #define NOMINMAX
 #include <algorithm>
+#include <wtypes.h>
 #include "math.hpp"
 
 #define M_RADPI		57.295779513082
@@ -11,8 +12,7 @@ namespace math {
 			output[i] = input.dot((vector&)matrix[i]) + matrix[i][3];
 	}
 
-	void sin_cos(float radians, float* sine, float* cosine)
-	{
+	void sin_cos(float radians, float* sine, float* cosine) {
 		_asm
 		{
 			fld		DWORD PTR[radians]
@@ -26,8 +26,7 @@ namespace math {
 		}
 	}
 
-	void angle_vectors(const vector& angles, vector* forward)
-	{
+	void angle_vectors(const vector& angles, vector* forward) {
 		float sp, sy, cp, cy;
 
 		sin_cos(DEG2RAD(angles.x), &sp, &cp);

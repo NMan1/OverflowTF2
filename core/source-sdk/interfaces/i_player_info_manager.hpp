@@ -1,6 +1,7 @@
 #pragma once
-#include "i_base_client_dll.hpp"
+#include "..\..\utils\utils.hpp"
 
+class i_global_vars;
 class i_player_info_manager
 {
 public:
