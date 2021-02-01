@@ -28,6 +28,12 @@ public:
 		utils::get_vfunc< fn >(this, 14)(this, x0, y0, x1, y1);
 	}
 
+	void outlined_circle(int x, int y, float radius, int segments)
+	{
+		typedef void(__thiscall* fn)(void*, int, int, float, int);
+		utils::get_vfunc< fn >(this, 99)(this, x, y, radius, segments);
+	}
+
 	void line(int x0, int y0, int x1, int y1)
 	{
 		typedef void(__thiscall* fn)(void*, int, int, int, int);

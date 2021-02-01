@@ -1,7 +1,8 @@
 #pragma once
 #include "i_entity.hpp"
 #include "..\utils\utils.hpp"
-#include "../utils/game/defines.hpp"
+#include "../utils/game/structs.hpp"
+#include "../utils/netvars/dt_recv.hpp"
 
 class c_client_class
 {
@@ -25,6 +26,7 @@ public:
 
 class i_global_vars
 {
+public:
 	// Absolute time (per frame still - Use Plat_FloatTime() for a high precision real time 
 	//  perf clock, but not that it doesn't obey host_timescale/host_framerate)
 	float			realtime;

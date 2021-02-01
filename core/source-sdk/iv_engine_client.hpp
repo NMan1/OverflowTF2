@@ -2,6 +2,7 @@
 #include <d3d9.h>
 #include "../utils/vmatrix.hpp"
 #include "../utils/color.hpp"
+#include "../utils/utils.hpp"
 
 #define FLOW_OUTGOING	0
 #define FLOW_INCOMING	1

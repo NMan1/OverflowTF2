@@ -33,20 +33,29 @@
     <ClCompile Include="core\hooks\vtables\paint_traverse.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="core\utils\game\draw.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="core\hooks\vtables\paint.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="core\features\visuals\esp.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="core\features\aimbot\aimbot.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="core\features\misc\misc.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="core\utils\game\math\math.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="core\utils\game\draw\draw.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="core\source-sdk\i_entity.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="core\memory\memory.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="core\utils\netvars\netvars.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -69,9 +78,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="core\hooks\hook.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="core\utils\game\draw.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="core\utils\color.hpp">
@@ -110,7 +116,28 @@
     <ClInclude Include="core\source-sdk\i_panels.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="core\utils\game\defines.hpp">
+    <ClInclude Include="core\features\aimbot\aimbot.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="core\features\misc\misc.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="core\utils\game\math\math.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="core\utils\game\draw\draw.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="core\utils\memory\memory.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="core\utils\game\structs.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="core\source-sdk\c_model_info.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="core\utils\game\helpers.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

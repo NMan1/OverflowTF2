@@ -1,6 +1,6 @@
 #include <d3d9.h>
-#include "..\utils\game\defines.hpp"
-#include "..\memory\memory.hpp"
+#include "..\utils\game\structs.hpp"
+#include "..\utils\memory\memory.hpp"
 #include "..\source-sdk\i_engine_vgui.hpp"
 
 namespace hooks {

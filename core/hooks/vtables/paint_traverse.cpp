@@ -1,6 +1,5 @@
 #include "..\hook.hpp"
 #include "..\..\interfaces\interfaces.hpp"
-#include "..\..\utils\game\draw.hpp"
 
 void __fastcall hooks::panel::paint_traverse::fn(void* panels, int edx, unsigned int vgui_panel, bool force_repaint, bool allow_force) {
 
@@ -12,7 +11,6 @@ void __fastcall hooks::panel::paint_traverse::fn(void* panels, int edx, unsigned
 		if (!strcmp(interfaces::panels->get_name(vgui_panel), "FocusOverlayPanel")) {
 			focus_overlay_panel_index = vgui_panel;
 			utils::log((std::string("[-] Found Panel: ") + interfaces::panels->get_name(vgui_panel)).c_str());
-			draw::init();
 		}
 	}
 	else if (focus_overlay_panel_index == vgui_panel) {\

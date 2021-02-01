@@ -1,5 +1,6 @@
 #include "hook.hpp"
 #include "..\interfaces\interfaces.hpp"
+#include "../utils/netvars/netvars.hpp"
 
 namespace hooks {
 	std::unique_ptr<memory::hook_t> m_client_mode = nullptr;

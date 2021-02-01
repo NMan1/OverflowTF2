@@ -1,5 +1,5 @@
 #pragma once
-#include "../utils/game/defines.hpp"
+#include "../utils/game/structs.hpp"
 
 class i_engine_vgui
 {

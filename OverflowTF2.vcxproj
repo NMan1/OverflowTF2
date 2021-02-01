@@ -88,10 +88,12 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>WIN32;_DEBUG;OVERFLOWTF2_EXPORTS;_WINDOWS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>
+      </PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <DisableSpecificWarnings>4244;</DisableSpecificWarnings>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -105,10 +107,12 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>WIN32;NDEBUG;OVERFLOWTF2_EXPORTS;_WINDOWS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>
+      </PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <DisableSpecificWarnings>4244;</DisableSpecificWarnings>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -122,13 +126,15 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>_DEBUG;OVERFLOWTF2_EXPORTS;_WINDOWS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>
+      </PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <PrecompiledHeaderFile>
       </PrecompiledHeaderFile>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <AdditionalIncludeDirectories>$(IncludePath);$(DXSDK_DIR)Include</AdditionalIncludeDirectories>
+      <DisableSpecificWarnings>4244;</DisableSpecificWarnings>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -143,13 +149,15 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>NDEBUG;OVERFLOWTF2_EXPORTS;_WINDOWS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>
+      </PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <PrecompiledHeaderFile>
       </PrecompiledHeaderFile>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <AdditionalIncludeDirectories>$(IncludePath);$(DXSDK_DIR)Include</AdditionalIncludeDirectories>
+      <DisableSpecificWarnings>4244;</DisableSpecificWarnings>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -162,20 +170,28 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="core\dllmain.cpp" />
+    <ClCompile Include="core\features\aimbot\aimbot.cpp" />
+    <ClCompile Include="core\features\misc\misc.cpp" />
     <ClCompile Include="core\features\visuals\esp.cpp" />
     <ClCompile Include="core\hooks\hook.cpp" />
     <ClCompile Include="core\hooks\vtables\create_move.cpp" />
     <ClCompile Include="core\hooks\vtables\paint.cpp" />
     <ClCompile Include="core\hooks\vtables\paint_traverse.cpp" />
     <ClCompile Include="core\interfaces\interfaces.cpp" />
-    <ClCompile Include="core\utils\game\draw.cpp" />
+    <ClCompile Include="core\source-sdk\i_entity.cpp" />
+    <ClCompile Include="core\utils\game\draw\draw.cpp" />
+    <ClCompile Include="core\utils\game\math\math.cpp" />
     <ClCompile Include="core\utils\netvars\netvars.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="core\features\aimbot\aimbot.h" />
+    <ClInclude Include="core\features\misc\misc.h" />
     <ClInclude Include="core\features\visuals\esp.hpp" />
     <ClInclude Include="core\hooks\hook.hpp" />
     <ClInclude Include="core\interfaces\interfaces.hpp" />
-    <ClInclude Include="core\memory\memory.hpp" />
+    <ClInclude Include="core\source-sdk\c_model_info.hpp" />
+    <ClInclude Include="core\utils\game\structs.hpp" />
+    <ClInclude Include="core\utils\memory\memory.hpp" />
     <ClInclude Include="core\source-sdk\c_handle.hpp" />
     <ClInclude Include="core\source-sdk\i_engine_vgui.hpp" />
     <ClInclude Include="core\source-sdk\i_base_client_dll.hpp" />
@@ -187,8 +203,9 @@
     <ClInclude Include="core\source-sdk\iv_engine_client.hpp" />
     <ClInclude Include="core\source-sdk\i_panels.hpp" />
     <ClInclude Include="core\utils\color.hpp" />
-    <ClInclude Include="core\utils\game\draw.hpp" />
-    <ClInclude Include="core\utils\game\defines.hpp" />
+    <ClInclude Include="core\utils\game\draw\draw.hpp" />
+    <ClInclude Include="core\utils\game\helpers.hpp" />
+    <ClInclude Include="core\utils\game\math\math.hpp" />
     <ClInclude Include="core\utils\netvars\dt_common.hpp" />
     <ClInclude Include="core\utils\netvars\dt_recv.hpp" />
     <ClInclude Include="core\utils\netvars\netvars.hpp" />

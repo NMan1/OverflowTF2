@@ -1,4 +1,5 @@
 #include "esp.hpp"
+#include "../../utils/game/helpers.hpp"
 
 namespace esp {
 	void box_esp(c_base_entity* entity);
@@ -14,11 +15,8 @@ namespace esp {
 
 		for (int i = 1; i <= interfaces::engine->get_max_clients(); i++) {
 			auto entity = interfaces::entity_list->get_client_entity(i);
-			if (!entity || entity == local_player || entity->is_dormant()) {
-				continue;
-			}
 
-			if (entity->get_life_state() != LIFE_ALIVE) {
+			if (!entity || entity == local_player || entity->is_dormant() || !entity->is_alive()) {
 				continue;
 			}
 

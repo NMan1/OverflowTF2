@@ -177,7 +177,7 @@ public:
 	void		Construct(RecvProp* pProps, int nProps, const char* pNetTableName);
 
 	int			GetNumProps();
-	RecvProp* GetProp(int i);
+	RecvProp*	get_prop(int i);
 
 	const char* GetName();
 
@@ -215,7 +215,7 @@ inline int RecvTable::GetNumProps()
 	return m_nProps;
 }
 
-inline RecvProp* RecvTable::GetProp(int i)
+inline RecvProp* RecvTable::get_prop(int i)
 {
 	// Assert( i >= 0 && i < m_nProps ); 
 	return &m_pProps[i];

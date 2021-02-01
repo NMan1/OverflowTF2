@@ -1,6 +1,6 @@
 #include "..\hook.hpp"
 #include "..\..\interfaces\interfaces.hpp"
-#include "..\..\utils\game\draw.hpp"
+#include "..\..\utils\game\draw\draw.hpp"
 #include "..\..\features\visuals\esp.hpp"
 
 void __stdcall hooks::engine_vgui::paint::fn(int mode) {
@@ -21,6 +21,7 @@ void __stdcall hooks::engine_vgui::paint::fn(int mode) {
 		draw::text("Overflow", vector_2d(10, 10), color(255, 0, 0));
 		if (interfaces::engine->is_in_game() && interfaces::engine->is_connected()) {
 			esp::run();
+			draw::circle(vector_2d(550, 550), 50, color(255, 0, 0));
 		}
 
 		finish_drawing(interfaces::surface);

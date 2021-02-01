@@ -24,7 +24,7 @@ void netvar::PopulateNodes(RecvTable* recvTable, MapType* mapType)
 {
 	for (auto i = 0; i < recvTable->GetNumProps(); i++)
 	{
-		const RecvProp* prop = recvTable->GetProp(i);
+		const RecvProp* prop = recvTable->get_prop(i);
 		const auto  propInfo = std::make_shared<Node>(prop->get_offset());
 
 		if (prop->GetType() == SendPropType::DPT_DataTable)

@@ -1,27 +1,7 @@
 #include "..\hook.hpp"
 #include "..\..\interfaces\interfaces.hpp"
-
-void bunny_hop(c_user_cmd* cmd) {
-	static bool released = true;
-	static auto local_player = interfaces::entity_list->get_client_entity(interfaces::engine->get_local_player());
-
-	if (!local_player) {
-		return;
-	}
-
-	if (cmd->buttons & IN_JUMP) {
-		if (!released) {
-			if (!(local_player->get_flags() & FL_ONGROUND))
-				cmd->buttons &= ~(1 << 1);
-		}
-		else {
-			released = false;
-		}
-	}
-	else if (!released) {
-		released = true;
-	}
-}
+#include "../../features/misc/misc.h"
+#include "../../features/aimbot/aimbot.h"
 
 bool __stdcall hooks::client_mode::create_move::fn(float input_sample_time, c_user_cmd* cmd)
 {
@@ -31,7 +11,11 @@ bool __stdcall hooks::client_mode::create_move::fn(float input_sample_time, c_us
 		return original_return_value;
 	}
 
-	bunny_hop(cmd);
+	misc::bunny_hop(cmd);
+
+	if (GetAsyncKeyState(VK_SHIFT) & 0x8000) {
+		aimbot::run(cmd);
+	}
 
 	return original_return_value;
 }

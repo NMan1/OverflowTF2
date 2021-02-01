@@ -1,11 +1,10 @@
 #pragma once
-#include "..\utils\netvars\netvars.hpp"
 #include "..\utils\vector.hpp"
-#include "..\utils\utils.hpp"
-#include "c_handle.hpp"
-#include "i_client_networkable.hpp"
 
 class c_base_combat_weapon;
+class client_class;
+struct model_t;
+typedef float matrix3x4[3][4];
 
 class c_base_entity
 {
@@ -16,54 +15,51 @@ private:
 		return *reinterpret_cast<T*>(reinterpret_cast<std::uintptr_t>(this) + offset);
 	}
 public:
-	bool get_life_state()
-	{
-		static int m_lifeState = g_netvar->get_offset("DT_BasePlayer", "m_lifeState");
-		return get_value<bool>(m_lifeState);
-	}
+	model_t* get_model();
 
-	int get_health()
-	{
-		static int m_iHealth = g_netvar->get_offset("DT_BasePlayer", "m_iHealth");
-		return get_value<int>(m_iHealth);
-	}
+	bool get_life_state();
 
-	int get_team_num()
-	{
-		static int m_iTeamNum = g_netvar->get_offset("DT_BaseEntity", "m_iTeamNum");
-		return get_value<int>(m_iTeamNum);
-	}
+	bool is_alive();
 
-	vector get_origin()
-	{
-		static int m_vecOrigin = g_netvar->get_offset("DT_BaseEntity", "m_vecOrigin");
-		return get_value<vector>(m_vecOrigin);
-	}
+	int get_health();
 
-	int get_class_name()
-	{
-		static int m_PlayerClass = g_netvar->get_offset("DT_TFPlayer", "m_PlayerClass", "m_iClass");
-		return get_value<int>(m_PlayerClass);
-	}
+	int get_team_num();
 
-	int get_condition()
-	{
-		static int m_nPlayerCond = g_netvar->get_offset("DT_TFPlayer", "m_Shared", "m_nPlayerCond");
-		return get_value<int>(m_nPlayerCond);
-	}
+	vector get_origin();
 
-	int get_flags()
-	{
-		static int m_fFlags = g_netvar->get_offset("DT_BasePlayer", "m_fFlags");
-		return get_value<int>(m_fFlags);
-	}
+	vector get_abs_origin();
 
-	bool is_dormant()
-	{
-		void* networkable = (void*)(this + 0x8);
-		typedef bool(__thiscall* fn)(void*);
-		return utils::get_vfunc< fn >(networkable, 8)(networkable);
-	}
+	vector get_eye_position();
+
+	int get_class_name();
+
+	int get_condition();
+
+	int get_flags();
+
+	bool is_dormant();
+
+	bool is_taunting();
+
+	bool is_ducking();
+
+	bool is_ubered();
+
+	bool is_bonked();
+
+	bool is_cloaked();
+
+	client_class* get_client_class();
+
+	bool is_visible(c_base_entity* local_player, int hitbox);
+
+	int get_hitbox_set();
+
+	bool setup_bones(matrix3x4* bone_to_world_out, int max_bones, int bone_mask, float current_time);
+
+	vector get_hit_box_pos(int hitbox);
+
+	vector get_shoot_pos();
 };
 
 
@@ -93,6 +89,9 @@ public:
 	virtual bool			get_sound_spatialization(spatialization_info_t& info) = 0;
 };
 
+class i_client_networkable;
+class i_client_unknown;
+class c_base_handle;
 class i_client_entityList
 {
 public:

@@ -11,6 +11,8 @@ namespace interfaces {
 	i_engine_vgui*				engine_vgui = nullptr;
 	iv_debug_overlay*			debug_overlay = nullptr;
 	i_player_info_manager*		player_info = nullptr;
+	c_model_info_client*		model_info = nullptr;
+	i_engine_trace*				trace = nullptr;
 
 	using fn = void* (*)(const char*, int*);
 
@@ -59,6 +61,8 @@ namespace interfaces {
 		engine_vgui = get_interface<i_engine_vgui*>("engine.dll", "VEngineVGui001");
 		debug_overlay = get_interface<iv_debug_overlay*>("engine.dll", "VDebugOverlay003");
 		player_info = get_interface<i_player_info_manager*>("server.dll", "PlayerInfoManager002");
+		model_info = get_interface<c_model_info_client*>("engine.dll", "VModelInfoClient006");
+		trace = get_interface<i_engine_trace*>("engine.dll", "EngineTraceClient003");
 
 		const auto dw_chl_client_table = reinterpret_cast<DWORD*>(*reinterpret_cast<DWORD*>(client_dll));
 		client_mode = **reinterpret_cast<i_client_mode_shared***>(static_cast<DWORD>(dw_chl_client_table[10]) + 0x05);
