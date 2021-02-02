@@ -1,6 +1,7 @@
 #pragma once
 #include "i_entity.hpp"
 #include "..\..\utils\netvars\netvars.hpp"
+#include "..\..\utils\helpers.hpp"
 #include "..\..\utils\math\vector.hpp"
 #include "..\..\utils\utils.hpp"
 #include "..\..\utils\memory\memory.hpp"
@@ -16,6 +17,10 @@ model_t* c_base_entity::get_model() {
 	return utils::get_vfunc<fn>(renderable, 9)(renderable);
 }
 
+const char* c_base_entity::get_model_name() {
+	return interfaces::model_info->get_model_name(get_model());
+}
+
 bool c_base_entity::get_life_state() {
 	static int m_lifeState = g_netvar->get_offset("DT_BasePlayer", "m_lifeState");
 	return get_value<bool>(m_lifeState);
@@ -23,6 +28,10 @@ bool c_base_entity::get_life_state() {
 
 bool c_base_entity::is_alive() {
 	return (this->get_life_state() == life_states::ALIVE);
+}
+
+bool c_base_entity::is_player() {
+	return (get_client_class()->class_id == class_ids::CTFPlayer);
 }
 
 int c_base_entity::get_health() {
@@ -33,6 +42,17 @@ int c_base_entity::get_health() {
 int c_base_entity::get_team_num() {
 	static int m_iTeamNum = g_netvar->get_offset("DT_BaseEntity", "m_iTeamNum");
 	return get_value<int>(m_iTeamNum);
+}
+
+int c_base_entity::get_fov() {
+	static int m_iFOV = g_netvar->get_offset("DT_BasePlayer", "m_iFOV");
+	auto fov = get_value<int>(m_iFOV);
+
+	if (!fov) {
+		static int m_IDefualtFov = g_netvar->get_offset("DT_BasePlayer", "m_iDefaultFOV");
+		return get_value<int>(m_IDefualtFov);
+	}
+	return fov;
 }
 
 vector c_base_entity::get_origin() {
@@ -89,6 +109,22 @@ bool c_base_entity::is_bonked() {
 
 bool c_base_entity::is_cloaked() {
 	return (this->get_condition() & conditions::CLOAKED);
+}
+
+bool c_base_entity::is_health_pack() {
+	if (get_client_class()->class_id == class_ids::CBaseAnimating) {
+		auto hash = hash_string(interfaces::model_info->get_model_name(get_model()));
+		return is_health_hash(hash);
+	}
+	return false;
+}
+
+bool c_base_entity::is_ammo_pack() {
+	if (get_client_class()->class_id == class_ids::CBaseAnimating) {
+		auto hash = hash_string(interfaces::model_info->get_model_name(get_model()));
+		return is_ammo_hash(hash);
+	}
+	return false;
 }
 
 client_class* c_base_entity::get_client_class() {
@@ -158,4 +194,20 @@ vector c_base_entity::get_shoot_pos() {
 	vector out;
 	fn(this, &out);
 	return out;
+}
+
+matrix3x4& c_base_entity::get_rgfl_coordinate_frame() {
+	PVOID renderable = (PVOID)(this + 0x4);
+	typedef matrix3x4& (__thiscall* fn)(PVOID);
+	return utils::get_vfunc<fn>(renderable, 34)(renderable);
+}
+
+vector c_base_entity::get_collideable_mins() {
+	static int hitbox = g_netvar->get_offset("DT_BaseEntity", "m_Collision", "m_vecMins");
+	return get_value<vector>(hitbox);
+}
+
+vector c_base_entity::get_collideable_max() {
+	static int hitbox = g_netvar->get_offset("DT_BaseEntity", "m_Collision", "m_vecMaxs");
+	return get_value<vector>(hitbox);
 }

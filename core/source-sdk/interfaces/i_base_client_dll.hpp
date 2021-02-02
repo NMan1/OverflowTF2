@@ -22,6 +22,12 @@ public:
 		typedef c_client_class* (__thiscall* fn)(void*);
 		return utils::get_vfunc<fn>(this, 8)(this);
 	}
+
+	bool get_player_view(c_viewsetup& playerView)
+	{
+		typedef bool(__thiscall* fn)(void*, c_viewsetup&);
+		return utils::get_vfunc <fn>(this, 59)(this, playerView);
+	}
 };
 
 class i_global_vars

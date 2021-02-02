@@ -62,7 +62,7 @@ class v_matrix
 {
 public:
 
-	v_matrix();
+	v_matrix() {};
 	v_matrix(
 		vec_t m00, vec_t m01, vec_t m02, vec_t m03,
 		vec_t m10, vec_t m11, vec_t m12, vec_t m13,
@@ -125,8 +125,10 @@ public:
 	void		pre_translate(const vector& vTrans);
 	void		post_translate(const vector& vTrans);
 
-	matrix3x4_t& As3x4();
-	const matrix3x4_t& As3x4() const;
+	const matrix3x4& As3x4() const {
+		return *((const matrix3x4*)this);
+	}
+
 	void		copy_from3x4(const matrix3x4_t& m3x4);
 	void		set3x4(matrix3x4_t& matrix3x4) const;
 

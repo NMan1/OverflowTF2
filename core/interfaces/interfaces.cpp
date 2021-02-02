@@ -13,6 +13,7 @@ namespace interfaces {
 	i_player_info_manager*		player_info = nullptr;
 	c_model_info_client*		model_info = nullptr;
 	i_engine_trace*				trace = nullptr;
+	iv_render_view*				render_view = nullptr;
 
 	using fn = void* (*)(const char*, int*);
 
@@ -63,6 +64,7 @@ namespace interfaces {
 		player_info = get_interface<i_player_info_manager*>("server.dll", "PlayerInfoManager002");
 		model_info = get_interface<c_model_info_client*>("engine.dll", "VModelInfoClient006");
 		trace = get_interface<i_engine_trace*>("engine.dll", "EngineTraceClient003");
+		render_view = get_interface<iv_render_view*>("engine.dll", "VEngineRenderView014");
 
 		const auto dw_chl_client_table = reinterpret_cast<DWORD*>(*reinterpret_cast<DWORD*>(client_dll));
 		client_mode = **reinterpret_cast<i_client_mode_shared***>(static_cast<DWORD>(dw_chl_client_table[10]) + 0x05);

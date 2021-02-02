@@ -17,13 +17,19 @@ private:
 public:
 	model_t* get_model();
 
+	const char* get_model_name();
+
 	bool get_life_state();
 
 	bool is_alive();
 
+	bool is_player();
+
 	int get_health();
 
 	int get_team_num();
+
+	int get_fov();
 
 	vector get_origin();
 
@@ -49,6 +55,10 @@ public:
 
 	bool is_cloaked();
 
+    bool is_health_pack();
+
+    bool is_ammo_pack();
+
 	client_class* get_client_class();
 
 	bool is_visible(c_base_entity* local_player, int hitbox);
@@ -60,6 +70,12 @@ public:
 	vector get_hit_box_pos(int hitbox);
 
 	vector get_shoot_pos();
+
+	matrix3x4& get_rgfl_coordinate_frame();
+
+	vector get_collideable_mins();
+
+	vector get_collideable_max();
 };
 
 

@@ -143,5 +143,8 @@
     <ClInclude Include="core\source-sdk\structs\enums.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="core\source-sdk\interfaces\iv_render_view.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

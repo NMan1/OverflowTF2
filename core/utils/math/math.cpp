@@ -55,19 +55,16 @@ namespace math {
 		return angles;
 	}
 
-	float calc_fov(const vector& src, const vector& dst) {
-		vector v_src;
-		angle_vectors(src, &v_src);
+	float calc_fov(float distance, const vector& current_view_angles, const vector& angle_to_enemy) {
+		vector aiming_at = {};
+		math::angle_vectors(current_view_angles, &aiming_at);
+		aiming_at *= distance;
 
-		vector v_dst = vector();
-		angle_vectors(dst, &v_dst);
+		vector aim_to = {};
+		math::angle_vectors(angle_to_enemy, &aim_to);
+		aim_to *= distance;
 
-		float result = RAD2DEG(acos(v_dst.dot(v_src) / v_dst.length_2d_sqr()));
-
-		if (!isfinite(result) || isinf(result) || isnan(result))
-			result = 0.0f;
-
-		return result;
+		return aiming_at.dist_to(aim_to);
 	}
 
 	float normalize_angle(float ang)

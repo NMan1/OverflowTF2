@@ -12,7 +12,7 @@ namespace math {
 
 	vector calc_angle(const vector& source, const vector& destination);
 
-	float calc_fov(const vector& src, const vector& dst);
+	float calc_fov(float distance, const vector& src, const vector& dst);
 
 	float normalize_angle(float ang);
 

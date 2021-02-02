@@ -10,6 +10,7 @@
 #include "..\source-sdk\interfaces\i_player_info_manager.hpp"
 #include "..\source-sdk\interfaces\i_engine_vgui.hpp"
 #include "..\source-sdk\interfaces\c_model_info.hpp"
+#include "../source-sdk/interfaces/iv_render_view.hpp"
 
 namespace interfaces {
 	extern i_base_client_dll*		client_dll;
@@ -24,6 +25,7 @@ namespace interfaces {
 	extern i_player_info_manager*	player_info;
 	extern c_model_info_client*		model_info;
 	extern i_engine_trace*			trace;
+	extern iv_render_view*			render_view;
 
 	void init_interfaces();
 }

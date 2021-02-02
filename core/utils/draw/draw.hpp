@@ -12,6 +12,10 @@ namespace draw {
 
 	void init();
 
+	int get_text_size_width(std::string text, int font_size=default_font_size);
+
+	int get_text_size_height(std::string text, int font_size=default_font_size);
+
 	bool w2s(const vector& origin, vector_2d& screen);
 
 	void line(int x1, int y1, int x2, int y2, color color);
@@ -19,6 +23,8 @@ namespace draw {
 	void line(vector_2d point1, vector_2d point2, color color);
 
 	void box(vector_2d top_left, vector_2d bottom_right, color color, float width);
+
+	void box(int x, int y, int w, int h, color color, float width);
 
 	void circle(vector_2d point, float radius, color color);
 

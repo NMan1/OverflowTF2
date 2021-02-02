@@ -13,7 +13,7 @@ namespace aimbot {
 		for (int i = 1; i <= interfaces::engine->get_max_clients(); i++) {
 			auto entity = interfaces::entity_list->get_client_entity(i);
 
-			if (!entity || entity == local_player || !entity->is_alive()) {
+			if (!entity || entity == local_player || !entity->is_alive() || entity->is_dormant()) {
 				continue;
 			}
 
@@ -26,9 +26,10 @@ namespace aimbot {
 			}
 
 			vector angle = math::calc_angle(local_player->get_shoot_pos(), entity->get_hit_box_pos(hitboxes::HEAD));
-			delta = math::calc_fov(view_angles, angle);
+			auto distance = local_player->get_eye_position().dist_to(entity->get_hit_box_pos(hitboxes::HEAD));
+			delta = math::calc_fov(distance, view_angles, angle);
 
-			if (delta < max_delta && delta < 15) {
+			if (delta < max_delta && delta < 20) {
 				max_delta = delta;
 				best_entity = entity;
 				aim_angle = angle;
@@ -58,12 +59,11 @@ namespace aimbot {
 		}
 
 		math::clamp_angles(aim_angle);
-		//cmd->viewangles = aim_angle;
-		//interfaces::engine->set_view_angles(aim_angle);
-
 		vector delta = aim_angle - cmd->viewangles;
 		math::clamp_angles(delta);
+		vector result = delta - delta * .50f;
 
-		cmd->viewangles += (delta / 4);
+		cmd->viewangles += result;
+		//interfaces::engine->set_view_angles(aim_angle);
 	}
 }

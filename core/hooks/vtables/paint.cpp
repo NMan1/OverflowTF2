@@ -16,14 +16,23 @@ void __stdcall hooks::engine_vgui::paint::fn(int mode) {
 	m_paint->get_original<t>(index)(interfaces::engine_vgui, mode);
 
 	if (mode & paint_mode::UIPANELS) {
-		start_drawing(interfaces::surface);
 
-		draw::text("Overflow", vector_2d(10, 10), color(255, 0, 0));
-		if (interfaces::engine->is_in_game() && interfaces::engine->is_connected()) {
-			esp::run();
-			draw::circle(vector_2d(550, 550), 50, color(255, 0, 0));
+		{
+			c_viewsetup view_setup = {};
+			if (interfaces::client_dll->get_player_view(view_setup))
+			{
+				v_matrix WorldToView = {}, ViewToProjection = {}, WorldToPixels = {};
+				interfaces::render_view->get_matrices_for_view(view_setup, &WorldToView, &ViewToProjection, &utils::world_to_projection, &WorldToPixels);
+			}
 		}
 
+		start_drawing(interfaces::surface);
+		{
+			draw::text("Overflow", vector_2d(10, 10), color(255, 0, 0), 22, false);
+			if (interfaces::engine->is_in_game() && interfaces::engine->is_connected()) {
+				esp::run();
+			}
+		}
 		finish_drawing(interfaces::surface);
 	}
 }

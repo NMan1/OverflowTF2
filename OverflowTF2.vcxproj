@@ -190,6 +190,7 @@
     <ClInclude Include="core\hooks\hook.hpp" />
     <ClInclude Include="core\interfaces\interfaces.hpp" />
     <ClInclude Include="core\source-sdk\interfaces\c_model_info.hpp" />
+    <ClInclude Include="core\source-sdk\interfaces\iv_render_view.hpp" />
     <ClInclude Include="core\source-sdk\structs\enums.hpp" />
     <ClInclude Include="core\source-sdk\structs\structs.hpp" />
     <ClInclude Include="core\utils\memory\memory.hpp" />
