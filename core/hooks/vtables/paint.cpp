@@ -21,7 +21,7 @@ void __stdcall hooks::engine_vgui::paint::fn(int mode) {
 			c_viewsetup view_setup = {};
 			if (interfaces::client_dll->get_player_view(view_setup))
 			{
-				v_matrix WorldToView = {}, ViewToProjection = {}, WorldToPixels = {};
+				vmatrix WorldToView = {}, ViewToProjection = {}, WorldToPixels = {};
 				interfaces::render_view->get_matrices_for_view(view_setup, &WorldToView, &ViewToProjection, &utils::world_to_projection, &WorldToPixels);
 			}
 		}

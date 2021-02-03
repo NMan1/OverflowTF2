@@ -178,10 +178,12 @@
     <ClCompile Include="core\hooks\vtables\paint.cpp" />
     <ClCompile Include="core\hooks\vtables\paint_traverse.cpp" />
     <ClCompile Include="core\interfaces\interfaces.cpp" />
+    <ClCompile Include="core\source-sdk\interfaces\c_base_combat_weapon.cpp" />
     <ClCompile Include="core\source-sdk\interfaces\i_entity.cpp" />
     <ClCompile Include="core\utils\draw\draw.cpp" />
     <ClCompile Include="core\utils\math\math.cpp" />
     <ClCompile Include="core\utils\netvars\netvars.cpp" />
+    <ClCompile Include="core\utils\settings\settings.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="core\features\aimbot\aimbot.h" />
@@ -189,8 +191,11 @@
     <ClInclude Include="core\features\visuals\esp.hpp" />
     <ClInclude Include="core\hooks\hook.hpp" />
     <ClInclude Include="core\interfaces\interfaces.hpp" />
+    <ClInclude Include="core\source-sdk\interfaces\c_base_combat_weapon.hpp" />
+    <ClInclude Include="core\source-sdk\interfaces\c_game_movement.hpp" />
     <ClInclude Include="core\source-sdk\interfaces\c_model_info.hpp" />
     <ClInclude Include="core\source-sdk\interfaces\iv_render_view.hpp" />
+    <ClInclude Include="core\source-sdk\interfaces\i_entity_list.hpp" />
     <ClInclude Include="core\source-sdk\structs\enums.hpp" />
     <ClInclude Include="core\source-sdk\structs\structs.hpp" />
     <ClInclude Include="core\utils\memory\memory.hpp" />
@@ -211,6 +216,7 @@
     <ClInclude Include="core\utils\netvars\dt_common.hpp" />
     <ClInclude Include="core\utils\netvars\dt_recv.hpp" />
     <ClInclude Include="core\utils\netvars\netvars.hpp" />
+    <ClInclude Include="core\utils\settings\settings.h" />
     <ClInclude Include="core\utils\utils.hpp" />
     <ClInclude Include="core\utils\math\vector.hpp" />
     <ClInclude Include="core\utils\math\vmatrix.hpp" />

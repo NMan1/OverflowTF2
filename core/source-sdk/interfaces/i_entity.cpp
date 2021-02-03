@@ -8,8 +8,12 @@
 #include "..\structs\structs.hpp"
 #include "..\..\utils\math\math.hpp"
 #include "..\..\interfaces\interfaces.hpp"
+#include "c_base_combat_weapon.hpp"
 
-class c_base_combat_weapon;
+template<class t>
+t c_base_entity::get_value(const int offset) {
+	return *reinterpret_cast<t*>(reinterpret_cast<uintptr_t>(this) + offset);
+}
 
 model_t* c_base_entity::get_model() {
 	PVOID renderable = (PVOID)(this + 0x4);
@@ -17,13 +21,18 @@ model_t* c_base_entity::get_model() {
 	return utils::get_vfunc<fn>(renderable, 9)(renderable);
 }
 
+int c_base_entity::get_owner() {
+	static int life_state = g_netvar->get_offset("DT_BaseEntity", "m_hOwnerEntity");
+	return get_value<int>(life_state);
+}
+
 const char* c_base_entity::get_model_name() {
 	return interfaces::model_info->get_model_name(get_model());
 }
 
 bool c_base_entity::get_life_state() {
-	static int m_lifeState = g_netvar->get_offset("DT_BasePlayer", "m_lifeState");
-	return get_value<bool>(m_lifeState);
+	static int life_state = g_netvar->get_offset("DT_BasePlayer", "m_lifeState");
+	return get_value<bool>(life_state);
 }
 
 bool c_base_entity::is_alive() {
@@ -35,18 +44,23 @@ bool c_base_entity::is_player() {
 }
 
 int c_base_entity::get_health() {
-	static int m_iHealth = g_netvar->get_offset("DT_BasePlayer", "m_iHealth");
-	return get_value<int>(m_iHealth);
+	static int health = g_netvar->get_offset("DT_BasePlayer", "m_iHealth");
+	return get_value<int>(health);
+}
+
+int c_base_entity::get_max_health() {
+	typedef int(__thiscall* fn)(void*);
+	return utils::get_vfunc<fn>(this, 107)(this);
 }
 
 int c_base_entity::get_team_num() {
-	static int m_iTeamNum = g_netvar->get_offset("DT_BaseEntity", "m_iTeamNum");
-	return get_value<int>(m_iTeamNum);
+	static int team_num = g_netvar->get_offset("DT_BaseEntity", "m_iTeamNum");
+	return get_value<int>(team_num);
 }
 
 int c_base_entity::get_fov() {
-	static int m_iFOV = g_netvar->get_offset("DT_BasePlayer", "m_iFOV");
-	auto fov = get_value<int>(m_iFOV);
+	static int i_fov = g_netvar->get_offset("DT_BasePlayer", "m_iFOV");
+	auto fov = get_value<int>(i_fov);
 
 	if (!fov) {
 		static int m_IDefualtFov = g_netvar->get_offset("DT_BasePlayer", "m_iDefaultFOV");
@@ -56,8 +70,8 @@ int c_base_entity::get_fov() {
 }
 
 vector c_base_entity::get_origin() {
-	static int m_vecOrigin = g_netvar->get_offset("DT_BaseEntity", "m_vecOrigin");
-	return get_value<vector>(m_vecOrigin);
+	static int vector_origin = g_netvar->get_offset("DT_BaseEntity", "m_vecOrigin");
+	return get_value<vector>(vector_origin);
 }
 
 vector c_base_entity::get_abs_origin() {
@@ -71,18 +85,18 @@ vector c_base_entity::get_eye_position() {
 }
 
 int c_base_entity::get_class_name() {
-	static int m_PlayerClass = g_netvar->get_offset("DT_TFPlayer", "m_PlayerClass", "m_iClass");
-	return get_value<int>(m_PlayerClass);
+	static int player_class = g_netvar->get_offset("DT_TFPlayer", "m_PlayerClass", "m_iClass");
+	return get_value<int>(player_class);
 }
 
 int c_base_entity::get_condition() {
-	static int m_nPlayerCond = g_netvar->get_offset("DT_TFPlayer", "m_Shared", "m_nPlayerCond");
-	return get_value<int>(m_nPlayerCond);
+	static int condition = g_netvar->get_offset("DT_TFPlayer", "m_Shared", "m_nPlayerCond");
+	return get_value<int>(condition);
 }
 
 int c_base_entity::get_flags() {
-	static int m_fFlags = g_netvar->get_offset("DT_BasePlayer", "m_fFlags");
-	return get_value<int>(m_fFlags);
+	static int flags = g_netvar->get_offset("DT_BasePlayer", "m_fFlags");
+	return get_value<int>(flags);
 }
 
 bool c_base_entity::is_dormant() {
@@ -134,19 +148,19 @@ client_class* c_base_entity::get_client_class() {
 }
 
 bool c_base_entity::is_visible(c_base_entity* local_player, int hitbox) {
-	trace_t Trace;
-	Ray_t Ray;			 // the future of variable naming
-	c_trace_filter Filter;
+	trace_t trace;
+	ray_t ray;			 // the future of variable naming
+	c_trace_filter filter;
 
-	Filter.pSkip = local_player;
+	filter.skip = local_player;
 
 	auto eye = local_player->get_eye_position();
-	auto hit_box = this->get_hit_box_pos(hitbox);
-	Ray.Init(eye, hit_box);
+	auto hit_box = this->get_hitbox_pos(hitbox);
+	ray.init(eye, hit_box);
 
-	interfaces::trace->trace_ray(Ray, MASK_SOLID, &Filter, &Trace);
+	interfaces::trace->trace_ray(ray, MASK_SOLID, &filter, &trace);
 
-	return (Trace.m_pEnt == this);
+	return (trace.entity == this);
 }
 
 int c_base_entity::get_hitbox_set() {
@@ -160,7 +174,7 @@ bool c_base_entity::setup_bones(matrix3x4* bone_to_world_out, int max_bones, int
 	return utils::get_vfunc <fn>(renderable, 16)(renderable, bone_to_world_out, max_bones, bone_mask, current_time);
 }
 
-vector c_base_entity::get_hit_box_pos(int hitbox) {
+vector c_base_entity::get_hitbox_pos(int hitbox) {
 	model_t* model = get_model();
 	if (!model)
 		return {};
@@ -210,4 +224,10 @@ vector c_base_entity::get_collideable_mins() {
 vector c_base_entity::get_collideable_max() {
 	static int hitbox = g_netvar->get_offset("DT_BaseEntity", "m_Collision", "m_vecMaxs");
 	return get_value<vector>(hitbox);
+}
+
+c_base_combat_weapon* c_base_entity::get_active_weapon()
+{
+	static int weapon = g_netvar->get_offset("DT_BaseCombatCharacter", "m_hActiveWeapon");
+	return reinterpret_cast<c_base_combat_weapon*>(interfaces::entity_list->get_client_entity_from_handle(get_value<int>(weapon)));
 }

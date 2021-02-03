@@ -1,6 +1,6 @@
 #pragma once
-#include <wtypes.h>
-#include "..\..\utils\math\vector.hpp"
+
+class vector;
 
 class iv_debug_overlay
 {
@@ -17,8 +17,8 @@ public:
 	virtual int screen_position(const vector& point, vector& screen) = 0;
 	virtual int screen_position(float flXPos, float flYPos, vector& screen) = 0;
 
-	virtual DWORD* get_first(void) = 0;
-	virtual DWORD* get_next(DWORD* current) = 0;
+	virtual unsigned long* get_first(void) = 0;
+	virtual unsigned long* get_next(unsigned long* current) = 0;
 	virtual void clear_dead_overlays(void) = 0;
 	virtual void clear_all_overlays() = 0;
 };

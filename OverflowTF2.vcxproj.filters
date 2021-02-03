@@ -54,6 +54,12 @@
     <ClCompile Include="core\utils\draw\draw.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="core\utils\settings\settings.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="core\source-sdk\interfaces\c_base_combat_weapon.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="core\utils\netvars\netvars.hpp">
@@ -144,6 +150,18 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="core\source-sdk\interfaces\iv_render_view.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="core\utils\settings\settings.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="core\source-sdk\interfaces\c_game_movement.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="core\source-sdk\interfaces\i_entity_list.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="core\source-sdk\interfaces\c_base_combat_weapon.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

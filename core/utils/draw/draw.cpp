@@ -4,7 +4,7 @@
 typedef float matrix3x4[3][4];
 
 int utils::screen_x = 0, utils::screen_y = 0;
-v_matrix utils::world_to_projection = {};
+vmatrix utils::world_to_projection = {};
 
 namespace draw {
 	unsigned long font = NULL;
@@ -66,12 +66,12 @@ namespace draw {
 		interfaces::surface->line(point1.x, point1.y, point2.x, point2.y);
 	}
 
-	void box(vector_2d top_left, vector_2d bottom_right, color color, float width) {
+	void box(vector_2d top_left, vector_2d bottom_right, color color) {
 		interfaces::surface->set_color(color.r(), color.g(), color.b(), color.a());
 		interfaces::surface->outlined_rect(top_left.x, top_left.y, bottom_right.x, bottom_right.y);
 	}
 	
-	void box(int x, int y, int w, int h, color color, float width) {
+	void box(int x, int y, int w, int h, color color) {
 		interfaces::surface->set_color(color.r(), color.g(), color.b(), color.a());
 		interfaces::surface->outlined_rect(x, y, x + w, y + h);
 	}

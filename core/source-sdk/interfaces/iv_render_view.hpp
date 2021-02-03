@@ -22,7 +22,7 @@ class IClientRenderable;
 class VPlane;
 class vector;
 class vector_2d;
-class v_matrix;
+class vmatrix;
 
 //-----------------------------------------------------------------------------
 // Flags used by DrawWorldLists
@@ -311,6 +311,6 @@ public:
 	virtual void			OLD_SetOffCenterProjectionMatrix(float fov, float zNear, float zFar, float flAspectRatio, float flBottom, float flTop, float flLeft, float flRight) = 0;
 	virtual void			OLD_SetProjectionMatrixOrtho(float left, float top, float right, float bottom, float zNear, float zFar) = 0;
 	virtual void			Push3DView(const c_viewsetup& view, int nFlags, ITexture* pRenderTarget, Frustum frustumPlanes, ITexture* pDepthTexture) = 0;
-	virtual void			get_matrices_for_view(const c_viewsetup& view, v_matrix* pWorldToView, v_matrix* pViewToProjection, v_matrix* pWorldToProjection, v_matrix* pWorldToPixels) = 0;
+	virtual void			get_matrices_for_view(const c_viewsetup& view, vmatrix* pWorldToView, vmatrix* pViewToProjection, vmatrix* pWorldToProjection, vmatrix* pWorldToPixels) = 0;
 	virtual void			DrawBrushModelEx(IClientEntity* baseentity, model_t* model, const vector& origin, const vector& angles, DrawBrushModelMode_t mode) = 0;
 };

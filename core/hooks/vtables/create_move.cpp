@@ -11,7 +11,10 @@ bool __stdcall hooks::client_mode::create_move::fn(float input_sample_time, c_us
 		return original_return_value;
 	}
 
-	misc::bunny_hop(cmd);
+	auto local_player = interfaces::entity_list->get_client_entity(interfaces::engine->get_local_player());
+
+	misc::bunny_hop(local_player, cmd);
+	misc::auto_backstab(local_player, cmd);
 
 	if (GetAsyncKeyState(VK_SHIFT) & 0x8000) {
 		aimbot::run(cmd);

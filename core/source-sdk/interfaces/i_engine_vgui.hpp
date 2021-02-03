@@ -1,5 +1,6 @@
 #pragma once
-#include "..\structs\structs.hpp"
+
+enum vgui_panel;
 
 class i_engine_vgui
 {

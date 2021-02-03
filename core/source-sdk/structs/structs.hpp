@@ -32,11 +32,199 @@
 #define IN_GRENADE2		(1 << 24)	// grenade 2
 #define	IN_ATTACK3		(1 << 25)
 
+#define MAX_WEAPON_STRING	80
+#define MAX_WEAPON_PREFIX	16
+#define MAX_WEAPON_AMMO_NAME		32
+
 const float OUTLINE_WIDTH = 3;
 const float LINE_WIDTH = 1;
 
 typedef void* (*CreateInterfaceFn) (const char* pName, int* pReturnCode);
 typedef void (*pfnDemoCustomDataCallback) (unsigned char* pData, size_t iSize);
+
+class vmatrix;
+class CHudTexture;
+class KeyValues;
+
+typedef enum {
+	EMPTY,
+	SINGLE,
+	SINGLE_NPC,
+	WPN_DOUBLE, // Can't be "DOUBLE" because windows.h uses it.
+	DOUBLE_NPC,
+	BURST,
+	RELOAD,
+	RELOAD_NPC,
+	MELEE_MISS,
+	MELEE_HIT,
+	MELEE_HIT_WORLD,
+	SPECIAL1,
+	SPECIAL2,
+	SPECIAL3,
+	TAUNT,
+	DEPLOY,
+
+	// Add new shoot sound types here
+
+	NUM_SHOOT_SOUND_TYPES,
+} WeaponSound_t;
+
+class file_weapon_info
+{
+public:
+
+	file_weapon_info();
+
+	// Each game can override this to get whatever values it wants from the script.
+	virtual void Parse(KeyValues* pKeyValuesData, const char* szWeaponName);
+
+
+public:
+	bool					bParsedScript;
+	bool					bLoadedHudElements;
+
+	// SHARED
+	char					szClassName[MAX_WEAPON_STRING];
+	char					szPrintName[MAX_WEAPON_STRING];			// Name for showing in HUD, etc.
+
+	char					szViewModel[MAX_WEAPON_STRING];			// View model of this weapon
+	char					szWorldModel[MAX_WEAPON_STRING];		// Model of this weapon seen carried by the player
+	char					szAnimationPrefix[MAX_WEAPON_PREFIX];	// Prefix of the animations that should be used by the player carrying this weapon
+	int						iSlot;									// inventory slot.
+	int						iPosition;								// position in the inventory slot.
+	int						iMaxClip1;								// max primary clip size (-1 if no clip)
+	int						iMaxClip2;								// max secondary clip size (-1 if no clip)
+	int						iDefaultClip1;							// amount of primary ammo in the gun when it's created
+	int						iDefaultClip2;							// amount of secondary ammo in the gun when it's created
+	int						iWeight;								// this value used to determine this weapon's importance in autoselection.
+	int						iRumbleEffect;							// Which rumble effect to use when fired? (xbox)
+	bool					bAutoSwitchTo;							// whether this weapon should be considered for autoswitching to
+	bool					bAutoSwitchFrom;						// whether this weapon can be autoswitched away from when picking up another weapon or ammo
+	int						iFlags;									// miscellaneous weapon flags
+	char					szAmmo1[MAX_WEAPON_AMMO_NAME];			// "primary" ammo type
+	char					szAmmo2[MAX_WEAPON_AMMO_NAME];			// "secondary" ammo type
+
+	// Sound blocks
+	char					aShootSounds[NUM_SHOOT_SOUND_TYPES][MAX_WEAPON_STRING];
+
+	int						iAmmoType;
+	int						iAmmo2Type;
+	bool					m_bMeleeWeapon;		// Melee weapons can always "fire" regardless of ammo.
+
+	// This tells if the weapon was built right-handed (defaults to true).
+	// This helps cl_righthand make the decision about whether to flip the model or not.
+	bool					m_bBuiltRightHanded;
+	bool					m_bAllowFlipping;	// False to disallow flipping the model, regardless of whether
+												// it is built left or right handed.
+
+// CLIENT DLL
+	// Sprite data, read from the data file
+	int						iSpriteCount;
+	CHudTexture* iconActive;
+	CHudTexture* iconInactive;
+	CHudTexture* iconAmmo;
+	CHudTexture* iconAmmo2;
+	CHudTexture* iconCrosshair;
+	CHudTexture* iconAutoaim;
+	CHudTexture* iconZoomedCrosshair;
+	CHudTexture* iconZoomedAutoaim;
+	CHudTexture* iconSmall;
+
+	// TF2 specific
+	bool					bShowUsageHint;							// if true, then when you receive the weapon, show a hint about it
+
+// SERVER DLL
+
+};
+
+struct weapon_data
+{
+	int		damage;
+	int		bullets_per_shot;
+	float	range;
+	float	spread;
+	float	punch_angle;
+	float	time_fire_delay;				// Time to delay between firing
+	float	time_idle;					// Time to idle after firing
+	float	time_idle_empty;				// Time to idle after firing last bullet in clip
+	float	time_reload_start;			// Time to start into a reload (ie. shotgun)
+	float	time_reload;					// Time to reload
+	bool	draw_crosshair;				// Should the weapon draw a crosshair
+	int		projectile;					// The type of projectile this mode fires
+	int		ammo_per_shot;					// How much ammo each shot consumes
+	float	projectile_speed;			// Start speed for projectiles (nail, etc.); NOTE: union with something non-projectile
+	float	smack_delay;					// how long after swing should damage happen for melee weapons
+	bool	use_rapid_fire_crits;
+
+	void init()
+	{
+		damage = 0;
+		bullets_per_shot = 0;
+		range = 0.0f;
+		spread = 0.0f;
+		punch_angle = 0.0f;
+		time_fire_delay = 0.0f;
+		time_idle = 0.0f;
+		time_idle_empty = 0.0f;
+		time_reload_start = 0.0f;
+		time_reload = 0.0f;
+		projectile = 0;
+		ammo_per_shot = 0;
+		projectile_speed = 0.0f;
+		smack_delay = 0.0f;
+		use_rapid_fire_crits = false;
+	};
+};
+
+
+class weapon_info : public file_weapon_info
+{
+public:
+
+	weapon_info();
+	~weapon_info();
+
+	virtual void Parse(::KeyValues* pKeyValuesData, const char* szWeaponName);
+
+	weapon_data const& GetWeaponData(int iWeapon) const { return m_WeaponData[iWeapon]; }
+
+public:
+
+	weapon_data	m_WeaponData[2];
+
+	int		m_iWeaponType;
+
+	// Grenade.
+	bool	m_bGrenade;
+	float	m_flDamageRadius;
+	float	m_flPrimerTime;
+	bool	m_bLowerWeapon;
+	bool	m_bSuppressGrenTimer;
+
+	// Skins
+	bool	m_bHasTeamSkins_Viewmodel;
+	bool	m_bHasTeamSkins_Worldmodel;
+
+	// Muzzle flash
+	char	m_szMuzzleFlashModel[128];
+	float	m_flMuzzleFlashModelDuration;
+	char	m_szMuzzleFlashParticleEffect[128];
+
+	// Tracer
+	char	m_szTracerEffect[128];
+
+	// Eject Brass
+	bool	m_bDoInstantEjectBrass;
+	char	m_szBrassModel[128];
+
+	// Explosion Effect
+	char	m_szExplosionSound[128];
+	char	m_szExplosionEffect[128];
+	char	m_szExplosionPlayerEffect[128];
+	char	m_szExplosionWaterEffect[128];
+
+	bool	m_bDontDrop;
+};
 
 class c_viewsetup
 {
@@ -110,7 +298,51 @@ public:
 	// If using VR, the headset calibration will feed you a projection matrix per-eye.
 	// This does NOT override the Z range - that will be set up as normal (i.e. the values in this matrix will be ignored).
 	bool        m_bViewToProjectionOverride;
-	matrix3x4_t     m_ViewToProjection;
+	vmatrix     m_ViewToProjection;
+};
+
+class c_move_data
+{
+public:
+	bool m_bFirstRunOfFunctions : 1;
+	bool m_bGameCodeMovedPlayer : 1;
+
+	void* m_nPlayerHandle; // edict index on server, client entity handle on client
+
+	int    m_nImpulseCommand; // Impulse command issued.
+	vector m_vecViewAngles; // Command view angles (local space)
+	vector m_vecAbsViewAngles; // Command view angles (world space)
+	int    m_nButtons; // Attack buttons.
+	int    m_nOldButtons; // From host_client->oldbuttons;
+	float  m_flForwardMove;
+	float  m_flSideMove;
+	float  m_flUpMove;
+
+	float m_flMaxSpeed;
+	float m_flClientMaxSpeed;
+
+	// Variables from the player edict (sv_player) or entvars on the client.
+	// These are copied in here before calling and copied out after calling.
+	vector m_vecVelocity; // edict::velocity		// Current movement direction.
+	vector m_vecAngles; // edict::angles
+	vector m_vecOldAngles;
+
+	// Output only
+	float  m_outStepHeight; // how much you climbed this move
+	vector m_outWishVel; // This is where you tried
+	vector m_outJumpVel; // This is your jump velocity
+
+					   // Movement constraints	(radius 0 means no constraint)
+	vector m_vecConstraintCenter;
+	float  m_flConstraintRadius;
+	float  m_flConstraintWidth;
+	float  m_flConstraintSpeedFactor;
+
+	void        SetAbsOrigin(const vector& vec);
+	const vector& GetAbsOrigin() const;
+
+	// private:
+	vector m_vecAbsOrigin; // edict::origin
 };
 
 typedef struct player_info_s
@@ -242,7 +474,7 @@ public:
 	float w;
 };
 
-struct Ray_t
+struct ray_t
 {
 	VectorAligned   m_Start;
 	VectorAligned   m_Delta;
@@ -252,7 +484,7 @@ struct Ray_t
 	bool    m_IsRay;
 	bool    m_IsSwept;
 
-	void Init(vector& start, vector& end)
+	void init(vector start, vector end)
 	{
 		m_Delta = end - start;
 
@@ -265,7 +497,7 @@ struct Ray_t
 		m_Start = start;
 	}
 
-	void Init(vector& start, vector& end, vector& mins, vector& maxs)
+	void init(vector& start, vector& end, vector& mins, vector& maxs)
 	{
 		m_Delta = end - start;
 
@@ -332,7 +564,7 @@ public:
 
 	short			physicsbone;
 
-	c_base_entity*  m_pEnt;
+	c_base_entity*  entity;
 	int				hitbox;
 
 	c_game_trace() {}
@@ -340,7 +572,7 @@ public:
 };
 typedef c_game_trace trace_t;
 
-class ITraceFilter
+class i_trace_filter
 {
 public:
 	virtual bool ShouldHitEntity(void* pEntity, int contentsMask) = 0;
@@ -350,9 +582,9 @@ public:
 class i_engine_trace
 {
 public:	  //We really only need this I guess...
-	void trace_ray(const Ray_t& ray, unsigned int fMask, ITraceFilter* pTraceFilter, trace_t* pTrace)//5
+	void trace_ray(const ray_t& ray, unsigned int fMask, i_trace_filter* pTraceFilter, trace_t* pTrace)//5
 	{
-		typedef void(__thiscall* TraceRayFn)(void*, const Ray_t&, unsigned int, ITraceFilter*, trace_t*);
+		typedef void(__thiscall* TraceRayFn)(void*, const ray_t&, unsigned int, i_trace_filter*, trace_t*);
 		return utils::get_vfunc <TraceRayFn>(this, 4)(this, ray, fMask, pTraceFilter, pTrace);
 	}
 };
@@ -368,7 +600,7 @@ public:
 	int class_id;
 };
 
-class c_trace_filter : public ITraceFilter
+class c_trace_filter : public i_trace_filter
 {
 public:
 	virtual bool ShouldHitEntity(void* pEntityHandle, int contentsMask)
@@ -385,7 +617,7 @@ public:
 			break;
 		}
 
-		return !(pEntityHandle == pSkip);
+		return !(pEntityHandle == skip);
 	}
 
 	virtual trace_type	GetTraceType() const
@@ -393,7 +625,7 @@ public:
 		return trace_type::EVERYTHING;
 	}
 
-	void* pSkip;
+	void* skip;
 };
 
 #define CONTENTS_EMPTY 0 // No contents

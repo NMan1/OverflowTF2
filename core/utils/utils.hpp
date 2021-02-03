@@ -1,7 +1,7 @@
 #pragma once
 #include <iostream>
 
-class v_matrix;
+class vmatrix;
 
 namespace utils {
 	template <typename t>
@@ -14,5 +14,5 @@ namespace utils {
 	}
 
 	extern int screen_x, screen_y;
-	extern v_matrix world_to_projection;
+	extern vmatrix world_to_projection;
 }

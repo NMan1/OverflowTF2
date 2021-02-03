@@ -1,5 +1,6 @@
 #include "aimbot.h"
 #include "..\..\utils\math\math.hpp"
+#include "../../utils/settings/settings.h"
 
 namespace aimbot {
 	c_base_entity* get_closest_to_crosshair(c_base_entity* local_player, vector& aim_angle) {
@@ -25,11 +26,11 @@ namespace aimbot {
 				continue;
 			}
 
-			vector angle = math::calc_angle(local_player->get_shoot_pos(), entity->get_hit_box_pos(hitboxes::HEAD));
-			auto distance = local_player->get_eye_position().dist_to(entity->get_hit_box_pos(hitboxes::HEAD));
+			vector angle = math::calc_angle(local_player->get_shoot_pos(), entity->get_hitbox_pos(hitboxes::HEAD));
+			auto distance = local_player->get_eye_position().dist_to(entity->get_hitbox_pos(hitboxes::HEAD));
 			delta = math::calc_fov(distance, view_angles, angle);
 
-			if (delta < max_delta && delta < 20) {
+			if (delta < max_delta && delta < settings::aimbot_fov) {
 				max_delta = delta;
 				best_entity = entity;
 				aim_angle = angle;

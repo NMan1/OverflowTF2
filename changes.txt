@@ -1,0 +1,11 @@
+- Added get active weapon
+	- added weapon class
+
+- add auto backstab
+
+- changed esp
+	- compare box function and commented code
+
+- changed w2s
+
+- add health bars

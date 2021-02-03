@@ -22,9 +22,9 @@ namespace draw {
 
 	void line(vector_2d point1, vector_2d point2, color color);
 
-	void box(vector_2d top_left, vector_2d bottom_right, color color, float width);
+	void box(vector_2d top_left, vector_2d bottom_right, color color);
 
-	void box(int x, int y, int w, int h, color color, float width);
+	void box(int x, int y, int w, int h, color color);
 
 	void circle(vector_2d point, float radius, color color);
 
