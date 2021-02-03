@@ -26,6 +26,10 @@ namespace draw {
 
 	void box(int x, int y, int w, int h, color color);
 
+	void filled_box(int x, int y, int w, int h, color color);
+
+	void filled_box(vector_2d top_left, vector_2d bottom_right, color color);
+
 	void circle(vector_2d point, float radius, color color);
 
 	void text(std::string text, vector_2d position, color color, int font_size=default_font_size, bool center=false);

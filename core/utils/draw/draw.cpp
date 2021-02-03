@@ -11,7 +11,7 @@ namespace draw {
 
 	int default_font_size = 17;
 
-	int default_font_weight = 750;
+	int default_font_weight = 700;
 
 	void init() {
 		if (!interfaces::surface) {
@@ -19,14 +19,16 @@ namespace draw {
 		}
 
 		font = interfaces::surface->create_font();
-		interfaces::surface->set_font_glyph(font, "Tahoma", default_font_size, default_font_weight, 0, 0, font_flags::ANTIALIAS);
+		interfaces::surface->set_font_glyph(font, "Tahoma", default_font_size, default_font_weight, 0, 0, font_flags::OUTLINE | font_flags::ANTIALIAS);
 		interfaces::engine->get_screen_size(utils::screen_x, utils::screen_y);
+
+		utils::log("[-] Draw Objects Initialized");
 	}
 
 	int get_text_size_width(std::string text, int font_size) {
 		auto w_text = std::wstring(text.begin(), text.end());
 		int wide, tall;
-		interfaces::surface->set_font_glyph(font, "Tahoma", font_size, default_font_weight, 0, 0, font_flags::ANTIALIAS);
+		interfaces::surface->set_font_glyph(font, "Tahoma", font_size, default_font_weight, 0, 0, font_flags::OUTLINE | font_flags::ANTIALIAS);
 		interfaces::surface->get_text_size(font, w_text.c_str(), wide, tall);
 		return wide;
 	}
@@ -34,7 +36,7 @@ namespace draw {
 	int get_text_size_height(std::string text, int font_size) {
 		auto w_text = std::wstring(text.begin(), text.end());
 		int wide, tall;
-		interfaces::surface->set_font_glyph(font, "Tahoma", font_size, default_font_weight, 0, 0, font_flags::ANTIALIAS);
+		interfaces::surface->set_font_glyph(font, "Tahoma", font_size, default_font_weight, 0, 0, font_flags::OUTLINE | font_flags::ANTIALIAS);
 		interfaces::surface->get_text_size(font, w_text.c_str(), wide, tall);
 		return tall;
 	}
@@ -75,6 +77,16 @@ namespace draw {
 		interfaces::surface->set_color(color.r(), color.g(), color.b(), color.a());
 		interfaces::surface->outlined_rect(x, y, x + w, y + h);
 	}
+	
+	void filled_box(int x, int y, int w, int h, color color) {
+		interfaces::surface->set_color(color.r(), color.g(), color.b(), color.a());
+		interfaces::surface->filled_rect(x, y, x + w, y + h);
+	}
+
+	void filled_box(vector_2d top_left, vector_2d bottom_right, color color) {
+		interfaces::surface->set_color(color.r(), color.g(), color.b(), color.a());
+		interfaces::surface->filled_rect(top_left.x, top_left.y, bottom_right.x, bottom_right.y);
+	}
 
 	void circle(vector_2d point, float radius, color color) {
 		float step = (float)M_PI * 2.0f / 30;
@@ -89,7 +101,7 @@ namespace draw {
 	void text(std::string text, vector_2d position, color color, int font_size, bool center) {
 		auto w_text = std::wstring(text.begin(), text.end());
 
-		interfaces::surface->set_font_glyph(font, "Tahoma", font_size, default_font_weight, 0, 0, font_flags::ANTIALIAS);
+		interfaces::surface->set_font_glyph(font, "Tahoma", font_size, default_font_weight, 0, 0, font_flags::OUTLINE | font_flags::ANTIALIAS);
 
 		if (!center) {
 			interfaces::surface->set_text_pos(position.x, position.y);

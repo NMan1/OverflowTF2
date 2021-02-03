@@ -1,3 +1,4 @@
+#define NOMINMAX
 #include "esp.hpp"
 #include "../../utils/helpers.hpp"
 #include "..\..\utils\math\math.hpp"
@@ -23,7 +24,7 @@ namespace esp {
 			return;
 		}
 
-		fov_circle(local_player);
+		//fov_circle(local_player);
 
 		for (int i = 1; i <= interfaces::engine->get_max_clients(); i++) {
 			auto entity = interfaces::entity_list->get_client_entity(i);
@@ -52,47 +53,22 @@ namespace esp {
 	}
 
 	void box(c_base_entity* entity) {
-		/*vector	 vec_bottom;
-		vector_2d vec_screen_bottom;
-		vector_2d vec_screen_origin;
-		auto vec_origin{ vec_bottom = entity->get_origin() };
-
-		constexpr auto DUCK{ 54.f };
-		constexpr auto STAND{ 72.f };
-		constexpr auto EWIDTH{ 1.5f };
-
-		if ((entity->get_flags() & entity_flags::DUCKING)) {
-			vec_bottom.z += DUCK;
-		}
-		else {
-			vec_bottom.z += STAND;
-		}
-
-		if (!draw::w2s(vec_bottom, vec_screen_bottom) || !draw::w2s(vec_origin, vec_screen_origin)) {
-			return;
-		}
-
-		const auto line_height = (vec_screen_origin.y - vec_screen_bottom.y);
-		auto edge_width = line_height / 4;
-		const auto line_width = edge_width;
-
-		edge_width /= EWIDTH;
-
-		auto top_left = vector_2d(vec_screen_origin.x - line_width - LINE_WIDTH, vec_screen_bottom.y);
-		auto top_right = vector_2d(vec_screen_origin.x + line_width, vec_screen_bottom.y);
-		auto bottom_left = vector_2d(vec_screen_origin.x - line_width, vec_screen_origin.y);
-		auto bottom_right = vector_2d(vec_screen_origin.x + line_width, vec_screen_origin.y);
-
-		draw::box(top_left, bottom_right, get_team_color(entity), 2);
-		draw::box(top_left.x - 1, top_left.y - 1, (top_right.x - top_left.x) + 2, (bottom_right.y - top_left.y) + 2, color(0, 0, 0), 2);*/
-
 		int x, y, w, h;
 		if (get_item_bounds(entity, x, y, w, h)) {
 			draw::box(x, y, w, h, get_team_color(entity));
-			draw::box(x - 1, y - 1, w + 2, h + 2, get_team_color(entity));
+			draw::box(x - 1, y - 1, w + 2, h + 2, color(0, 0, 0));
 
-			draw::box(x - 4 - 2, y, 2, (h / entity->get_max_health()) * entity->get_health(), color(0, 255, 0));
-			draw::box(x - 4 - 2, y, 2, h, color(0, 0, 0));
+			//draw::box(x - 6 - 2, y, 4, h, color(0, 0, 0));
+			
+			float current_health = entity->get_health();
+			float max_health = entity->get_max_health();
+			auto health_height = h * (current_health / max_health);
+
+			draw::filled_box(x - 6 - 1, y + (h - health_height), 2, health_height, color(0, 255, 0));
+
+			if (current_health != max_health) {
+				draw::text(std::to_string((int)current_health), vector_2d(x - 6 - 4, y + (h - health_height) - draw::get_text_size_height(std::to_string(current_health), 12) + 2.5), color(255, 255, 255), 12, true);
+			}
 		}
 	}
 
@@ -104,16 +80,16 @@ namespace esp {
 	}
 	
 	void class_name(c_base_entity* entity) {
-		vector_2d origin_screen;
-		if (draw::w2s(entity->get_origin(), origin_screen)) {
-			draw::text(get_class_name_string(entity->get_class_name()), origin_screen, color(255, 255, 255), 17, true);
+		int x, y, w, h;
+		if (get_item_bounds(entity, x, y, w, h)) {
+			auto class_name = get_class_name_string(entity->get_class_name());
+			draw::text(class_name, vector_2d(x + (w / 2), y - draw::get_text_size_height(class_name, 15) * .75), color(255, 255, 255), 16, true);
 		}
 	}
 
 	void fov_circle(c_base_entity* local_player) {
-		const float scale = tan(settings::aimbot_fov / 180 * M_PI) / tan((local_player->get_fov() / 2) / 180 * M_PI);
-		auto radius = scale * utils::screen_x / 2;
-		draw::circle(vector_2d(utils::screen_x / 2, utils::screen_y / 2), radius, color(255, 0, 0));
+		auto fuck_me = ((tanf((settings::aimbot_fov / 2) * M_PI / 180)) / tanf((90 / 2) * M_PI / 180) * 800 / 2);  //+10 because that fine tunes the circle to where we need it
+		draw::circle(vector_2d(utils::screen_x / 2, utils::screen_y / 2), fuck_me, color(255, 0, 0));
 	}
 
 	void object_esp(c_base_entity* entity) {

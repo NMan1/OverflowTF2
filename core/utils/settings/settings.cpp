@@ -2,6 +2,6 @@
 
 namespace settings {
 
-	int aimbot_fov;
+	int aimbot_fov = 20;
 
 }
