@@ -99,6 +99,11 @@ int c_base_entity::get_flags() {
 	return get_value<int>(flags);
 }
 
+bool c_base_entity::can_backstab() {
+	static int offset = g_netvar->get_offset("DT_TFWeaponKnife", "m_bReadyToBackstab");
+	return *(bool*)(this + offset);
+}
+
 bool c_base_entity::is_dormant() {
 	void* networkable = (void*)(this + 0x8);
 	typedef bool(__thiscall* fn)(void*);
@@ -174,6 +179,15 @@ bool c_base_entity::setup_bones(matrix3x4* bone_to_world_out, int max_bones, int
 	return utils::get_vfunc <fn>(renderable, 16)(renderable, bone_to_world_out, max_bones, bone_mask, current_time);
 }
 
+vector c_base_entity::get_bone_pos(int bone) {
+	matrix3x4 matrix[128];
+
+	if (setup_bones(matrix, 128, 0x100, GetTickCount64()))
+		return vector(matrix[bone][0][3], matrix[bone][1][3], matrix[bone][2][3]);
+
+	return vector(0.0f, 0.0f, 0.0f);
+}
+
 vector c_base_entity::get_hitbox_pos(int hitbox) {
 	model_t* model = get_model();
 	if (!model)
@@ -187,7 +201,7 @@ vector c_base_entity::get_hitbox_pos(int hitbox) {
 	if (!setup_bones(BoneMatrix, 128, 0x100, interfaces::globals->curtime))
 		return {};
 
-	mstudiohitboxset_t* set = hdr->pHitboxSet(get_hitbox_set());
+	mstudiohitboxset_t* set = hdr->get_hitbox_set(get_hitbox_set());
 	if (!set)
 		return {};
 

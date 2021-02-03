@@ -44,6 +44,8 @@ public:
 
 	int get_flags();
 
+    bool can_backstab();
+
 	bool is_dormant();
 
 	bool is_taunting();
@@ -67,6 +69,8 @@ public:
 	int get_hitbox_set();
 
 	bool setup_bones(matrix3x4* bone_to_world_out, int max_bones, int bone_mask, float current_time);
+
+    vector get_bone_pos(int bone);
 
 	vector get_hitbox_pos(int hitbox);
 

@@ -7,6 +7,8 @@
 namespace esp {
 	void box(c_base_entity* entity);
 
+	void skeleton(c_base_entity* entity);
+
 	void class_name(c_base_entity* entity);
 
 	void snap_lines(c_base_entity* entity);
@@ -38,6 +40,7 @@ namespace esp {
 			}
 
 			box(entity);
+			skeleton(entity);
 			snap_lines(entity);
 			class_name(entity);
 		}
@@ -72,6 +75,24 @@ namespace esp {
 		}
 	}
 
+	void skeleton(c_base_entity* entity) {
+		auto studio_hdr = interfaces::model_info->get_studio_model(entity->get_model());
+		if (studio_hdr) {
+			for (int i = 0; i < studio_hdr->numbones; i++) {
+				auto bone = studio_hdr->get_bone(i);
+				if (bone && (bone->flags & BONE_USED_BY_HITBOX) && (bone->parent != -1)) {
+					auto bone_pos = bone->pos;
+					auto parent_pos = entity->get_bone_pos(bone->parent);
+
+					vector_2d screen_bone, screen_parent;
+					if (draw::w2s(bone_pos, screen_bone) && draw::w2s(parent_pos, screen_parent)) {
+						draw::line(screen_parent.x, screen_parent.y, screen_bone.x, screen_bone.y, color(255, 255, 255));
+					}
+				}
+			}
+		}
+	}
+
 	void snap_lines(c_base_entity* entity) {
 		vector_2d origin_screen;
 		if (draw::w2s(entity->get_origin(), origin_screen)) {
@@ -88,8 +109,8 @@ namespace esp {
 	}
 
 	void fov_circle(c_base_entity* local_player) {
-		auto fuck_me = ((tanf((settings::aimbot_fov / 2) * M_PI / 180)) / tanf((90 / 2) * M_PI / 180) * 800 / 2);  //+10 because that fine tunes the circle to where we need it
-		draw::circle(vector_2d(utils::screen_x / 2, utils::screen_y / 2), fuck_me, color(255, 0, 0));
+		//auto fuck_me = ((tanf((settings::aimbot_fov / 2) * M_PI / 180)) / tanf((90 / 2) * M_PI / 180) * 800 / 2);  //+10 because that fine tunes the circle to where we need it
+		//draw::circle(vector_2d(utils::screen_x / 2, utils::screen_y / 2), fuck_me, color(255, 0, 0));
 	}
 
 	void object_esp(c_base_entity* entity) {

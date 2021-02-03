@@ -407,39 +407,192 @@ struct mstudiohitboxset_t
 	mstudiobbox_t* hitbox(int i) const { return (mstudiobbox_t*)(((unsigned char*)this) + hitboxindex) + i; };
 };
 
+struct mstudiobone_t {
+	int sznameindex;
+	inline char* const name(void) const { return ((char*)this) + sznameindex; }
+	int parent; // parent bone
+	int bonecontroller[6]; // bone controller index, -1 == none
+
+	// default values
+	vector pos;
+	float quat[4];
+	vector rot;
+	// compression scale
+	vector posscale;
+	vector rotscale;
+
+	float poseToBone[3][4];
+	float qAlignment[4];
+	int flags;
+	int proctype;
+	int procindex; // procedural rule
+	mutable int physicsbone; // index into physically simulated bone
+	inline void* pProcedure() const {
+		if (procindex == 0)
+			return NULL;
+		else
+			return (void*)(((unsigned char*)this) + procindex);
+	};
+	int surfacepropidx; // index into string tablefor property name
+	inline char* const pszSurfaceProp(void) const { return ((char*)this) + surfacepropidx; }
+	int contents; // See BSPFlags.h for the contents flags
+
+	int unused[8]; // remove as appropriate
+
+	mstudiobone_t() {}
+private:
+	// No copy constructors allowed
+	mstudiobone_t(const mstudiobone_t& vOther);
+};
+
 struct studiohdr_t
 {
-	unsigned char		pad00[12];
-	char				name[64];
-	unsigned char		pad01[80];
-	int					numbones;
-	int					boneindex;
-	unsigned char		pad02[12];
-	int					hitboxsetindex;
-	unsigned char		pad03[228];
+	int id;
+	int version;
 
-	mstudiohitboxset_t* pHitboxSet(int i) const
-	{
-		return (mstudiohitboxset_t*)(((unsigned char*)this) + hitboxsetindex) + i;
+	int checksum;
+
+	char name[64];
+	int length;
+
+	vector eyeposition;
+
+	vector illumposition;
+
+	vector hull_min;
+	vector hull_max;
+
+	vector view_bbmin;
+	vector view_bbmax;
+
+	int flags;
+
+	int numbones;
+	int boneindex;
+
+	inline mstudiobone_t* get_bone(int i) const { 
+		return (mstudiobone_t*)(((unsigned char*)this) + boneindex) + i;
 	};
 
-	mstudiobbox_t* pHitbox(int i, int set) const
-	{
-		const mstudiohitboxset_t* s = pHitboxSet(set);
+	int numbonecontrollers;
+	int bonecontrollerindex;
+
+	int numhitboxsets;
+	int hitboxsetindex;
+
+	mstudiohitboxset_t* get_hitbox_set(int i) const {
+		return (mstudiohitboxset_t*)(((unsigned char*)this) + hitboxsetindex) + i;
+	}
+
+	inline mstudiobbox_t* get_hitbox(int i, int set) const {
+		mstudiohitboxset_t const* s = get_hitbox_set(set);
+
 		if (!s)
-			return 0;
+			return NULL;
 
 		return s->hitbox(i);
-	};
+	}
 
-	int			iHitboxCount(int set) const
+	inline int get_hitbox_count(int set) const
 	{
-		const mstudiohitboxset_t* s = pHitboxSet(set);
+		mstudiohitboxset_t const* s = get_hitbox_set(set);
+
 		if (!s)
 			return 0;
 
 		return s->numhitboxes;
-	};
+	}
+
+	int numlocalanim;
+	int localanimindex;
+
+	int numlocalseq;
+	int localseqindex;
+
+	mutable int activitylistversion;
+	mutable int eventsindexed;
+
+	int numtextures;
+	int textureindex;
+
+	int numcdtextures;
+	int cdtextureindex;
+
+	int numskinref;
+	int numskinfamilies;
+	int skinindex;
+
+	int numbodyparts;
+	int bodypartindex;
+
+	int numlocalattachments;
+	int localattachmentindex;
+
+	int numlocalnodes;
+	int localnodeindex;
+	int localnodenameindex;
+
+	int numflexdesc;
+	int flexdescindex;
+
+	int numflexcontrollers;
+	int flexcontrollerindex;
+
+	int numflexrules;
+	int flexruleindex;
+
+	int numikchains;
+	int ikchainindex;
+
+	int nummouths;
+	int mouthindex;
+
+	int numlocalposeparameters;
+	int localposeparamindex;
+
+	int surfacepropindex;
+
+	int keyvalueindex;
+	int keyvaluesize;
+
+	int numlocalikautoplaylocks;
+	int localikautoplaylockindex;
+
+	float mass;
+	int contents;
+
+	int numincludemodels;
+	int includemodelindex;
+
+	mutable void* virtualModel;
+
+	int szanimblocknameindex;
+	int numanimblocks;
+	int animblockindex;
+
+	mutable void* animblockModel;
+
+	int bonetablebynameindex;
+
+	void* pVertexBase;
+	void* pIndexBase;
+
+	unsigned char constdirectionallightdot;
+
+	unsigned char rootLOD;
+
+	unsigned char numAllowedRootLODs;
+
+	unsigned char unused[1];
+
+	int unused4;
+
+	int numflexcontrollerui;
+	int flexcontrolleruiindex;
+	float flVertAnimFixedPointScale;
+	int unused3[1];
+	int studiohdr2index;
+	int unused2[1];
 };
 
 
@@ -734,7 +887,7 @@ public:
 #define MASK_SHOT_PORTAL ( CONTENTS_SOLID | CONTENTS_MOVEABLE | CONTENTS_WINDOW | CONTENTS_MONSTER )
 // everything normally solid, except monsters (world+brush only)
 #define MASK_SOLID_BRUSHONLY ( CONTENTS_SOLID | CONTENTS_MOVEABLE | CONTENTS_WINDOW | CONTENTS_GRATE )
-// everything normally solid for player movement, except monsters (world+brush only)
+// everything normally solid for player movement, except monsters (0x00000100+brush only)
 #define MASK_PLAYERSOLID_BRUSHONLY ( CONTENTS_SOLID | CONTENTS_MOVEABLE | CONTENTS_WINDOW | CONTENTS_PLAYERCLIP | CONTENTS_GRATE )
 // everything normally solid for npc movement, except monsters (world+brush only)
 #define MASK_NPCSOLID_BRUSHONLY ( CONTENTS_SOLID | CONTENTS_MOVEABLE | CONTENTS_WINDOW | CONTENTS_MONSTERCLIP | CONTENTS_GRATE )
@@ -749,3 +902,4 @@ public:
 // everything that blocks corpse movement
 // UNDONE: Not used yet / may be deleted
 #define MASK_DEADSOLID ( CONTENTS_SOLID | CONTENTS_PLAYERCLIP | CONTENTS_WINDOW | CONTENTS_GRATE )
+#define BONE_USED_BY_HITBOX			0x00000100
