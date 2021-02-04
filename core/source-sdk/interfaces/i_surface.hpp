@@ -10,6 +10,11 @@ public:
 		utils::get_vfunc< fn >(this, 61)(this);
 	}
 
+	void set_cursor_always_visible(bool toggle) {
+		typedef void(__thiscall* fn)(void*, bool);
+		utils::get_vfunc<fn>(this, 52)(this, toggle);
+	}
+
 	void set_color(int r, int g, int b, int a)
 	{
 		typedef void(__thiscall* fn)(void*, int, int, int, int);

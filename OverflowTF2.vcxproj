@@ -72,17 +72,23 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
+    <LibraryPath>"$(DXSDK_DIR)include";$(LibraryPath)</LibraryPath>
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);;$(DXSDK_DIR)Include</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
+    <LibraryPath>"$(DXSDK_DIR)include";$(LibraryPath)</LibraryPath>
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);;$(DXSDK_DIR)Include</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>$(DXSDK_DIR)LIB\x86;$(IncludePath)</IncludePath>
+    <IncludePath>$(DXSDK_DIR)LIB\x86;$(IncludePath);$(DXSDK_DIR)Include</IncludePath>
+    <LibraryPath>"$(DXSDK_DIR)include";$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>$(DXSDK_DIR)LIB\x86;$(IncludePath)</IncludePath>
+    <IncludePath>$(DXSDK_DIR)LIB\x86;$(IncludePath);$(DXSDK_DIR)Include</IncludePath>
+    <LibraryPath>"$(DXSDK_DIR)include";$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -94,6 +100,7 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <DisableSpecificWarnings>4244;</DisableSpecificWarnings>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -113,6 +120,7 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <DisableSpecificWarnings>4244;</DisableSpecificWarnings>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -177,7 +185,18 @@
     <ClCompile Include="core\hooks\vtables\create_move.cpp" />
     <ClCompile Include="core\hooks\vtables\paint.cpp" />
     <ClCompile Include="core\hooks\vtables\paint_traverse.cpp" />
+    <ClCompile Include="core\hooks\vtables\present.cpp" />
     <ClCompile Include="core\interfaces\interfaces.cpp" />
+    <ClCompile Include="core\menu\imgui\dx9\imgui_impl_dx9.cpp" />
+    <ClCompile Include="core\menu\imgui\imgui.cpp" />
+    <ClCompile Include="core\menu\imgui\imgui_draw.cpp" />
+    <ClCompile Include="core\menu\menu.cpp" />
+    <ClCompile Include="core\menu\tabs\legit_tab.cpp" />
+    <ClCompile Include="core\menu\tabs\misc_tab.cpp" />
+    <ClCompile Include="core\menu\tabs\rage_tab.cpp" />
+    <ClCompile Include="core\menu\tabs\settings_tab.cpp" />
+    <ClCompile Include="core\menu\tabs\skins_tab.cpp" />
+    <ClCompile Include="core\menu\tabs\visuals_tab.cpp" />
     <ClCompile Include="core\source-sdk\interfaces\c_base_combat_weapon.cpp" />
     <ClCompile Include="core\source-sdk\interfaces\i_entity.cpp" />
     <ClCompile Include="core\utils\draw\draw.cpp" />
@@ -191,6 +210,15 @@
     <ClInclude Include="core\features\visuals\esp.hpp" />
     <ClInclude Include="core\hooks\hook.hpp" />
     <ClInclude Include="core\interfaces\interfaces.hpp" />
+    <ClInclude Include="core\menu\imgui\dx9\imgui_impl_dx9.h" />
+    <ClInclude Include="core\menu\imgui\imconfig.h" />
+    <ClInclude Include="core\menu\imgui\imgui.h" />
+    <ClInclude Include="core\menu\imgui\imgui_internal.h" />
+    <ClInclude Include="core\menu\imgui\stb_rect_pack.h" />
+    <ClInclude Include="core\menu\imgui\stb_textedit.h" />
+    <ClInclude Include="core\menu\imgui\stb_truetype.h" />
+    <ClInclude Include="core\menu\menu.hpp" />
+    <ClInclude Include="core\menu\menu_helpers.h" />
     <ClInclude Include="core\source-sdk\interfaces\c_base_combat_weapon.hpp" />
     <ClInclude Include="core\source-sdk\interfaces\c_game_movement.hpp" />
     <ClInclude Include="core\source-sdk\interfaces\c_model_info.hpp" />

@@ -38,6 +38,8 @@ public:
 
 	vector get_eye_position();
 
+    vector get_view_angles();
+
 	int get_class_name();
 
 	int get_condition();

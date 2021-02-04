@@ -3,6 +3,8 @@
 #include "..\utils\memory\memory.hpp"
 #include "..\source-sdk\interfaces\i_engine_vgui.hpp"
 
+class i_surface;
+
 namespace hooks {
 	void hook();
 	void unhook();
@@ -31,7 +33,35 @@ namespace hooks {
 		}
 	}
 
+	namespace d3d {
+		namespace present {
+			constexpr int index = 0u;
+			using t = long(__stdcall*)(IDirect3DDevice9*, const RECT*, const RECT*, HWND, const RGNDATA*);
+			long __stdcall fn(IDirect3DDevice9* device, const RECT* source_rect, const RECT* dest_rect, HWND dest_window_override, const RGNDATA* dirty_region);
+		}		
+		
+		namespace reset {
+			constexpr int index = 0u;
+			using t = long(__stdcall*)(IDirect3DDevice9*, D3DPRESENT_PARAMETERS*);
+			long __stdcall fn(IDirect3DDevice9* device, D3DPRESENT_PARAMETERS* present_parameters);
+		}		
+		
+		namespace lock_cursor {
+			constexpr int index = 62u;
+			using t = void(__thiscall*)(i_surface*);
+			void __stdcall fn();
+		}
+
+		namespace wnd_proc {
+			LRESULT __stdcall wnd_proc(HWND hwnd, UINT message, WPARAM wparam, LPARAM lparam);
+			extern WNDPROC old_wnd_proc;
+		}
+	}
+
 	extern std::unique_ptr<memory::hook_t> m_client_mode;
 	extern std::unique_ptr<memory::hook_t> m_paint_traverse;
 	extern std::unique_ptr<memory::hook_t> m_paint;
+	extern std::unique_ptr<memory::hook_t> m_present;
+	extern std::unique_ptr<memory::hook_t> m_reset;
+	extern std::unique_ptr<memory::hook_t> m_lock_cursor;
 }

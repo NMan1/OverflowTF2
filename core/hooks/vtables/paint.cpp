@@ -2,6 +2,7 @@
 #include "..\..\interfaces\interfaces.hpp"
 #include "..\..\utils\draw\draw.hpp"
 #include "..\..\features\visuals\esp.hpp"
+#include "../../utils/settings/settings.h"
 
 void __stdcall hooks::engine_vgui::paint::fn(int mode) {
 	static auto start_drawing = reinterpret_cast<void(__thiscall*)(void*)>(memory::find_pattern("vguimatsurface.dll", "55 8B EC 64 A1 ? ? ? ? 6A FF 68 ? ? ? ? 50 64 89 25 ? ? ? ? 83 EC 14"));
@@ -29,7 +30,9 @@ void __stdcall hooks::engine_vgui::paint::fn(int mode) {
 		{
 			draw::text("Overflow", vector_2d(10, 10), color(255, 0, 0), 22, false);
 			if (interfaces::engine->is_in_game() && interfaces::engine->is_connected()) {
-				esp::run();
+				if (settings::esp) {
+					esp::run();
+				}
 			}
 		}
 		finish_drawing(interfaces::surface);

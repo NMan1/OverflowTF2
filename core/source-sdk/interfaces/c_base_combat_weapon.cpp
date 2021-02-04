@@ -52,10 +52,10 @@ float c_base_combat_weapon::get_charge_damage()
 	return get_value<float>(team_num);
 }
 
-int c_base_combat_weapon::get_item_definition_index()
+short c_base_combat_weapon::get_item_definition_index()
 {
 	static int team_num = g_netvar->get_offset("DT_EconEntity", "m_AttributeManager", "m_Item", "m_iItemDefinitionIndex");
-	return get_value<int>(team_num);
+	return get_value<short>(team_num);
 }
 
 float c_base_combat_weapon::get_last_fire_time()

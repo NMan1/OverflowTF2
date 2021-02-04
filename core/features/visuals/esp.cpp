@@ -3,6 +3,7 @@
 #include "../../utils/helpers.hpp"
 #include "..\..\utils\math\math.hpp"
 #include "../../utils/settings/settings.h"
+#include "..\..\source-sdk\interfaces\c_base_combat_weapon.hpp"
 
 namespace esp {
 	void box(c_base_entity* entity);
@@ -10,6 +11,8 @@ namespace esp {
 	void skeleton(c_base_entity* entity);
 
 	void class_name(c_base_entity* entity);
+
+	void direction_line(c_base_entity* entity);
 
 	void snap_lines(c_base_entity* entity);
 
@@ -40,9 +43,22 @@ namespace esp {
 			}
 
 			box(entity);
-			skeleton(entity);
-			snap_lines(entity);
-			class_name(entity);
+
+			if (settings::skeleton) {
+				skeleton(entity);
+			}
+			
+			if (settings::snap_lines) {
+				snap_lines(entity);
+			}
+
+			if (settings::direction_line) {
+				direction_line(entity);
+			}
+			
+			if (settings::class_name) {
+				class_name(entity);
+			}
 		}
 
 		for (int i = 1; i <= interfaces::entity_list->get_max_entitys(); i++) {
@@ -58,19 +74,21 @@ namespace esp {
 	void box(c_base_entity* entity) {
 		int x, y, w, h;
 		if (get_item_bounds(entity, x, y, w, h)) {
-			draw::box(x, y, w, h, get_team_color(entity));
-			draw::box(x - 1, y - 1, w + 2, h + 2, color(0, 0, 0));
+			if (settings::box) {
+				draw::box(x, y, w, h, get_team_color(entity));
+				draw::box(x - 1, y - 1, w + 2, h + 2, color(0, 0, 0));
+			}
 
-			//draw::box(x - 6 - 2, y, 4, h, color(0, 0, 0));
-			
-			float current_health = entity->get_health();
-			float max_health = entity->get_max_health();
-			auto health_height = h * (current_health / max_health);
+			if (settings::health_bar) {
+				float current_health = entity->get_health();
+				float max_health = entity->get_max_health();
+				auto health_height = h * (current_health / max_health);
 
-			draw::filled_box(x - 6 - 1, y + (h - health_height), 2, health_height, color(0, 255, 0));
+				draw::filled_box(x - 6 - 1, y + (h - health_height), 2, health_height, color(0, 255, 0));
 
-			if (current_health != max_health) {
-				draw::text(std::to_string((int)current_health), vector_2d(x - 6 - 4, y + (h - health_height) - draw::get_text_size_height(std::to_string(current_health), 12) + 2.5), color(255, 255, 255), 12, true);
+				if (settings::health_text && current_health != max_health) {
+					draw::text(std::to_string((int)current_health), vector_2d(x - 6 - 4, y + (h - health_height) - draw::get_text_size_height(std::to_string(current_health), 12) + 2.5), color(255, 255, 255), 12, true);
+				}
 			}
 		}
 	}
@@ -81,7 +99,7 @@ namespace esp {
 			for (int i = 0; i < studio_hdr->numbones; i++) {
 				auto bone = studio_hdr->get_bone(i);
 				if (bone && (bone->flags & BONE_USED_BY_HITBOX) && (bone->parent != -1)) {
-					auto bone_pos = bone->pos;
+					auto bone_pos = entity->get_bone_pos(i);
 					auto parent_pos = entity->get_bone_pos(bone->parent);
 
 					vector_2d screen_bone, screen_parent;
@@ -108,6 +126,19 @@ namespace esp {
 		}
 	}
 
+	void direction_line(c_base_entity* entity) {
+		vector start = entity->get_hitbox_pos(hitboxes::HEAD);
+		vector angles = entity->get_view_angles();
+		vector forward_vector;
+
+		math::angle_vectors(angles, &forward_vector);
+
+		vector_2d screen_start, screen_end;
+		if (draw::w2s(start, screen_start) && draw::w2s(forward_vector * 50 + start, screen_end)) {
+			draw::line(screen_start, screen_end, color(255, 255, 255));
+		}
+	}
+
 	void fov_circle(c_base_entity* local_player) {
 		//auto fuck_me = ((tanf((settings::aimbot_fov / 2) * M_PI / 180)) / tanf((90 / 2) * M_PI / 180) * 800 / 2);  //+10 because that fine tunes the circle to where we need it
 		//draw::circle(vector_2d(utils::screen_x / 2, utils::screen_y / 2), fuck_me, color(255, 0, 0));
@@ -116,35 +147,35 @@ namespace esp {
 	void object_esp(c_base_entity* entity) {
 		auto class_id = entity->get_client_class()->class_id;
 
-		if (entity->is_health_pack()) {
+		if (settings::health_pack_esp && entity->is_health_pack()) {
 			int x, y, w, h;
 			if (get_item_bounds(entity, x, y, w, h)) {
 				draw::box(x, y, w, h, color(144, 238, 144));
 				draw::text("Health", vector_2d(x + (w / 2), y - draw::get_text_size_height("Health", 15) * .75), color(255, 0, 0), 15, true);
 			}
 		}
-		else if (entity->is_ammo_pack()) {
+		else if (settings::ammo_box_esp && entity->is_ammo_pack()) {
 			int x, y, w, h;
 			if (get_item_bounds(entity, x, y, w, h)) {
 				draw::box(x, y, w, h, color(144, 238, 144));
 				draw::text("Ammo", vector_2d(x + (w / 2), y - draw::get_text_size_height("Ammo", 15) * .75), color(255, 0, 0), 15, true);
 			}
 		}
-		else if (class_id == class_ids::CObjectTeleporter) {
+		else if (settings::teleporter_esp && class_id == class_ids::CObjectTeleporter) {
 			int x, y, w, h;
 			if (get_item_bounds(entity, x, y, w, h)) {
 				draw::box(x, y, w, h, color(144, 238, 144));
 				draw::text("Teleporter", vector_2d(x + (w / 2), y - draw::get_text_size_height("Teleporter", 15) * .75), color(255, 0, 0), 15, true);
 			}
 		}
-		else if (class_id == class_ids::CObjectSentrygun) {
+		else if (settings::turret_esp && class_id == class_ids::CObjectSentrygun) {
 			int x, y, w, h;
 			if (get_item_bounds(entity, x, y, w, h)) {
 				draw::box(x, y, w, h, color(144, 238, 144));
 				draw::text("Sentry", vector_2d(x + (w / 2), y - draw::get_text_size_height("Sentry", 15) * .75), color(255, 0, 0), 15, true);
 			}
 		}
-		else if (class_id == class_ids::CObjectDispenser) {
+		else if (settings::dispenser_esp && class_id == class_ids::CObjectDispenser) {
 			int x, y, w, h;
 			if (get_item_bounds(entity, x, y, w, h)) {
 				draw::box(x, y, w, h, color(144, 238, 144));
@@ -165,8 +196,13 @@ namespace esp {
 		vector maxs = {};
 
 		if (entity->is_player()) {
-			mins = interfaces::game_movement->get_player_mins(entity->is_ducking());
-			maxs = interfaces::game_movement->get_player_maxs(entity->is_ducking());
+			if (interfaces::game_movement) {
+				mins = interfaces::game_movement->get_player_mins(entity->is_ducking());
+				maxs = interfaces::game_movement->get_player_maxs(entity->is_ducking());
+			}
+			else {
+				return false;
+			}
 		}
 		else {
 			mins = entity->get_collideable_mins();

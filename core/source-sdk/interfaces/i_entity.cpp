@@ -84,6 +84,11 @@ vector c_base_entity::get_eye_position() {
 	return get_value<vector>(eye_position) + this->get_abs_origin();
 }
 
+vector c_base_entity::get_view_angles() {
+	static int offset = g_netvar->get_offset("DT_TFPlayer", "tfnonlocaldata", "m_angEyeAngles[0]");
+	return get_value<vector>(offset);
+}
+
 int c_base_entity::get_class_name() {
 	static int player_class = g_netvar->get_offset("DT_TFPlayer", "m_PlayerClass", "m_iClass");
 	return get_value<int>(player_class);
@@ -101,7 +106,7 @@ int c_base_entity::get_flags() {
 
 bool c_base_entity::can_backstab() {
 	static int offset = g_netvar->get_offset("DT_TFWeaponKnife", "m_bReadyToBackstab");
-	return *(bool*)(this + offset);
+	return get_value<bool>(offset);
 }
 
 bool c_base_entity::is_dormant() {

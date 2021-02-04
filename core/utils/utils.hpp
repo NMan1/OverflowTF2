@@ -15,4 +15,5 @@ namespace utils {
 
 	extern int screen_x, screen_y;
 	extern vmatrix world_to_projection;
+	extern void* tf2_window;
 }

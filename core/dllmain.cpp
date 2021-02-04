@@ -13,6 +13,10 @@ DWORD WINAPI init(void* dll_instance) {
 	SetConsoleTitleA("Debug console");   
 #endif
 
+	while (!(utils::tf2_window = FindWindowA("Valve001", nullptr))) {
+		std::this_thread::sleep_for(std::chrono::milliseconds(200));
+	}
+
 	interfaces::init_interfaces();
 	hooks::hook();
 

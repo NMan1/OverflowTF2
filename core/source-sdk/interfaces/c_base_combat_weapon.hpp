@@ -28,7 +28,7 @@ public:
 
 	float get_charge_damage();
 
-	int get_item_definition_index();
+	short get_item_definition_index();
 
 	float get_last_fire_time();
 

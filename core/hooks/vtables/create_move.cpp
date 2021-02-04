@@ -2,6 +2,7 @@
 #include "..\..\interfaces\interfaces.hpp"
 #include "../../features/misc/misc.h"
 #include "../../features/aimbot/aimbot.h"
+#include "../../utils/settings/settings.h"
 
 bool __stdcall hooks::client_mode::create_move::fn(float input_sample_time, c_user_cmd* cmd)
 {
@@ -14,11 +15,18 @@ bool __stdcall hooks::client_mode::create_move::fn(float input_sample_time, c_us
 	auto local_player = interfaces::entity_list->get_client_entity(interfaces::engine->get_local_player());
 
 	if (local_player) {
-		misc::bunny_hop(local_player, cmd);
-		//misc::auto_backstab(local_player, cmd);
+		if (settings::bunny_hop) {
+			misc::bunny_hop(local_player, cmd);
+		}
+
+		if (settings::auto_backstab) {
+			misc::auto_backstab(local_player, cmd);
+		}
 
 		if (GetAsyncKeyState(VK_SHIFT) & 0x8000) {
-			aimbot::run(cmd);
+			if (settings::aimbot) {
+				aimbot::run(cmd);
+			}
 		}
 	}
 
