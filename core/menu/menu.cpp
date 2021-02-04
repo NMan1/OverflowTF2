@@ -284,8 +284,7 @@ namespace menu {
 				fps = int(1.f / frame_rate);
 				old_fps == 0 ? old_fps = fps : true;
 
-				// if change is greater than 4 update
-				if (abs(fps - old_fps) >= 4)
+				if (abs(fps - old_fps) >= 9)
 				{
 					old_fps = fps = int(1.f / frame_rate);
 					return fps;
