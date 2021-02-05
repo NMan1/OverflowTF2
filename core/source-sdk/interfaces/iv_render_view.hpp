@@ -4,7 +4,7 @@ class ITexture;
 class c_viewsetup;
 class CEngineSprite;
 class IClientEntity;
-class IMaterial;
+class i_material;
 class IClientRenderable;
 
 #define MAX_VIS_LEAVES				32
@@ -107,7 +107,7 @@ struct VisibleFogVolumeInfo_t
 	bool	m_bEyeInFogVolume;
 	float	m_flDistanceToWater;
 	float	m_flWaterHeight;
-	IMaterial* m_pFogVolumeMaterial;
+	i_material* m_pFogVolumeMaterial;
 };
 
 //-----------------------------------------------------------------------------
@@ -150,7 +150,7 @@ public:
 	virtual void GetVertexData(BrushVertex_t* pVerts) = 0;
 
 	// Gets at the material properties for this surface
-	virtual IMaterial* GetMaterial() = 0;
+	virtual i_material* GetMaterial() = 0;
 };
 
 //-----------------------------------------------------------------------------
@@ -201,16 +201,16 @@ public:
 	// Draw 3D Overlays
 	virtual void			Draw3DDebugOverlays(void) = 0;
 	// Sets global blending fraction
-	virtual void			SetBlend(float blend) = 0;
-	virtual float			GetBlend(void) = 0;
+	virtual void			set_blend(float blend) = 0;
+	virtual float			get_blend(void) = 0;
 
 	// Sets global color modulation
-	virtual void			SetColorModulation(float const* blend) = 0;
-	virtual void			GetColorModulation(float* blend) = 0;
-	inline void                 SetColorModulation(float r, float g, float b)
+	virtual void			set_color_modulation(float const* blend) = 0;
+	virtual void			get_color_modulation(float* blend) = 0;
+	inline void                 set_color_modulation(float r, float g, float b)
 	{
 		float clr[3] = { r, g, b };
-		SetColorModulation(clr);
+		set_color_modulation(clr);
 	}
 	// Wrap entire scene drawing
 	virtual void			SceneBegin(void) = 0;
@@ -252,7 +252,7 @@ public:
 
 	virtual	void			VguiPaint(void) = 0;
 	// Sets up view fade parameters
-	virtual void			ViewDrawFade(byte* color, IMaterial* pMaterial) = 0;
+	virtual void			ViewDrawFade(byte* color, i_material* pMaterial) = 0;
 	// Sets up the projection matrix for the specified field of view
 	virtual void			OLD_SetProjectionMatrix(float fov, float zNear, float zFar) = 0;
 	// Determine lighting at specified position
@@ -286,12 +286,12 @@ public:
 	virtual void			VGui_Paint(int mode) = 0;
 
 	// Push, pop views (see PushViewFlags_t above for flags)
-	virtual void			Push3DView(const c_viewsetup& view, int nFlags, ITexture* pRenderTarget, Frustum frustumPlanes) = 0;
-	virtual void			Push2DView(const c_viewsetup& view, int nFlags, ITexture* pRenderTarget, Frustum frustumPlanes) = 0;
-	virtual void			PopView(Frustum frustumPlanes) = 0;
+	virtual void			push_3d_view(const c_viewsetup& view, int nFlags, ITexture* pRenderTarget, Frustum frustumPlanes) = 0;
+	virtual void			push_2d_view(const c_viewsetup& view, int nFlags, ITexture* pRenderTarget, Frustum frustumPlanes) = 0;
+	virtual void			pop_view(Frustum frustumPlanes) = 0;
 
 	// Sets the main view
-	virtual void			SetMainView(const vector& vecOrigin, const vector& angles) = 0;
+	virtual void			set_main_view(const vector& vecOrigin, const vector& angles) = 0;
 
 	enum
 	{
@@ -299,18 +299,18 @@ public:
 	};
 
 	// Wraps view render sequence, sets up a view
-	virtual void			ViewSetupVisEx(bool novis, int numorigins, const vector origin[], unsigned int& returnFlags) = 0;
+	virtual void			view_setup_vis_ex(bool novis, int numorigins, const vector origin[], unsigned int& returnFlags) = 0;
 
 	//replaces the current view frustum with a rhyming replacement of your choice
-	virtual void			OverrideViewFrustum(Frustum custom) = 0;
+	virtual void			override_view_frustum(Frustum custom) = 0;
 
-	virtual void			DrawBrushModelShadowDepth(IClientEntity* pBaseEnt, model_t* oModel, const vector& vOrigin, const vector& vAngles, ERenderDepthMode DepthMode) = 0;
-	virtual void			UpdateBrushModelLightmap(model_t* pModel, IClientRenderable* pRenderable) = 0;
-	virtual void			BeginUpdateLightmaps(void) = 0;
-	virtual void			EndUpdateLightmaps(void) = 0;
+	virtual void			draw_brush_model_shadow_depth(IClientEntity* pBaseEnt, model_t* oModel, const vector& vOrigin, const vector& vAngles, ERenderDepthMode DepthMode) = 0;
+	virtual void			update_brush_model_lightmap(model_t* pModel, IClientRenderable* pRenderable) = 0;
+	virtual void			begin_update_lightmaps(void) = 0;
+	virtual void			end_update_lightmaps(void) = 0;
 	virtual void			OLD_SetOffCenterProjectionMatrix(float fov, float zNear, float zFar, float flAspectRatio, float flBottom, float flTop, float flLeft, float flRight) = 0;
-	virtual void			OLD_SetProjectionMatrixOrtho(float left, float top, float right, float bottom, float zNear, float zFar) = 0;
-	virtual void			Push3DView(const c_viewsetup& view, int nFlags, ITexture* pRenderTarget, Frustum frustumPlanes, ITexture* pDepthTexture) = 0;
+	virtual void			old_set_projection_matrix_ortho(float left, float top, float right, float bottom, float zNear, float zFar) = 0;
+	virtual void			push3_d_view(const c_viewsetup& view, int nFlags, ITexture* pRenderTarget, Frustum frustumPlanes, ITexture* pDepthTexture) = 0;
 	virtual void			get_matrices_for_view(const c_viewsetup& view, vmatrix* pWorldToView, vmatrix* pViewToProjection, vmatrix* pWorldToProjection, vmatrix* pWorldToPixels) = 0;
-	virtual void			DrawBrushModelEx(IClientEntity* baseentity, model_t* model, const vector& origin, const vector& angles, DrawBrushModelMode_t mode) = 0;
+	virtual void			draw_brush_model_ex(IClientEntity* baseentity, model_t* model, const vector& origin, const vector& angles, DrawBrushModelMode_t mode) = 0;
 };

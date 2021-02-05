@@ -12,7 +12,7 @@ typedef struct InputContextHandle_t__ *InputContextHandle_t;
 struct client_textmessage_t;
 struct model_t;
 class SurfInfo;
-class IMaterial;
+class i_material;
 class CSentence;
 class CAudioSource;
 class AudioState_t;

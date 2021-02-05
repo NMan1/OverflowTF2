@@ -4,6 +4,9 @@
 #include "..\source-sdk\interfaces\i_engine_vgui.hpp"
 
 class i_surface;
+class draw_model_state;
+class model_render_info;
+class c_model_render;
 
 namespace hooks {
 	void hook();
@@ -30,6 +33,14 @@ namespace hooks {
 			constexpr int index = 13;
 			using t = void(__thiscall*)(i_engine_vgui*, int);
 			void __stdcall fn(int mode);
+		}
+	}
+
+	namespace model_render {
+		namespace dme {
+			constexpr int index = 19u;
+			using t = void(__thiscall*)(c_model_render*, draw_model_state&, model_render_info&, matrix3x4*);
+			void __stdcall fn(draw_model_state& state, model_render_info& info, matrix3x4* bone_to_world);
 		}
 	}
 
@@ -61,6 +72,7 @@ namespace hooks {
 	extern std::unique_ptr<memory::hook_t> m_client_mode;
 	extern std::unique_ptr<memory::hook_t> m_paint_traverse;
 	extern std::unique_ptr<memory::hook_t> m_paint;
+	extern std::unique_ptr<memory::hook_t> m_dme;
 	extern std::unique_ptr<memory::hook_t> m_present;
 	extern std::unique_ptr<memory::hook_t> m_reset;
 	extern std::unique_ptr<memory::hook_t> m_lock_cursor;

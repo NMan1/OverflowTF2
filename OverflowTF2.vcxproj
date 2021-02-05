@@ -99,7 +99,7 @@
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
-      <DisableSpecificWarnings>4244;</DisableSpecificWarnings>
+      <DisableSpecificWarnings>4244;26495;4305;4099;</DisableSpecificWarnings>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
@@ -119,7 +119,7 @@
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
-      <DisableSpecificWarnings>4244;</DisableSpecificWarnings>
+      <DisableSpecificWarnings>4244;26495;4305;4099;</DisableSpecificWarnings>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
@@ -142,7 +142,7 @@
       </PrecompiledHeaderFile>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <AdditionalIncludeDirectories>$(IncludePath);$(DXSDK_DIR)Include</AdditionalIncludeDirectories>
-      <DisableSpecificWarnings>4244;</DisableSpecificWarnings>
+      <DisableSpecificWarnings>4244;26495;4305;4099;</DisableSpecificWarnings>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -165,7 +165,7 @@
       </PrecompiledHeaderFile>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <AdditionalIncludeDirectories>$(IncludePath);$(DXSDK_DIR)Include</AdditionalIncludeDirectories>
-      <DisableSpecificWarnings>4244;</DisableSpecificWarnings>
+      <DisableSpecificWarnings>4244;26495;4305;4099;</DisableSpecificWarnings>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -183,6 +183,7 @@
     <ClCompile Include="core\features\visuals\esp.cpp" />
     <ClCompile Include="core\hooks\hook.cpp" />
     <ClCompile Include="core\hooks\vtables\create_move.cpp" />
+    <ClCompile Include="core\hooks\vtables\dme.cpp" />
     <ClCompile Include="core\hooks\vtables\paint.cpp" />
     <ClCompile Include="core\hooks\vtables\paint_traverse.cpp" />
     <ClCompile Include="core\hooks\vtables\present.cpp" />
@@ -224,6 +225,7 @@
     <ClInclude Include="core\source-sdk\interfaces\c_model_info.hpp" />
     <ClInclude Include="core\source-sdk\interfaces\iv_render_view.hpp" />
     <ClInclude Include="core\source-sdk\interfaces\i_entity_list.hpp" />
+    <ClInclude Include="core\source-sdk\interfaces\c_model_render.hpp" />
     <ClInclude Include="core\source-sdk\structs\enums.hpp" />
     <ClInclude Include="core\source-sdk\structs\structs.hpp" />
     <ClInclude Include="core\utils\memory\memory.hpp" />

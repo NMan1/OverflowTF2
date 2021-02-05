@@ -13,6 +13,7 @@
 #include "../source-sdk/interfaces/iv_render_view.hpp"
 #include "../source-sdk/interfaces/c_game_movement.hpp"
 #include "../source-sdk/interfaces/i_entity_list.hpp"
+#include "../source-sdk/interfaces/c_model_render.hpp"
 
 namespace interfaces {
 	extern i_base_client_dll*		client_dll;
@@ -29,6 +30,7 @@ namespace interfaces {
 	extern i_engine_trace*			trace;
 	extern iv_render_view*			render_view;
 	extern c_game_movement*			game_movement;
+	extern c_model_render*			model_render;
 
 	void init_interfaces();
 }

@@ -7,6 +7,7 @@ namespace hooks {
 	std::unique_ptr<memory::hook_t> m_client_mode = nullptr;
 	std::unique_ptr<memory::hook_t> m_paint_traverse = nullptr;
 	std::unique_ptr<memory::hook_t> m_paint = nullptr;
+	std::unique_ptr<memory::hook_t> m_dme = nullptr;
 	std::unique_ptr<memory::hook_t> m_present = nullptr;
 	std::unique_ptr<memory::hook_t> m_reset = nullptr;
 	std::unique_ptr<memory::hook_t> m_lock_cursor = nullptr;
@@ -30,6 +31,10 @@ namespace hooks {
 		// EngineVGui hooks
 		m_paint = std::make_unique<memory::hook_t>(interfaces::engine_vgui);
 		m_paint->hook(engine_vgui::paint::index, engine_vgui::paint::fn);
+
+		// Model render hooks
+		m_dme = std::make_unique<memory::hook_t>(interfaces::model_render);
+		m_dme->hook(model_render::dme::index, model_render::dme::fn);
 
 		// D3D hooks
 		m_present = std::make_unique<memory::hook_t>(present);

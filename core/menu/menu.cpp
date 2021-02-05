@@ -136,7 +136,7 @@ namespace menu {
 		colors[ImGuiCol_Text] = ImVec4(.6f, .6f, .6f, 1.00f); // grey
 		colors[ImGuiCol_TextDisabled] = ImVec4(0.60f, 0.60f, 0.60f, 1.00f);
 		colors[ImGuiCol_TextSelectedBg] = ImVec4(0.00f, 0.00f, 1.00f, 0.35f);
-		colors[ImGuiCol_WindowBg] = { 0.133, 0.133, 0.133, 1 };
+		colors[ImGuiCol_WindowBg] = { 0.133, 0.133, 0.133, 1.0f};
 		//colors[ImGuiCol_WindowBg] = ImVec4(0.10f, 0.10f, 0.10f, 1.00f);
 		colors[ImGuiCol_ChildWindowBg] = { 0.149, 0.149, 0.149, 1 };
 		colors[ImGuiCol_PopupBg] = ImVec4(0.05f, 0.05f, 0.10f, 0.90f);

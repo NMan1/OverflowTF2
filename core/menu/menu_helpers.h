@@ -73,8 +73,7 @@ namespace helpers
 
 	static int page_number = 1;
 	static std::vector<bool> toggles = { false, true, false, false, false };
-	static void push_button_tab(ImFont* font, std::string text, bool transpearent, ImVec2 pos = {}, ImVec2 size = {}, color clr = {}, color active_clr = {}, int page = -1)
-	{
+	static void push_button_tab(ImFont* font, std::string text, bool transpearent, ImVec2 pos = {}, ImVec2 size = {}, color clr = {}, color active_clr = {}, int page = -1) {
 		if (pos.x != 0 && pos.y != 0)
 		{
 			ImGui::SetCursorPosY(pos.y); // center vertically
@@ -113,8 +112,7 @@ namespace helpers
 		last_widget = 1;
 	}
 
-	static void toggle(const char* str_id, bool* v, color clr, ImFont* font = menu::font_menu)
-	{
+	static void toggle(const char* str_id, bool* v, color clr, ImFont* font = menu::font_menu) {
 		apply_padding(padding);
 		ImVec2 p = ImGui::GetCursorScreenPos();
 		ImDrawList* draw_list = ImGui::GetWindowDrawList();
@@ -140,8 +138,7 @@ namespace helpers
 	}
 
 	template <class t>
-	static bool slider(const char* label, t* v, float v_min, float v_max)
-	{
+	static bool slider(const char* label, t* v, float v_min, float v_max) {
 		ImGuiWindow* window = ImGui::GetCurrentWindow();
 		if (window->SkipItems)
 			return false;
@@ -210,8 +207,7 @@ namespace helpers
 		return value_changed;
 	}
 
-	static bool color_picker(color* clr)
-	{
+	static bool color_picker(color* clr) {
 		float temp[4];
 		to_float(*clr, temp);
 		auto val = ImGui::ColorEdit4(temp, ImGuiColorEditFlags_NoInputs);
@@ -222,8 +218,7 @@ namespace helpers
 		return val;
 	}
 
-	static bool combo_selectable(const char* label, std::vector<std::pair<const char*, bool&>> items)
-	{
+	static bool combo_selectable(const char* label, std::vector<std::pair<const char*, bool&>> items) {
 		last_widget = 5;
 		static std::string selected{"none"};
 		if (ImGui::BeginCombo(label, selected.c_str(), ImVec2(100, 100))) {
@@ -245,8 +240,7 @@ namespace helpers
 		return false;
 	}	
 
-	static bool combo(const char* label, int* cur_item, const char** items, int size)
-	{
+	static bool combo(const char* label, int* cur_item, const char** items, int size) {
 		return ImGui::Combo(label, cur_item, items, size);
 	}
 }
