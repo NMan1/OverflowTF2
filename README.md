@@ -34,4 +34,11 @@ Yes it is very basic, yes no effort was put into it.
 3. optimize esp more
 4. fix health abr from overflowing wehn someone is overhelaed (ez)
 
+### To comppile:
+1. git clone
+2. open sln
+3. make sure direcxt sdk indatlled
+4. Build x86 relaese or deubg
+5. injdect load libary with ur so favorite undetcted best pastedm injector
+
 undetetced? yes, but isnt everything undetcted with vakve? yes. thank u gaben
