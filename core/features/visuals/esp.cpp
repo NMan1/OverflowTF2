@@ -75,7 +75,7 @@ namespace esp {
 		int x, y, w, h;
 		if (get_item_bounds(entity, x, y, w, h)) {
 			if (settings::box) {
-				draw::box(x, y, w, h, get_team_color(entity));
+				draw::box(x, y, w, h, settings::box_color);
 				draw::box(x - 1, y - 1, w + 2, h + 2, color(0, 0, 0));
 			}
 
@@ -104,7 +104,7 @@ namespace esp {
 
 					vector_2d screen_bone, screen_parent;
 					if (draw::w2s(bone_pos, screen_bone) && draw::w2s(parent_pos, screen_parent)) {
-						draw::line(screen_parent.x, screen_parent.y, screen_bone.x, screen_bone.y, color(255, 255, 255));
+						draw::line(screen_parent.x, screen_parent.y, screen_bone.x, screen_bone.y, settings::skeleton_color);
 					}
 				}
 			}
@@ -122,7 +122,7 @@ namespace esp {
 		int x, y, w, h;
 		if (get_item_bounds(entity, x, y, w, h)) {
 			auto class_name = get_class_name_string(entity->get_class_name());
-			draw::text(class_name, vector_2d(x + (w / 2), y - draw::get_text_size_height(class_name, 15) * .75), color(255, 255, 255), 16, true);
+			draw::text(class_name, vector_2d(x + (w / 2), y - draw::get_text_size_height(class_name, 15) * .75), settings::class_name_color, 16, true);
 		}
 	}
 
@@ -135,7 +135,7 @@ namespace esp {
 
 		vector_2d screen_start, screen_end;
 		if (draw::w2s(start, screen_start) && draw::w2s(forward_vector * 50 + start, screen_end)) {
-			draw::line(screen_start, screen_end, color(255, 255, 255));
+			draw::line(screen_start, screen_end, settings::direction_line_color);
 		}
 	}
 
@@ -150,36 +150,36 @@ namespace esp {
 		if (settings::health_pack_esp && entity->is_health_pack()) {
 			int x, y, w, h;
 			if (get_item_bounds(entity, x, y, w, h)) {
-				draw::box(x, y, w, h, color(144, 238, 144));
-				draw::text("Health", vector_2d(x + (w / 2), y - draw::get_text_size_height("Health", 15) * .75), color(255, 0, 0), 15, true);
+				draw::box(x, y, w, h, settings::health_pack_esp);
+				draw::text("Health", vector_2d(x + (w / 2), y - draw::get_text_size_height("Health", 15) * .75), settings::health_pack_esp, 15, true);
 			}
 		}
 		else if (settings::ammo_box_esp && entity->is_ammo_pack()) {
 			int x, y, w, h;
 			if (get_item_bounds(entity, x, y, w, h)) {
-				draw::box(x, y, w, h, color(144, 238, 144));
-				draw::text("Ammo", vector_2d(x + (w / 2), y - draw::get_text_size_height("Ammo", 15) * .75), color(255, 0, 0), 15, true);
+				draw::box(x, y, w, h, settings::ammo_box_esp);
+				draw::text("Ammo", vector_2d(x + (w / 2), y - draw::get_text_size_height("Ammo", 15) * .75), settings::ammo_box_esp, 15, true);
 			}
 		}
 		else if (settings::teleporter_esp && class_id == class_ids::CObjectTeleporter) {
 			int x, y, w, h;
 			if (get_item_bounds(entity, x, y, w, h)) {
-				draw::box(x, y, w, h, color(144, 238, 144));
-				draw::text("Teleporter", vector_2d(x + (w / 2), y - draw::get_text_size_height("Teleporter", 15) * .75), color(255, 0, 0), 15, true);
+				draw::box(x, y, w, h, settings::teleporter_esp_color);
+				draw::text("Teleporter", vector_2d(x + (w / 2), y - draw::get_text_size_height("Teleporter", 15) * .75), settings::teleporter_esp_color, 15, true);
 			}
 		}
 		else if (settings::turret_esp && class_id == class_ids::CObjectSentrygun) {
 			int x, y, w, h;
 			if (get_item_bounds(entity, x, y, w, h)) {
-				draw::box(x, y, w, h, color(144, 238, 144));
-				draw::text("Sentry", vector_2d(x + (w / 2), y - draw::get_text_size_height("Sentry", 15) * .75), color(255, 0, 0), 15, true);
+				draw::box(x, y, w, h, settings::turret_esp_color);
+				draw::text("Sentry", vector_2d(x + (w / 2), y - draw::get_text_size_height("Sentry", 15) * .75), settings::turret_esp_color, 15, true);
 			}
 		}
 		else if (settings::dispenser_esp && class_id == class_ids::CObjectDispenser) {
 			int x, y, w, h;
 			if (get_item_bounds(entity, x, y, w, h)) {
-				draw::box(x, y, w, h, color(144, 238, 144));
-				draw::text("Dispenser", vector_2d(x + (w / 2), y - draw::get_text_size_height("Dispenser", 15) * .75), color(255, 0, 0), 15, true);
+				draw::box(x, y, w, h, settings::dispenser_esp_color);
+				draw::text("Dispenser", vector_2d(x + (w / 2), y - draw::get_text_size_height("Dispenser", 15) * .75), settings::dispenser_esp_color, 15, true);
 			}
 		}
 	}

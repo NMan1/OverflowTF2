@@ -35,6 +35,7 @@ void menu::legit_tab() {
 	{
 		helpers::toggle("aimbot", &settings::aimbot, helpers::to_color({ 1, 0.321, 0.321, 1 }));
 		helpers::slider<int>("fov", &settings::aimbot_fov, 1, 100);
+		helpers::slider<int>("smoothness", &settings::aimbot_smoothness, 0, 5);
 	}
 	ImGui::EndChild(true, menu::font_child_title);
 }

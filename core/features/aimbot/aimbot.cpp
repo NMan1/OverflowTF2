@@ -62,9 +62,8 @@ namespace aimbot {
 		math::clamp_angles(aim_angle);
 		vector delta = aim_angle - cmd->viewangles;
 		math::clamp_angles(delta);
-		vector result = delta - delta * .50f;
+		vector result = delta - delta * (settings::aimbot_smoothness / 2);
 
 		cmd->viewangles += result;
-		//interfaces::engine->set_view_angles(aim_angle);
 	}
 }

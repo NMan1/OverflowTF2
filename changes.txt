@@ -1,4 +1,0 @@
-- Added get active weapon
-	- added weapon class
-
-- add auto backstab

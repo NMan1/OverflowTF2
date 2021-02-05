@@ -29,7 +29,8 @@ void __stdcall hooks::engine_vgui::paint::fn(int mode) {
 		start_drawing(interfaces::surface);
 		{
 			draw::text("Overflow", vector_2d(10, 10), color(255, 0, 0), 22, false);
-			if (interfaces::engine->is_in_game() && interfaces::engine->is_connected()) {
+			if (interfaces::engine->is_in_game() && interfaces::engine->is_connected() &&
+				!interfaces::engine->con_is_visible() && !interfaces::engine_vgui->is_game_ui_visible()) {
 				if (settings::esp) {
 					esp::run();
 				}

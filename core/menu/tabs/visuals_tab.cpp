@@ -30,14 +30,25 @@ void main_child()
 	ImGui::BeginChild("ESP Main", ImVec2((menu::menu_size.x - real_padding.x * 3) * .5, (menu::menu_size.y - real_padding.y * 3) * .65), true, ImGuiCorner_TopLeft, 10, ImGuiWindowFlags_AlwaysUseWindowPadding);
 	{
 		helpers::toggle("esp", &settings::esp, helpers::to_color({ 1, 0.321, 0.321, 1 }));
+
 		helpers::toggle("box", &settings::box, helpers::to_color({ 1, 0.321, 0.321, 1 }));
+		//helpers::color_picker(&settings::box_color);
+
 		helpers::toggle("health bar", &settings::health_bar, helpers::to_color({ 1, 0.321, 0.321, 1 }));
+
 		helpers::toggle("health text", &settings::health_text, helpers::to_color({ 1, 0.321, 0.321, 1 }));
+
 		helpers::toggle("skeleton", &settings::skeleton, helpers::to_color({ 1, 0.321, 0.321, 1 }));
+		//helpers::color_picker(&settings::skeleton_color);
+
 		helpers::toggle("snap lines", &settings::snap_lines, helpers::to_color({ 1, 0.321, 0.321, 1 }));
+		//helpers::color_picker(&settings::snap_lines_color);
+
 		helpers::toggle("direction lines", &settings::direction_line, helpers::to_color({ 1, 0.321, 0.321, 1 }));
-		helpers::toggle("direction lines", &settings::direction_line, helpers::to_color({ 1, 0.321, 0.321, 1 }));
+		//helpers::color_picker(&settings::direction_line_color);
+
 		helpers::toggle("class name", &settings::class_name, helpers::to_color({ 1, 0.321, 0.321, 1 }));
+		//helpers::color_picker(&settings::class_name_color);
 	}
 	ImGui::EndChild(true, menu::font_child_title);
 }
@@ -76,10 +87,19 @@ void world_child()
 	ImGui::BeginChild("World", ImVec2((menu::menu_size.x - real_padding.x * 3) * .5, (menu::menu_size.y - real_padding.y * 3) * .3 - 2), true, 0, -1, ImGuiWindowFlags_AlwaysUseWindowPadding);
 	{
 		helpers::toggle("show teleporters", &settings::teleporter_esp, helpers::to_color({ 1, 0.321, 0.321, 1 }));
+		//helpers::color_picker(&settings::teleporter_esp_color);
+
 		helpers::toggle("show dispensers", &settings::dispenser_esp, helpers::to_color({ 1, 0.321, 0.321, 1 }));
+		//helpers::color_picker(&settings::dispenser_esp_color);
+
 		helpers::toggle("show turrets", &settings::turret_esp, helpers::to_color({ 1, 0.321, 0.321, 1 }));
+		//helpers::color_picker(&settings::turret_esp_color);
+
 		helpers::toggle("show health packs", &settings::health_pack_esp, helpers::to_color({ 1, 0.321, 0.321, 1 }));
+		//helpers::color_picker(&settings::health_pack_esp_color);
+
 		helpers::toggle("show ammo packs", &settings::ammo_box_esp, helpers::to_color({ 1, 0.321, 0.321, 1 }));
+		//helpers::color_picker(&settings::ammo_box_esp_color);
 	}
 	ImGui::EndChild(true, menu::font_child_title);
 }
