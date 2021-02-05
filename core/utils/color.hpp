@@ -3,22 +3,19 @@
 class color
 {
 public:
-	color()
-	{
-		*((int *)this) = 0;
+	color() {
+		*((int*)this) = 0;
 	}
-	color(int color32)
-	{
+
+	color(int color32) {
 		*((int *)this) = color32;
 	}
 
-	color(int _r, int _g, int _b)
-	{
+	color(int _r, int _g, int _b) {
 		set_color(_r, _g, _b, 255);
 	}
 
-	color(int _r, int _g, int _b, int _a)
-	{
+	color(int _r, int _g, int _b, int _a) {
 		set_color(_r, _g, _b, _a);
 	}
 
@@ -361,5 +358,5 @@ public:
 	}
 
 private:
-	unsigned char _color[4];
+	unsigned char _color[4] = {};
 };

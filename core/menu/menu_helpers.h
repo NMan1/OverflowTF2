@@ -7,20 +7,17 @@
 
 namespace helpers
 {
-	static ImVec4 main_red = { 1, 0.321, 0.321, 1 };
-	static ImVec4 main_grey = { 0.133, 0.133, 0.133, 1 };
-	static ImVec4 main_light_grey = { 0.149, 0.149, 0.149, 1 };
 	static ImVec2 tab_window_pos = {};
 	static ImVec2 main_window_pos = {};
 	static const char* tab_names[5] = { "Aimbot", "Visuals", "Misc", "Skins", "Settings" };
 	static std::string version = "Beta 2.0";
 
+	// fuck tis dogshit will fix late
 	static ImVec2 padding{ 5, 10 }; //  y = 17 with child title text
 	static ImVec2 real_padding{ 12, 17 }; // the real padding applied
 	static int last_widget = -1;
 
-	static color to_color(ImVec4 in)
-	{
+	static color to_color(ImVec4 in) {
 		return color(in.x * 255, in.y * 255, in.z * 255, in.w * 255);
 	}	
 		

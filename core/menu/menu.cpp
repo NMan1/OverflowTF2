@@ -136,13 +136,13 @@ namespace menu {
 		colors[ImGuiCol_Text] = ImVec4(.6f, .6f, .6f, 1.00f); // grey
 		colors[ImGuiCol_TextDisabled] = ImVec4(0.60f, 0.60f, 0.60f, 1.00f);
 		colors[ImGuiCol_TextSelectedBg] = ImVec4(0.00f, 0.00f, 1.00f, 0.35f);
-		colors[ImGuiCol_WindowBg] = helpers::main_grey;
+		colors[ImGuiCol_WindowBg] = { 0.133, 0.133, 0.133, 1 };
 		//colors[ImGuiCol_WindowBg] = ImVec4(0.10f, 0.10f, 0.10f, 1.00f);
-		colors[ImGuiCol_ChildWindowBg] = helpers::main_light_grey;
+		colors[ImGuiCol_ChildWindowBg] = { 0.149, 0.149, 0.149, 1 };
 		colors[ImGuiCol_PopupBg] = ImVec4(0.05f, 0.05f, 0.10f, 0.90f);
 		colors[ImGuiCol_Border] = ImVec4(1, 1, 1, .8f);
 		colors[ImGuiCol_BorderShadow] = ImVec4(0.f, 0, 0, .0f);
-		colors[ImGuiCol_FrameBg] = helpers::main_light_grey;
+		colors[ImGuiCol_FrameBg] = { 0.149, 0.149, 0.149, 1 };
 		colors[ImGuiCol_FrameBgHovered] = ImVec4(.6f, .6f, .6f, 0.40f);
 		colors[ImGuiCol_FrameBgActive] = ImVec4(0.20f, 0.25f, 0.30f, 1.0f);
 		colors[ImGuiCol_TitleBg] = ImVec4(0.10f, 0.10f, 0.10f, 1.00f);
@@ -150,12 +150,12 @@ namespace menu {
 		colors[ImGuiCol_TitleBgActive] = ImVec4(0.20f, 0.20f, 0.20f, 1.00f);
 		colors[ImGuiCol_MenuBarBg] = ImVec4(0.40f, 0.40f, 0.55f, 0.80f);
 		colors[ImGuiCol_ScrollbarBg] = ImVec4(0.10f, 0.10f, 0.10f, 1.0f);
-		colors[ImGuiCol_ScrollbarGrab] = helpers::main_red;
-		colors[ImGuiCol_ScrollbarGrabHovered] = ImVec4(helpers::main_red.x, helpers::main_red.y, helpers::main_red.z, .70f);
-		colors[ImGuiCol_ScrollbarGrabActive] = ImVec4(helpers::main_red.x, helpers::main_red.y, helpers::main_red.z, .70f);
+		colors[ImGuiCol_ScrollbarGrab] = { 1, 0.321, 0.321, 1 };
+		colors[ImGuiCol_ScrollbarGrabHovered] = ImVec4(1, 0.321, 0.321, .70f);
+		colors[ImGuiCol_ScrollbarGrabActive] = ImVec4(1, 0.321, 0.321, .70f);
 		colors[ImGuiCol_ComboBg] = ImVec4(0.20f, 0.20f, 0.20f, 0.99f);
 		colors[ImGuiCol_Separator] = ImVec4(0.654, 0.094, 0.278, 1.f);
-		colors[ImGuiCol_CheckMark] = helpers::main_red;
+		colors[ImGuiCol_CheckMark] = { 1, 0.321, 0.321, 1 };
 		colors[ImGuiCol_SliderGrab] = ImVec4(1.00f, 1.00f, 1.00f, 0.30f);
 		colors[ImGuiCol_SliderGrabActive] = ImVec4(0.80f, 0.50f, 0.50f, 1.00f);
 		colors[ImGuiCol_Button] = ImVec4(0.10f, 0.10f, 0.10f, 1.00f);
@@ -203,10 +203,10 @@ namespace menu {
 			auto window = ImGui::GetCurrentWindow();
 			helpers::tab_window_pos = window->Pos;
 
-			static color clr = helpers::to_color(helpers::main_red);
+			static color clr = helpers::to_color({ 1, 0.321, 0.321, 1 });
 			helpers::push_text(menu::font_title, "OVERFLOW", clr, ImVec2(12, 6));
 
-			window->DrawList->AddRectFilled(ImVec2(helpers::tab_window_pos.x + 10 + ImGui::CalcTextSize("OVERFLOW").x + 26, helpers::tab_window_pos.y + 13), ImVec2(helpers::tab_window_pos.x + 10 + ImGui::CalcTextSize("OVERFLOW").x + 26 + 1, helpers::tab_window_pos.y + 2 + ImGui::CalcTextSize("OVERFLOW").y), ImGui::ColorConvertFloat4ToU32(helpers::main_red));
+			window->DrawList->AddRectFilled(ImVec2(helpers::tab_window_pos.x + 10 + ImGui::CalcTextSize("OVERFLOW").x + 26, helpers::tab_window_pos.y + 13), ImVec2(helpers::tab_window_pos.x + 10 + ImGui::CalcTextSize("OVERFLOW").x + 26 + 1, helpers::tab_window_pos.y + 2 + ImGui::CalcTextSize("OVERFLOW").y), ImGui::ColorConvertFloat4ToU32({ 1, 0.321, 0.321, 1 }));
 			auto start_pos = ImVec2(helpers::tab_window_pos.x + 10 + ImGui::CalcTextSize("OVERFLOW").x + 30, helpers::tab_window_pos.y + 6);
 
 			for (int i = 0; i < IM_ARRAYSIZE(helpers::tab_names); i++)
@@ -229,7 +229,7 @@ namespace menu {
 				}
 
 				auto size = ImGui::CalcTextSize(helpers::tab_names[i]);
-				helpers::push_button_tab(menu::font_large_menu, helpers::tab_names[i], true, pos, ImVec2(size.x + 8, size.y), helpers::to_color(helpers::main_red), color(255, 255, 255), i);
+				helpers::push_button_tab(menu::font_large_menu, helpers::tab_names[i], true, pos, ImVec2(size.x + 8, size.y), helpers::to_color({ 1, 0.321, 0.321, 1 }), color(255, 255, 255), i);
 			}
 		}
 		ImGui::End();
