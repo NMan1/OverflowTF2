@@ -14,6 +14,7 @@
 #include "../source-sdk/interfaces/c_game_movement.hpp"
 #include "../source-sdk/interfaces/i_entity_list.hpp"
 #include "../source-sdk/interfaces/c_model_render.hpp"
+#include "../source-sdk/interfaces/c_material_system.hpp"
 
 namespace interfaces {
 	extern i_base_client_dll*		client_dll;
@@ -31,6 +32,7 @@ namespace interfaces {
 	extern iv_render_view*			render_view;
 	extern c_game_movement*			game_movement;
 	extern c_model_render*			model_render;
+	extern c_material_system*		material_system;
 
 	void init_interfaces();
 }

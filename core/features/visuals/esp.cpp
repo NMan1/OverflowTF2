@@ -150,15 +150,15 @@ namespace esp {
 		if (settings::health_pack_esp && entity->is_health_pack()) {
 			int x, y, w, h;
 			if (get_item_bounds(entity, x, y, w, h)) {
-				draw::box(x, y, w, h, settings::health_pack_esp);
-				draw::text("Health", vector_2d(x + (w / 2), y - draw::get_text_size_height("Health", 15) * .75), settings::health_pack_esp, 15, true);
+				draw::box(x, y, w, h, settings::health_pack_esp_color);
+				draw::text("Health", vector_2d(x + (w / 2), y - draw::get_text_size_height("Health", 15) * .75), settings::health_pack_esp_color, 15, true);
 			}
 		}
 		else if (settings::ammo_box_esp && entity->is_ammo_pack()) {
 			int x, y, w, h;
 			if (get_item_bounds(entity, x, y, w, h)) {
-				draw::box(x, y, w, h, settings::ammo_box_esp);
-				draw::text("Ammo", vector_2d(x + (w / 2), y - draw::get_text_size_height("Ammo", 15) * .75), settings::ammo_box_esp, 15, true);
+				draw::box(x, y, w, h, settings::ammo_box_esp_color);
+				draw::text("Ammo", vector_2d(x + (w / 2), y - draw::get_text_size_height("Ammo", 15) * .75), settings::ammo_box_esp_color, 15, true);
 			}
 		}
 		else if (settings::teleporter_esp && class_id == class_ids::CObjectTeleporter) {
@@ -184,8 +184,7 @@ namespace esp {
 		}
 	}
 
-	bool get_item_bounds(c_base_entity* entity, int& x, int& y, int& w, int& h)
-	{
+	bool get_item_bounds(c_base_entity* entity, int& x, int& y, int& w, int& h) {
 		if (!entity) {
 			return false;
 		}

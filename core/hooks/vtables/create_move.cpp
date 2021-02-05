@@ -12,24 +12,29 @@ bool __stdcall hooks::client_mode::create_move::fn(float input_sample_time, c_us
 		return original_return_value;
 	}
 
-	auto local_player = interfaces::entity_list->get_client_entity(interfaces::engine->get_local_player());
+	// yes create_move is called only when your in game, HOWEVER i am parnoid so it wont hurt
+	if (interfaces::engine->is_in_game() && interfaces::engine->is_connected() &&
+		!interfaces::engine->con_is_visible() && !interfaces::engine_vgui->is_game_ui_visible()) {
 
-	if (local_player) {
-		if (settings::bunny_hop) {
-			misc::bunny_hop(local_player, cmd);
-		}
+		auto local_player = interfaces::entity_list->get_client_entity(interfaces::engine->get_local_player());
 
-		if (settings::auto_backstab) {
-			misc::auto_backstab(local_player, cmd);
-		}
+		if (local_player) {
+			if (settings::bunny_hop) {
+				misc::bunny_hop(local_player, cmd);
+			}
 
-		if (GetAsyncKeyState(VK_SHIFT) & 0x8000) {
-			if (settings::aimbot) {
-				aimbot::run(cmd);
+			if (settings::auto_backstab) {
+				misc::auto_backstab(local_player, cmd);
+			}
+
+			if (GetAsyncKeyState(VK_SHIFT) & 0x8000) {
+				if (settings::aimbot) {
+					aimbot::run(cmd);
+				}
 			}
 		}
-	}
 
+	}
 
 	return original_return_value;
 }

@@ -16,6 +16,7 @@ namespace interfaces {
 	iv_render_view*				render_view = nullptr;
 	c_game_movement*			game_movement = nullptr;
 	c_model_render*				model_render = nullptr;
+	c_material_system*			material_system = nullptr;
 
 	template <typename t = void*>
 	t get_interface(const char* module_name, const char* interface_name) {
@@ -38,6 +39,7 @@ namespace interfaces {
 		render_view		= get_interface<iv_render_view*>("engine.dll", "VEngineRenderView014");
 		game_movement	= get_interface<c_game_movement*>("client.dll", "GameMovement001");
 		model_render	= get_interface<c_model_render*>("engine.dll", "VEngineModel016");
+		material_system = get_interface<c_material_system*>("MaterialSystem.dll", "VMaterialSystem081");
 
 		const auto dw_chl_client_table = reinterpret_cast<DWORD*>(*reinterpret_cast<DWORD*>(client_dll));
 		client_mode = **reinterpret_cast<i_client_mode_shared***>(static_cast<DWORD>(dw_chl_client_table[10]) + 0x05);

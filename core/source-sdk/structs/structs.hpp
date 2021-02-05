@@ -134,7 +134,7 @@ public:
 	virtual void			GetMaterialScale(float* pScale) = 0;
 	virtual i_material* GetMaterialPage(void) = 0;
 	virtual i_material_var* FindVar(const char* varName, bool* found, bool complain = true) = 0;
-	virtual void			IncrementReferenceCount(void) = 0;
+	virtual void			increment_reference_count(void) = 0;
 	virtual void			DecrementReferenceCount(void) = 0;
 	virtual int 			GetEnumerationID(void) const = 0;
 	virtual void			GetLowResColorSample(float s, float t, float* color) const = 0;
@@ -150,8 +150,8 @@ public:
 	virtual bool			NeedsFullFrameBufferTexture(bool bCheckSpecificToThisFrame = true) = 0;
 	virtual bool			NeedsSoftwareSkinning(void) = 0;
 	virtual void			AlphaModulate(float alpha) = 0;
-	virtual void			ColorModulate(float r, float g, float b) = 0;
-	virtual void			SetMaterialVarFlag(material_var_flags flag, bool on) = 0;
+	virtual void			color_modulate(float r, float g, float b) = 0;
+	virtual void			set_material_var_flag(material_var_flags flag, bool on) = 0;
 	virtual bool			GetMaterialVarFlag(material_var_flags flag) const = 0;
 	virtual void			GetReflectivity(vector& reflect) = 0;
 	virtual bool			GetPropertyFlag(MaterialPropertyTypes_t type) = 0;

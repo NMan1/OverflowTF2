@@ -179,6 +179,7 @@
   <ItemGroup>
     <ClCompile Include="core\dllmain.cpp" />
     <ClCompile Include="core\features\aimbot\aimbot.cpp" />
+    <ClCompile Include="core\features\chams\chams.cpp" />
     <ClCompile Include="core\features\misc\misc.cpp" />
     <ClCompile Include="core\features\visuals\esp.cpp" />
     <ClCompile Include="core\hooks\hook.cpp" />
@@ -207,6 +208,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="core\features\aimbot\aimbot.h" />
+    <ClInclude Include="core\features\chams\chams.hpp" />
     <ClInclude Include="core\features\misc\misc.h" />
     <ClInclude Include="core\features\visuals\esp.hpp" />
     <ClInclude Include="core\hooks\hook.hpp" />
@@ -222,6 +224,7 @@
     <ClInclude Include="core\menu\menu_helpers.h" />
     <ClInclude Include="core\source-sdk\interfaces\c_base_combat_weapon.hpp" />
     <ClInclude Include="core\source-sdk\interfaces\c_game_movement.hpp" />
+    <ClInclude Include="core\source-sdk\interfaces\c_material_system.hpp" />
     <ClInclude Include="core\source-sdk\interfaces\c_model_info.hpp" />
     <ClInclude Include="core\source-sdk\interfaces\iv_render_view.hpp" />
     <ClInclude Include="core\source-sdk\interfaces\i_entity_list.hpp" />

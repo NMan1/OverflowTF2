@@ -2,6 +2,7 @@
 #include "..\interfaces\interfaces.hpp"
 #include "../utils/netvars/netvars.hpp"
 #include "../menu/menu.hpp"
+#include <thread>
 
 namespace hooks {
 	std::unique_ptr<memory::hook_t> m_client_mode = nullptr;
@@ -55,9 +56,12 @@ namespace hooks {
 	void unhook() {
 		menu::open = false;
 
+		std::this_thread::sleep_for(std::chrono::milliseconds(200));
+
 		m_client_mode->unhook();
 		m_paint_traverse->unhook();
 		m_paint->unhook();
+		m_dme->unhook();
 		m_present->unhook();
 		m_reset->unhook();
 		m_lock_cursor->unhook();
