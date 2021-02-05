@@ -68,33 +68,34 @@ namespace memory {
 
 		template <typename T>
 		__forceinline void hook(uint32_t index, T replace_function) {
-			if (index < 0u
-				|| index > m_table_length)
+			if (index > m_table_length) {
 				return;
+			}
 
 			m_replace[index + 1u] = reinterpret_cast<uintptr_t>(replace_function);
 		}
 
 		template <typename T>
 		__forceinline T get_original(uint32_t index) {
-			if (index < 0
-				|| index > m_table_length)
+			if (index > m_table_length) {
 				return nullptr;
+			}
 
 			return reinterpret_cast<T>(m_original[index]);
 		}
 
 		__forceinline void unhook(uint32_t index) {
-			if (index < 0u
-				|| index > m_table_length)
+			if (index > m_table_length) {
 				return;
+			}
 
 			m_replace[index + 1u] = m_original[index];
 		}
 
 		__forceinline void unhook() {
-			if (!m_original)
+			if (!m_original) {
 				return;
+			}
 
 			const auto protect = protect_t(m_vtable, sizeof(uintptr_t), PAGE_READWRITE);
 
@@ -115,13 +116,11 @@ namespace memory {
 		MODULEINFO miModInfo;
 		K32GetModuleInformation(GetCurrentProcess(), HMODULE(range_start), &miModInfo, sizeof(MODULEINFO));
 		const auto range_end = range_start + miModInfo.SizeOfImage;
-		for (auto p_cur = range_start; p_cur < range_end; p_cur++)
-		{
+		for (auto p_cur = range_start; p_cur < range_end; p_cur++) {
 			if (!*pat)
 				return first_match;
 
-			if (*(PBYTE)pat == '\?' || *(BYTE*)p_cur == getByte(pat))
-			{
+			if (*(PBYTE)pat == '\?' || *(BYTE*)p_cur == getByte(pat)) {
 				if (!first_match)
 					first_match = p_cur;
 
