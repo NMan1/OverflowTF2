@@ -12,6 +12,8 @@ Code is relatively clean, written in snake_case
   - snap lines
   - eye direction lines
   - class name
+  - object eso (dispenser, turrets, telporters)
+  - heatlh and ammo pack esp
 - Aimbot
   - basic fov
   - basic smoothing
