@@ -23,7 +23,7 @@ namespace chams {
 
 		if (class_id == class_ids::CTFPlayer) {
 			if (entity->is_player() && entity->is_alive()) {
-				interfaces::model_render->forced_material_override(gold);
+				interfaces::model_render->forced_material_override(normal);
 			}
 		}
 		else if (class_id == class_ids::CTFViewModel) {
@@ -33,7 +33,10 @@ namespace chams {
 
 	void init_materials() {
 		 gold = interfaces::material_system->find("models/player/shared/gold_player", "Model textures");
+		 gold->increment_reference_count();
+
 		 normal = create_material("VertexLitGeneric", "VGUI/white_additive", "0verflow_normal", false, true, true, true, true);
+		 normal->increment_reference_count();
 	}
 
 	i_material* create_material(std::string type, std::string texture, std::string name, bool ignorez, bool nofog, bool model, bool nocull, bool halflambert) {
@@ -51,9 +54,6 @@ namespace chams {
 		key_values* keys = (key_values*)malloc(sizeof(key_values));
 		key_values::init(keys, type.c_str());
 		key_values::load_from_buffer(keys, name.c_str(), material_data.str().c_str());
-
-		auto material = interfaces::material_system->create(name.c_str(), keys);
-		//material->increment_reference_count();
-		return material;
+		return interfaces::material_system->create(name.c_str(), keys);
 	}
 }
