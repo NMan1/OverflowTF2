@@ -1,6 +1,8 @@
 #pragma once
 #include <windows.h>
 #include <Psapi.h>
+#include <string>
+#include <memory>
 
 #define INRANGE(x,a,b)    (x >= a && x <= b) 
 #define getByte( x )    (getBits(x[0]) << 4 | getBits(x[1]))

@@ -44,7 +44,8 @@ typedef void (*pfnDemoCustomDataCallback) (unsigned char* pData, size_t iSize);
 
 class vmatrix;
 class CHudTexture;
-class KeyValues;
+class IBaseFileSystem;
+class key_values;
 
 typedef enum {
 	EMPTY,
@@ -170,7 +171,7 @@ public:
 	virtual void			GetColorModulation(float* r, float* g, float* b) = 0;
 	virtual MorphFormat_t	GetMorphFormat() const = 0;
 	virtual i_material_var* FindVarFast(char const* pVarName, unsigned int* pToken) = 0;
-	virtual void			SetShaderAndParams(KeyValues* pKeyValues) = 0;
+	virtual void			SetShaderAndParams(key_values* pKeyValues) = 0;
 	virtual const char* GetShaderName() const = 0;
 	virtual void			DeleteIfUnreferenced() = 0;
 	virtual bool			IsSpriteCard() = 0;
@@ -188,7 +189,7 @@ public:
 	file_weapon_info();
 
 	// Each game can override this to get whatever values it wants from the script.
-	virtual void Parse(KeyValues* pKeyValuesData, const char* szWeaponName);
+	virtual void Parse(key_values* pKeyValuesData, const char* szWeaponName);
 
 
 public:
@@ -296,7 +297,7 @@ public:
 	weapon_info();
 	~weapon_info();
 
-	virtual void Parse(::KeyValues* pKeyValuesData, const char* szWeaponName);
+	virtual void Parse(::key_values* pKeyValuesData, const char* szWeaponName);
 
 	weapon_data const& GetWeaponData(int iWeapon) const { return m_WeaponData[iWeapon]; }
 

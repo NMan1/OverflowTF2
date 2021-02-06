@@ -1,7 +1,7 @@
 #include "..\hook.hpp"
 #include "..\..\interfaces\interfaces.hpp"
 #include "..\..\utils\draw\draw.hpp"
-#include "..\..\features\visuals\esp.hpp"
+#include "..\..\features\visuals\esp\esp.hpp"
 #include "../../utils/settings/settings.h"
 
 void __stdcall hooks::engine_vgui::paint::fn(int mode) {

@@ -20,7 +20,7 @@ class ISpatialQuery;
 class IMaterialSystem;
 class CPhysCollide;
 class IAchievementMgr;
-class KeyValues;
+class key_values;
 
 class i_net_channel_info
 {

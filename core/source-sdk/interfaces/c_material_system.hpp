@@ -3,7 +3,7 @@
 
 typedef unsigned short MaterialHandle_t;
 class i_material;
-class KeyValues;
+class key_values;
 
 class c_material_system
 {
@@ -14,9 +14,9 @@ public:
 		return utils::get_vfunc<fn>(this, 73)(this, szMat, szTextureGroup, bComplain, szPrefix);
 	}
 
-	i_material* create(char const* szName, KeyValues* pKV)
+	i_material* create(char const* szName, key_values* pKV)
 	{
-		typedef i_material* (__thiscall* fn)(void*, const char*, KeyValues*);
+		typedef i_material* (__thiscall* fn)(void*, const char*, key_values*);
 		return utils::get_vfunc<fn>(this, 72)(this, szName, pKV);
 	}
 
