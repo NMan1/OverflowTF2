@@ -14,6 +14,8 @@ Code is relatively clean, written in snake_case
   - class name
   - object eso (dispenser, turrets, telporters)
   - heatlh and ammo pack esp
+- Chams
+  - Basic player and weapon chams
 - Aimbot
   - basic fov
   - basic smoothing
@@ -35,7 +37,7 @@ Yes it is very basic, yes no effort was put into it.
 2. aimbot will sometimes lock onto legs when you respawn (rare-ish)
 3. optimize esp more
 4. fix health abr from overflowing wehn someone is overhelaed (ez)
-5. hook dme for those sexy mateirals u have 
+5. ~~hook dme for those sexy mateirals u have
 
 ### To comppile:
 1. git clone
