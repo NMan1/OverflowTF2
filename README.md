@@ -26,14 +26,13 @@ Code is relatively clean, written in snake_case
 ### Menu (threw together from my [ImGui menu template](https://github.com/NMan1/CSGOMenuTemplate))
 <img src="https://i.imgur.com/dxrHSin.png">>
 
-Yes it is very basic, yes no effort was put into it. 
 
 ### In game:
 <img src="https://i.imgur.com/YOecQKO.png">
 <img src="https://i.imgur.com/IRAtViU.png">
 
 ### Todo/Bugs:
-1. color picker for menu is fucked, cant be bothered to fix it.
+1. ~~color picker for menu is fucked, cant be bothered to fix it.~~
 2. aimbot will sometimes lock onto legs when you respawn (rare-ish)
 3. optimize esp more
 4. ~~fix health abr from overflowing wehn someone is overhelaed (ez)~~
