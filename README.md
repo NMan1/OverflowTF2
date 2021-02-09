@@ -26,7 +26,6 @@ Code is relatively clean, written in snake_case
 ### Menu (threw together from my [ImGui menu template](https://github.com/NMan1/CSGOMenuTemplate))
 <img src="https://i.imgur.com/dxrHSin.png">>
 
-Yes it is very basic, yes no effort was put into it. 
 
 ### In game:
 <img src="https://i.imgur.com/YOecQKO.png">
