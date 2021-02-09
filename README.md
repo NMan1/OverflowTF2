@@ -24,12 +24,12 @@ Code is relatively clean, written in snake_case
   - auto backstab
 
 ### Menu (threw together from my [ImGui menu template](https://github.com/NMan1/CSGOMenuTemplate))
-<img src="https://i.imgur.com/ZdtZjIg.png">>
+<img src="https://i.imgur.com/dxrHSin.png">>
 
 Yes it is very basic, yes no effort was put into it. 
 
 ### In game:
-<img src="https://i.imgur.com/3MOyh9Y.png">
+<img src="https://i.imgur.com/YOecQKO.png">
 <img src="https://i.imgur.com/IRAtViU.png">
 
 ### Todo/Bugs:
