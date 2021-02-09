@@ -35,14 +35,15 @@ namespace esp {
 		for (int i = 1; i <= interfaces::engine->get_max_clients(); i++) {
 			auto entity = interfaces::entity_list->get_client_entity(i);
 
-			if (!entity || entity == local_player || entity->is_dormant() || !entity->is_alive()) {
+			if (!entity || entity == local_player || entity->is_dormant() || !entity->is_alive() || !entity->get_health()) {
 				continue;
 			}
 
-			if (entity->get_team_num() == local_player->get_team_num()) {
-				continue;
-			}
+			//if (entity->get_team_num() == local_player->get_team_num()) {
+			//	continue;
+			//}
 
+			// box and health abr
 			box(entity);
 
 			if (settings::skeleton) {
@@ -83,12 +84,16 @@ namespace esp {
 			if (settings::health_bar) {
 				float current_health = entity->get_health();
 				float max_health = entity->get_max_health();
-				auto health_height = h * (current_health / max_health);
 
-				draw::filled_box(x - 6 - 1, y + (h - health_height), 2, health_height, color(0, 255, 0));
+				auto health_height = current_health <= max_health ?  h * (current_health / max_health) : h; // if overheal;ed just maje it 100% and turn it ellow
+
+				draw::filled_box(x - 6 - 1, y + (h - health_height), 2, health_height, current_health <= max_health ? color(0, 255, 0) : color(255, 215, 0));
 
 				if (settings::health_text && current_health != max_health) {
-					draw::text(std::to_string((int)current_health), vector_2d(x - 6 - 4, y + (h - health_height) - draw::get_text_size_height(std::to_string(current_health), 12) + 2.5), color(255, 255, 255), 12, true);
+					draw::text(std::to_string((int)current_health), vector_2d(
+							x - 6 - 1 - draw::get_text_size_width(std::to_string(current_health), 12) * .75,
+							y + (h - health_height) + draw::get_text_size_height(std::to_string(current_health), 12) / 2 - 2), current_health <= max_health ? color(255, 255, 255) : color(255, 215, 0), 12, true);
+					//draw::text(std::to_string((int)current_health), vector_2d(x - 6 - 4, y + (h - health_height) - draw::get_text_size_height(std::to_string(current_health), 12) + 2.5), color(255, 255, 255), 12, true);
 				}
 			}
 		}

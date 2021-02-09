@@ -3,6 +3,7 @@
 #include <Psapi.h>
 #include <string>
 #include <memory>
+#include <iostream>
 
 #define INRANGE(x,a,b)    (x >= a && x <= b) 
 #define getByte( x )    (getBits(x[0]) << 4 | getBits(x[1]))
@@ -112,36 +113,42 @@ namespace memory {
 	};
 
 	static DWORD find_pattern(std::string module_name, const std::string& pattern) {
-		auto pat = pattern.c_str();
-		DWORD first_match = 0;
-		const auto range_start = DWORD(GetModuleHandleA(module_name.c_str()));
-		MODULEINFO miModInfo;
-		K32GetModuleInformation(GetCurrentProcess(), HMODULE(range_start), &miModInfo, sizeof(MODULEINFO));
-		const auto range_end = range_start + miModInfo.SizeOfImage;
-		for (auto p_cur = range_start; p_cur < range_end; p_cur++) {
-			if (!*pat)
-				return first_match;
-
-			if (*(PBYTE)pat == '\?' || *(BYTE*)p_cur == getByte(pat)) {
-				if (!first_match)
-					first_match = p_cur;
-
-				if (!pat[2])
+		try {
+			auto pat = pattern.c_str();
+			DWORD first_match = 0;
+			const auto range_start = DWORD(GetModuleHandleA(module_name.c_str()));
+			MODULEINFO miModInfo;
+			K32GetModuleInformation(GetCurrentProcess(), HMODULE(range_start), &miModInfo, sizeof(MODULEINFO));
+			const auto range_end = range_start + miModInfo.SizeOfImage;
+			for (auto p_cur = range_start; p_cur < range_end; p_cur++) {
+				if (!*pat)
 					return first_match;
 
-				if (*(PWORD)pat == '\?\?' || *(PBYTE)pat != '\?')
-					pat += 3;
+				if (*(PBYTE)pat == '\?' || *(BYTE*)p_cur == getByte(pat)) {
+					if (!first_match)
+						first_match = p_cur;
 
+					if (!pat[2])
+						return first_match;
+
+					if (*(PWORD)pat == '\?\?' || *(PBYTE)pat != '\?')
+						pat += 3;
+
+					else
+						pat += 2;
+				}
 				else
-					pat += 2;
+				{
+					pat = pattern.c_str();
+					first_match = 0;
+				}
 			}
-			else
-			{
-				pat = pattern.c_str();
-				first_match = 0;
-			}
-		}
 
-		return NULL;
+			return NULL;
+		}
+		catch (const std::exception& ex) {
+			std::cout << "[-] Exception: \n" << ex.what() << std::endl;
+			return NULL;
+		}
 	}
 }

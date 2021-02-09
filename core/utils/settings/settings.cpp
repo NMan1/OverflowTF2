@@ -59,7 +59,7 @@ namespace settings {
 
 	int aimbot_fov = 20;
 
-	float aimbot_smoothness = 1;
+	float aimbot_smoothness = .5;
 
 	// misc
 

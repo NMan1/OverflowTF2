@@ -9,7 +9,7 @@ class model_render_info;
 class c_model_render;
 
 namespace hooks {
-	void hook();
+	bool hook();
 	void unhook();
 
 	namespace client_mode {

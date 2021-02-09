@@ -26,6 +26,10 @@ namespace draw {
 	}
 
 	int get_text_size_width(std::string text, int font_size) {
+		if (text.find(".") != std::string::npos) {
+			text = text.substr(0, text.find("."));
+		}
+
 		auto w_text = std::wstring(text.begin(), text.end());
 		int wide, tall;
 		interfaces::surface->set_font_glyph(font, "Tahoma", font_size, default_font_weight, 0, 0, font_flags::OUTLINE | font_flags::ANTIALIAS);

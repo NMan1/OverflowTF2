@@ -18,7 +18,10 @@ DWORD WINAPI init(void* dll_instance) {
 	}
 
 	interfaces::init_interfaces();
-	hooks::hook();
+	if (!hooks::hook()) {
+		FreeLibraryAndExitThread(reinterpret_cast<HMODULE>(dll_instance), 0);
+		return NULL;
+	}
 
 	while (!GetAsyncKeyState(VK_END)) {
 		std::this_thread::sleep_for(std::chrono::milliseconds(200));

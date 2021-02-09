@@ -14,9 +14,18 @@ namespace hooks {
 	std::unique_ptr<memory::hook_t> m_lock_cursor = nullptr;
 	WNDPROC d3d::wnd_proc::old_wnd_proc = nullptr;
 
-	void hook() {
-		const auto present = memory::find_pattern("gameoverlayrenderer.dll", "FF 15 ? ? ? ? 8B F8 85 DB") + 0x2;
-		const auto reset = memory::find_pattern("gameoverlayrenderer.dll", "FF 15 ? ? ? ? 8B F8 85 FF 78 18") + 0x2;
+	bool hook() {
+		auto present = memory::find_pattern("gameoverlayrenderer.dll", "FF 15 ? ? ? ? 8B F8 85 DB");
+		auto reset = memory::find_pattern("gameoverlayrenderer.dll", "FF 15 ? ? ? ? 8B F8 85 FF 78 18");
+		if (!present || !reset) {
+			utils::log("[-] Present or Reset Nullptr");
+			std::this_thread::sleep_for(std::chrono::milliseconds(3000));
+			return false;
+		}
+		else {
+			present += 0x2;
+			reset += 0x2;
+		}
 
 		// Create netvar manager
 		g_netvar = std::make_unique<netvar>();
@@ -51,6 +60,8 @@ namespace hooks {
 			SetWindowLongPtr((HWND)utils::tf2_window, GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(d3d::wnd_proc::wnd_proc)));
 
 		utils::log("[-] Hooks Applied");
+
+		return true;
 	}
 
 	void unhook() {
