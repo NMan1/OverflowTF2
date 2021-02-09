@@ -5,6 +5,8 @@ namespace settings {
 
 	bool visuals = true;
 
+	bool team_visuals = false;
+
 	bool box = true;
 
 	color box_color = {255, 255, 255};
@@ -29,6 +31,10 @@ namespace settings {
 
 	color class_name_color = { 255, 255, 255 };
 
+	bool buildings = true;
+
+	bool team_buildings = true;
+
 	bool teleporter_esp = true;
 
 	color teleporter_esp_color = { 255, 255, 255 };
@@ -41,6 +47,8 @@ namespace settings {
 
 	color turret_esp_color = { 255, 255, 255 };
 
+	bool pickups = true;
+
 	bool health_pack_esp = true;
 
 	color health_pack_esp_color = { 255, 255, 255 };
@@ -51,7 +59,11 @@ namespace settings {
 
 	bool chams = true;
 
-	color chams_color = { 255, 0, 255 };
+	bool enemy_chams = false;
+
+	color enemy_chams_color = { 255, 255, 255 };
+
+	bool gold_arm = true;
 
 	// aimbot
 

@@ -8,6 +8,8 @@ namespace settings {
 
 	extern bool visuals;
 
+	extern bool team_visuals;
+
 	extern bool box;
 
 	extern color box_color;
@@ -32,6 +34,10 @@ namespace settings {
 
 	extern color class_name_color;
 
+	extern bool buildings;
+
+	extern bool team_buildings;
+
 	extern bool teleporter_esp;
 
 	extern color teleporter_esp_color;
@@ -44,6 +50,8 @@ namespace settings {
 
 	extern color turret_esp_color;
 
+	extern bool pickups;
+
 	extern bool health_pack_esp;
 
 	extern color health_pack_esp_color;
@@ -54,7 +62,11 @@ namespace settings {
 
 	extern bool chams;
 
-	extern color chams_color;
+	extern bool enemy_chams;
+
+	extern color enemy_chams_color;
+
+	extern bool gold_arm;
 
 	// aimbot
 

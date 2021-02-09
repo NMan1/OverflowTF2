@@ -24,7 +24,7 @@ Code is relatively clean, written in snake_case
   - auto backstab
 
 ### Menu (threw together from my [ImGui menu template](https://github.com/NMan1/CSGOMenuTemplate))
-<img src="https://i.imgur.com/dxrHSin.png">>
+<img src="https://i.imgur.com/wQGgSiL.png">>
 
 
 ### In game:

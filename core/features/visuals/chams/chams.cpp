@@ -20,16 +20,28 @@ namespace chams {
 			return;
 		}
 
+		auto local_player = interfaces::entity_list->get_client_entity(interfaces::engine->get_local_player());
+		if (!local_player) {
+			return;
+		}
+
 		auto class_id = entity->get_client_class()->class_id;
 
 		if (class_id == class_ids::CTFPlayer) {
 			if (entity->is_player() && entity->is_alive()) {
-				interfaces::render_view->set_color_modulation(settings::chams_color.base());
-				interfaces::model_render->forced_material_override(normal);
+				if (settings::enemy_chams && entity->get_team_num() != local_player->get_team_num()) {
+					interfaces::render_view->set_color_modulation(settings::enemy_chams_color.base());
+					interfaces::model_render->forced_material_override(normal);
+				}
+				else {
+					// team
+				}
 			}
 		}
 		else if (class_id == class_ids::CTFViewModel) {
-			interfaces::model_render->forced_material_override(gold);
+			if (settings::gold_arm) {
+				interfaces::model_render->forced_material_override(gold);
+			}
 		}	
 	}
 

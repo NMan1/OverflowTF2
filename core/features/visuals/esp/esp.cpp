@@ -19,7 +19,9 @@ namespace esp {
 
 	void fov_circle(c_base_entity* local_player);
 
-	void object_esp(c_base_entity* entity);
+	void pickups(c_base_entity* entity);
+
+	void buildings(c_base_entity* entity, c_base_entity* local_player);
 
 	bool get_item_bounds(c_base_entity* entity, int& x, int& y, int& w, int& h);
 
@@ -39,9 +41,9 @@ namespace esp {
 				continue;
 			}
 
-			//if (entity->get_team_num() == local_player->get_team_num()) {
-			//	continue;
-			//}
+			if (!settings::team_visuals && entity->get_team_num() == local_player->get_team_num()) {
+				continue;
+			}
 
 			// box and health abr
 			box(entity);
@@ -69,7 +71,13 @@ namespace esp {
 				continue;
 			}
 
-			object_esp(entity);
+			if (settings::buildings) {	
+				buildings(entity, local_player);
+			}
+
+			if (settings::pickups) {
+				pickups(entity);
+			}
 		}
 	}
 
@@ -150,9 +158,7 @@ namespace esp {
 		//draw::circle(vector_2d(utils::screen_x / 2, utils::screen_y / 2), fuck_me, color(255, 0, 0));
 	}
 
-	void object_esp(c_base_entity* entity) {
-		auto class_id = entity->get_client_class()->class_id;
-
+	void pickups(c_base_entity* entity) {
 		if (settings::health_pack_esp && entity->is_health_pack()) {
 			int x, y, w, h;
 			if (get_item_bounds(entity, x, y, w, h)) {
@@ -167,7 +173,16 @@ namespace esp {
 				draw::text("Ammo", vector_2d(x + (w / 2), y - draw::get_text_size_height("Ammo", 15) * .75), settings::ammo_box_esp_color, 15, true);
 			}
 		}
-		else if (settings::teleporter_esp && class_id == class_ids::CObjectTeleporter) {
+	}
+
+	void buildings(c_base_entity* entity, c_base_entity* local_player) {
+		if (!settings::team_buildings && entity->get_team_num() == local_player->get_team_num()) {
+			return;
+		}
+
+		auto class_id = entity->get_client_class()->class_id;
+
+		if (settings::teleporter_esp && class_id == class_ids::CObjectTeleporter) {
 			int x, y, w, h;
 			if (get_item_bounds(entity, x, y, w, h)) {
 				draw::box(x, y, w, h, settings::teleporter_esp_color);

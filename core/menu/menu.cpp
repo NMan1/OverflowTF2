@@ -252,11 +252,22 @@ namespace menu {
 	
 	void visuals_page() {
 		ImGui::Checkbox("enable visuals", &settings::visuals);
+		ImGui::Checkbox("team", &settings::team_visuals);
 
-		ImGui::Checkbox("box", &settings::box);
-		ImGui::ColorPicker("box color", &settings::box_color, ImGuiColorEditFlags_NoInputs);
+		{
+			ImGui::Checkbox("box", &settings::box);
+			ImGui::ColorPicker("box color", &settings::box_color, ImGuiColorEditFlags_NoInputs);
 
-		ImGui::Checkbox("health bar", &settings::health_bar);
+			ImGui::SetCursorPosX(ImGui::GetCursorPosX() + 17);
+			ImGui::Checkbox("health bar", &settings::health_bar);
+
+			ImGui::SetCursorPosX(ImGui::GetCursorPosX() + 17);
+			ImGui::Checkbox("health text", &settings::health_text);
+
+			ImGui::SetCursorPosX(ImGui::GetCursorPosX() + 17);
+			ImGui::Checkbox("class names", &settings::class_name);
+			ImGui::ColorPicker("class names color", &settings::class_name_color, ImGuiColorEditFlags_NoInputs);
+		}
 
 		ImGui::Checkbox("skeleton", &settings::skeleton);
 		ImGui::ColorPicker("skeleton color", &settings::skeleton_color, ImGuiColorEditFlags_NoInputs);
@@ -267,27 +278,47 @@ namespace menu {
 		ImGui::Checkbox("direction lines", &settings::direction_line);
 		ImGui::ColorPicker("direction lines color", &settings::direction_line_color, ImGuiColorEditFlags_NoInputs);
 
-		ImGui::Checkbox("health text", &settings::health_text);
+		{
+			ImGui::Checkbox("buildings", &settings::buildings);
 
-		ImGui::Checkbox("class names", &settings::class_name);
-		ImGui::ColorPicker("class names color", &settings::class_name_color, ImGuiColorEditFlags_NoInputs);
+			ImGui::SetCursorPosX(ImGui::GetCursorPosX() + 17);
+			ImGui::Checkbox("team buildings", &settings::team_buildings);
 
-		ImGui::Checkbox("teleporter esp", &settings::teleporter_esp);
-		ImGui::ColorPicker("teleporter color", &settings::teleporter_esp_color, ImGuiColorEditFlags_NoInputs);
+			ImGui::SetCursorPosX(ImGui::GetCursorPosX() + 17);
+			ImGui::Checkbox("teleporter esp", &settings::teleporter_esp);
+			ImGui::ColorPicker("teleporter color", &settings::teleporter_esp_color, ImGuiColorEditFlags_NoInputs);
 
-		ImGui::Checkbox("turret esp", &settings::turret_esp);
-		ImGui::ColorPicker("turret color", &settings::turret_esp_color, ImGuiColorEditFlags_NoInputs);
+			ImGui::SetCursorPosX(ImGui::GetCursorPosX() + 17);
+			ImGui::Checkbox("turret esp", &settings::turret_esp);
+			ImGui::ColorPicker("turret color", &settings::turret_esp_color, ImGuiColorEditFlags_NoInputs);
 
-		ImGui::Checkbox("dispenser esp", &settings::dispenser_esp);
-		ImGui::ColorPicker("dispenser color", &settings::dispenser_esp_color, ImGuiColorEditFlags_NoInputs);
+			ImGui::SetCursorPosX(ImGui::GetCursorPosX() + 17);
+			ImGui::Checkbox("dispenser esp", &settings::dispenser_esp);
+			ImGui::ColorPicker("dispenser color", &settings::dispenser_esp_color, ImGuiColorEditFlags_NoInputs);
+		}
 
-		ImGui::Checkbox("health pack esp", &settings::health_pack_esp);
-		ImGui::ColorPicker("health pack color", &settings::health_pack_esp_color, ImGuiColorEditFlags_NoInputs);
+		{
+			ImGui::Checkbox("pickups", &settings::pickups);
 
-		ImGui::Checkbox("ammo pack esp", &settings::ammo_box_esp);
-		ImGui::ColorPicker("ammo pack color", &settings::ammo_box_esp_color, ImGuiColorEditFlags_NoInputs);
+			ImGui::SetCursorPosX(ImGui::GetCursorPosX() + 17);
+			ImGui::Checkbox("health pack", &settings::health_pack_esp);
+			ImGui::ColorPicker("health pack color", &settings::health_pack_esp_color, ImGuiColorEditFlags_NoInputs);
 
-		ImGui::Checkbox("chams", &settings::chams);
+			ImGui::SetCursorPosX(ImGui::GetCursorPosX() + 17);
+			ImGui::Checkbox("ammo pack", &settings::ammo_box_esp);
+			ImGui::ColorPicker("ammo pack color", &settings::ammo_box_esp_color, ImGuiColorEditFlags_NoInputs);
+		}
+
+		{
+			ImGui::Checkbox("chams", &settings::chams);
+
+			ImGui::SetCursorPosX(ImGui::GetCursorPosX() + 17);
+			ImGui::Checkbox("enemy chams", &settings::enemy_chams);
+			ImGui::ColorPicker("enemy chams color", &settings::enemy_chams_color, ImGuiColorEditFlags_NoInputs);
+
+			ImGui::SetCursorPosX(ImGui::GetCursorPosX() + 17);
+			ImGui::Checkbox("gold arm", &settings::gold_arm);
+		}
 	}
 	
 	void misc_page() {
