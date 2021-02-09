@@ -36,7 +36,7 @@ Yes it is very basic, yes no effort was put into it.
 1. color picker for menu is fucked, cant be bothered to fix it.
 2. aimbot will sometimes lock onto legs when you respawn (rare-ish)
 3. optimize esp more
-4. fix health abr from overflowing wehn someone is overhelaed (ez)
+4. ~~fix health abr from overflowing wehn someone is overhelaed (ez)~~
 5. ~~hook dme for those sexy mateirals u have~~
 
 ### To comppile:
