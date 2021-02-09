@@ -1,9 +1,9 @@
-#include "settings.h"
+#include "settings.hpp"
 #include "..\color.hpp"
 
 namespace settings {
 
-	bool esp = true;
+	bool visuals = true;
 
 	bool box = true;
 
@@ -49,15 +49,21 @@ namespace settings {
 
 	color ammo_box_esp_color = { 255, 255, 255 };
 
+	bool chams = true;
+
+	color chams_color = { 255, 0, 255 };
+
 	// aimbot
 
 	bool aimbot = true;
 
 	int aimbot_fov = 20;
 
-	int aimbot_smoothness = 1;
+	float aimbot_smoothness = 1;
 
 	// misc
+
+	bool misc = true;
 
 	bool bunny_hop = true;
 

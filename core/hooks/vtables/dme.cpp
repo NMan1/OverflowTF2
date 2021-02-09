@@ -1,6 +1,7 @@
 #include "..\hook.hpp"
 #include "..\..\interfaces\interfaces.hpp"
 #include "../../features/visuals/chams/chams.hpp"
+#include "../../utils/settings/settings.hpp"
 
 constexpr float default_color[3] = { 1, 1, 1 };
 
@@ -16,7 +17,9 @@ void __stdcall hooks::model_render::dme::fn(draw_model_state& state, model_rende
 		return;
 	}
 
-	chams::run(info, model_name);
+	if (settings::chams) {
+		chams::run(info, model_name);
+	}
 
 	m_dme->get_original<t>(index)(interfaces::model_render, state, info, bone_to_world);
 

@@ -3,7 +3,7 @@
 #include "..\..\..\utils\draw\draw.hpp"
 #include "..\..\..\utils\helpers.hpp"
 #include "..\..\..\utils\math\math.hpp"
-#include "..\..\..\utils\settings\settings.h"
+#include "..\..\..\utils\settings\settings.hpp"
 #include "..\..\..\source-sdk\interfaces\c_base_combat_weapon.hpp"
 
 namespace esp {
@@ -115,7 +115,7 @@ namespace esp {
 	void snap_lines(c_base_entity* entity) {
 		vector_2d origin_screen;
 		if (draw::w2s(entity->get_origin(), origin_screen)) {
-			draw::line(utils::screen_x / 2, utils::screen_y, origin_screen.x, origin_screen.y, get_team_color(entity));
+			draw::line(utils::screen_x / 2, utils::screen_y, origin_screen.x, origin_screen.y, settings::snap_lines_color);
 		}
 	}
 	

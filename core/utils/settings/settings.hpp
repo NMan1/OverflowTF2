@@ -6,7 +6,7 @@ namespace settings {
 
 	// visuals
 
-	extern bool esp;
+	extern bool visuals;
 
 	extern bool box;
 
@@ -52,15 +52,21 @@ namespace settings {
 
 	extern color ammo_box_esp_color;
 
+	extern bool chams;
+
+	extern color chams_color;
+
 	// aimbot
 
 	extern bool aimbot;
 
 	extern int aimbot_fov;
 
-	extern int aimbot_smoothness;
+	extern float aimbot_smoothness;
 
 	// misc
+
+	extern bool misc;
 
 	extern bool bunny_hop;
 

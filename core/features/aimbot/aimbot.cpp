@@ -1,6 +1,6 @@
 #include "aimbot.h"
 #include "..\..\utils\math\math.hpp"
-#include "../../utils/settings/settings.h"
+#include "../../utils/settings/settings.hpp"
 
 namespace aimbot {
 	c_base_entity* get_closest_to_crosshair(c_base_entity* local_player, vector& aim_angle) {
@@ -62,7 +62,7 @@ namespace aimbot {
 		math::clamp_angles(aim_angle);
 		vector delta = aim_angle - cmd->viewangles;
 		math::clamp_angles(delta);
-		vector result = delta - delta * (settings::aimbot_smoothness / 2);
+		vector result = delta - delta * settings::aimbot_smoothness;
 
 		cmd->viewangles += result;
 	}

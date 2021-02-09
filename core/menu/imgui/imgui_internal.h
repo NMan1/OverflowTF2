@@ -3,7 +3,7 @@
 
 // You may use this file to debug, understand or extend ImGui features but we don't provide any guarantee of forward compatibility!
 // Implement maths operators for ImVec2 (disabled by default to not collide with using IM_VEC2_CLASS_EXTRA along with your own math types+operators)
-#define IMGUI_DEFINE_MATH_OPERATORS
+//   #define IMGUI_DEFINE_MATH_OPERATORS
 // Define IM_PLACEMENT_NEW() macro helper.
 //   #define IMGUI_DEFINE_PLACEMENT_NEW
 
@@ -783,7 +783,7 @@ namespace ImGui
 	IMGUI_API bool          ButtonEx(const char* label, const ImVec2& size_arg = ImVec2(0, 0), ImGuiButtonFlags flags = 0);
 	IMGUI_API bool          CloseButton(ImGuiID id, const ImVec2& pos, float radius);
 
-	IMGUI_API bool          SliderBehavior(const ImRect& frame_bb, ImGuiID id, const char* display_format, float* v, float v_min, float v_max, float power, int decimal_precision, ImRect& pos, ImGuiSliderFlags flags = 0);
+	IMGUI_API bool          SliderBehavior(const ImRect& frame_bb, ImGuiID id, const char* display_format, float* v, float v_min, float v_max, float power, int decimal_precision, ImGuiSliderFlags flags = 0);
 	IMGUI_API bool          SliderFloatN(const char* label, float* v, int components, float v_min, float v_max, const char* display_format, float power);
 	IMGUI_API bool          SliderIntN(const char* label, int* v, int components, int v_min, int v_max, const char* display_format);
 

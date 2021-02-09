@@ -1,25 +1,37 @@
 #include "menu.hpp"
+#include "imgui/imgui.h"
 #include "imgui/imgui_internal.h"
-#include "menu_helpers.h"
+#include "imgui/dx9/imgui_impl_dx9.h"
+
+#include <vector>
+
 #include "..\utils\utils.hpp"
 #include "../utils/color.hpp"
 #include "../interfaces/interfaces.hpp"
+#include "../utils/settings/settings.hpp"
 
 void* utils::tf2_window;
 
 namespace menu {
 	bool open = false;
 
-	extern ImVec2 menu_size{ 515, 500 };
+	ImFont* font_tabs = nullptr;
+
+	ImFont* font_normal = nullptr;
 
 	IDirect3DStateBlock9* state_block = nullptr;
 
-	ImFont* font_title = nullptr;
-	ImFont* font_large_menu = nullptr;
-	ImFont* font_child_title = nullptr;
-	ImFont* font_menu = nullptr;
-	ImFont* font_bottom_info = nullptr;
-	ImFont* font_spectators = nullptr;
+	void aimbot_page();
+
+	void visuals_page();
+
+	void misc_page();
+
+	void others_page();
+
+	void players_page();
+
+	void settings_page();
 
 	void __stdcall create_objects(IDirect3DDevice9* device) {
 		if (utils::tf2_window)
@@ -33,12 +45,8 @@ namespace menu {
 	void setup_fonts() {
 		ImGui::CreateContext();
 
-		font_title = ImGui::GetIO().Fonts->AddFontFromFileTTF("C:\\Windows\\Fonts\\Verdana.ttf", 24);
-		font_large_menu = ImGui::GetIO().Fonts->AddFontFromFileTTF("C:\\Windows\\Fonts\\Verdana.ttf", 20);
-		font_child_title = ImGui::GetIO().Fonts->AddFontFromFileTTF("C:\\Windows\\Fonts\\Verdana.ttf", 19);
-		font_menu = ImGui::GetIO().Fonts->AddFontFromFileTTF("C:\\Windows\\Fonts\\Verdana.ttf", 16);
-		font_bottom_info = ImGui::GetIO().Fonts->AddFontFromFileTTF("C:\\Windows\\Fonts\\Verdana.ttf", 15.5);
-		font_spectators = ImGui::GetIO().Fonts->AddFontFromFileTTF("C:\\Windows\\Fonts\\Verdana.ttf", 17.5);
+		font_tabs = ImGui::GetIO().Fonts->AddFontFromFileTTF("C:\\Windows\\Fonts\\Tahoma.ttf", 16);
+		font_normal = ImGui::GetIO().Fonts->AddFontFromFileTTF("C:\\Windows\\Fonts\\Tahoma.ttf", 14);
 	}
 
 	float clip(float n, float lower, float upper) {
@@ -110,7 +118,7 @@ namespace menu {
 		style.Alpha = 1.f;
 		style.WindowPadding = ImVec2(0, 0); // 8 or 9 x
 		style.WindowMinSize = ImVec2(32, 32);
-		style.WindowRounding = 10.0f;
+		style.WindowRounding = 0.0f;
 		style.WindowTitleAlign = ImVec2(0.0f, 0.5f);
 		style.ChildWindowRounding = 0.0f;
 		style.FramePadding = ImVec2(4, 3);
@@ -132,15 +140,14 @@ namespace menu {
 		style.CurveTessellationTol = 1.f;
 
 		ImVec4* colors = ImGui::GetStyle().Colors;
-		//colors[ImGuiCol_Text] = ImVec4(0.929, 0.290, 0.290, 1.00f); red
-		colors[ImGuiCol_Text] = ImVec4(.6f, .6f, .6f, 1.00f); // grey
+		colors[ImGuiCol_Text] = ImVec4(1, 1, 1, .8); // grey
+		//colors[ImGuiCol_Text] = ImVec4(.6f, .6f, .6f, 1.00f); // grey
 		colors[ImGuiCol_TextDisabled] = ImVec4(0.60f, 0.60f, 0.60f, 1.00f);
 		colors[ImGuiCol_TextSelectedBg] = ImVec4(0.00f, 0.00f, 1.00f, 0.35f);
 		colors[ImGuiCol_WindowBg] = { 0.133, 0.133, 0.133, 1.0f};
-		//colors[ImGuiCol_WindowBg] = ImVec4(0.10f, 0.10f, 0.10f, 1.00f);
 		colors[ImGuiCol_ChildWindowBg] = { 0.149, 0.149, 0.149, 1 };
 		colors[ImGuiCol_PopupBg] = ImVec4(0.05f, 0.05f, 0.10f, 0.90f);
-		colors[ImGuiCol_Border] = ImVec4(1, 1, 1, .8f);
+		colors[ImGuiCol_Border] = ImVec4(0, 0, 0, 1.f);
 		colors[ImGuiCol_BorderShadow] = ImVec4(0.f, 0, 0, .0f);
 		colors[ImGuiCol_FrameBg] = { 0.149, 0.149, 0.149, 1 };
 		colors[ImGuiCol_FrameBgHovered] = ImVec4(.6f, .6f, .6f, 0.40f);
@@ -150,20 +157,18 @@ namespace menu {
 		colors[ImGuiCol_TitleBgActive] = ImVec4(0.20f, 0.20f, 0.20f, 1.00f);
 		colors[ImGuiCol_MenuBarBg] = ImVec4(0.40f, 0.40f, 0.55f, 0.80f);
 		colors[ImGuiCol_ScrollbarBg] = ImVec4(0.10f, 0.10f, 0.10f, 1.0f);
-		colors[ImGuiCol_ScrollbarGrab] = { 1, 0.321, 0.321, 1 };
-		colors[ImGuiCol_ScrollbarGrabHovered] = ImVec4(1, 0.321, 0.321, .70f);
-		colors[ImGuiCol_ScrollbarGrabActive] = ImVec4(1, 0.321, 0.321, .70f);
+		colors[ImGuiCol_ScrollbarGrab] = { 1, 0.321, 0.321, .70f };
+		colors[ImGuiCol_ScrollbarGrabHovered] = ImVec4(1, 0.321, 0.321, .80f);
+		colors[ImGuiCol_ScrollbarGrabActive] = ImVec4(1, 0.321, 0.321, .80f);
 		colors[ImGuiCol_ComboBg] = ImVec4(0.20f, 0.20f, 0.20f, 0.99f);
 		colors[ImGuiCol_Separator] = ImVec4(0.654, 0.094, 0.278, 1.f);
-		colors[ImGuiCol_CheckMark] = { 1, 0.321, 0.321, 1 };
+		//colors[ImGuiCol_CheckMark] = { 1, 1, 1, .6 };
+		colors[ImGuiCol_CheckMark] = { 1, 0.027, 0.227, 1 };
 		colors[ImGuiCol_SliderGrab] = ImVec4(1.00f, 1.00f, 1.00f, 0.30f);
 		colors[ImGuiCol_SliderGrabActive] = ImVec4(0.80f, 0.50f, 0.50f, 1.00f);
 		colors[ImGuiCol_Button] = ImVec4(0.10f, 0.10f, 0.10f, 1.00f);
 		colors[ImGuiCol_ButtonHovered] = ImVec4(0.10f, 0.10f, 0.10f, 1.00f);
 		colors[ImGuiCol_ButtonActive] = ImVec4(0.10f, 0.10f, 0.10f, 1.00f);
-		//colors[ImGuiCol_Header] = ImVec4(237 / 255.f, 74 / 255.f, 74 / 255.f, .5f); //multicombo, combo selected item color.
-		//colors[ImGuiCol_HeaderHovered] = ImVec4(35 / 255.f, 35 / 255.f, 35 / 255.f, 1.0f);
-		//colors[ImGuiCol_HeaderActive] = ImVec4(35 / 255.f, 35 / 255.f, 35 / 255.f, 1.0f);	
 		colors[ImGuiCol_Header] = ImVec4(0.1f, 0.1f, 0.1f, 1.); //multicombo, combo selected item color.
 		colors[ImGuiCol_HeaderHovered] = ImVec4(0.26f, 0.26f, 0.26f, 1.f);
 		colors[ImGuiCol_HeaderActive] = ImVec4(0.2f, 0.2f, 0.2f, 1.f);
@@ -182,126 +187,124 @@ namespace menu {
 		create_objects(device);
 	}
 
-	void update_colors() {
-	}
-
 	void render() {
+		const ImVec2 window_size = { 500, 300 };
+		static int page = 0;
+		const std::vector<std::pair<std::string, void(*)()>> tabs = { {"aimbot", aimbot_page}, {"visuals", visuals_page}, {"misc", misc_page},
+															  {"others", others_page}, {"players", players_page}, {"settings", settings_page} };
+
 		ImGui::SetNextWindowSize(ImVec2(utils::screen_x, utils::screen_y));
 		ImGui::SetNextWindowPos(ImVec2(0, 0));
-		ImGui::Begin("Background", &menu::open, ImVec2(utils::screen_x, utils::screen_y), .45, ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoInputs | ImGuiWindowFlags_NoMove);
-		{
+		ImGui::Begin("Background", &menu::open, ImVec2(utils::screen_x, utils::screen_y), .45, ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoInputs | ImGuiWindowFlags_NoMove); {
 			ImGui::PushStyleColor(ImGuiCol_WindowBg, ImVec4(0.568, 0.533, 0.533, .2f));
 			ImGui::PopStyleColor();
 		}
 		ImGui::End();
+	
+		ImGui::SetNextWindowSize(window_size);
+		ImGui::Begin("overflow", &menu::open, ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_ShowBorders | ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoTitleBar); {
+			ImGui::PushStyleColor(ImGuiCol_Border, { 0.254, 0.254, 0.254, 1.0f });
+			ImGui::SetCursorPos({5, 5}); // our "margins"
+			ImGui::BeginChild("background pane", { window_size.x - 10, window_size.y - 10 }, true); { // gives 5 pixel space on every side 
+				auto window_pos = ImGui::GetWindowPos();
+				ImGui::GetWindowDrawList()->AddRectFilled({ window_pos.x, window_pos.y }, { window_pos.x + window_size.x, window_pos.y  + 2 }, ImGui::ColorConvertFloat4ToU32({ 1, 0.027, 0.227, 1 }));
+			}
+			ImGui::EndChild();
 
-		ImGui::SetNextWindowSize(ImVec2(menu_size.x, 40));
-		ImGui::SetNextWindowPos(ImVec2((utils::screen_x - 515) * .5, (utils::screen_y - 587) * .5), ImGuiCond_Once);
-		ImGui::Begin("Overflow Tabs", &menu::open, ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_ShowBorders);
-		{
-			ImGui::SetScrollY(0);
-			auto window = ImGui::GetCurrentWindow();
-			helpers::tab_window_pos = window->Pos;
+			ImGui::PushStyleColor(ImGuiCol_ChildWindowBg, { 0.176, 0.176, 0.176, 1.0 });
+			ImGui::SetCursorPos({ 20, 20 }); 
+			ImGui::BeginChild("tabs pane", { 100, 260 }, true); {
+				ImGui::PushFont(font_tabs);
+				ImGui::SetCursorPosY(ImGui::GetCursorPosY() + 100 * .10);
+				for (auto &tab : tabs) {
+					auto index = std::find(tabs.begin(), tabs.end(), tab) - tabs.begin();
+					auto size = ImGui::CalcTextSize(tab.first.c_str());
+					size = { size.x + 5, size.y + 4 };
 
-			static color clr = helpers::to_color({ 1, 0.321, 0.321, 1 });
-			helpers::push_text(menu::font_title, "OVERFLOW", clr, ImVec2(12, 6));
-
-			window->DrawList->AddRectFilled(ImVec2(helpers::tab_window_pos.x + 10 + ImGui::CalcTextSize("OVERFLOW").x + 26, helpers::tab_window_pos.y + 13), ImVec2(helpers::tab_window_pos.x + 10 + ImGui::CalcTextSize("OVERFLOW").x + 26 + 1, helpers::tab_window_pos.y + 2 + ImGui::CalcTextSize("OVERFLOW").y), ImGui::ColorConvertFloat4ToU32({ 1, 0.321, 0.321, 1 }));
-			auto start_pos = ImVec2(helpers::tab_window_pos.x + 10 + ImGui::CalcTextSize("OVERFLOW").x + 30, helpers::tab_window_pos.y + 6);
-
-			for (int i = 0; i < IM_ARRAYSIZE(helpers::tab_names); i++)
-			{
-				auto start_pos = ImVec2(10 + ImGui::CalcTextSize("OVERFLOW").x + 26 + 21, 7);
-				auto pos = ImVec2(start_pos.x + (((515 - start_pos.x) / IM_ARRAYSIZE(helpers::tab_names)) * i), start_pos.y + 1);
-
-				switch (i)
-				{
-				case 0:
-					pos.x -= 3; break;
-				case 1:
-					pos.x += 4; break;
-				case 2:
-					pos.x += 10; break;
-				case 3:
-					pos.x -= 5; break;
-				case 4:
-					pos.x -= 14; break;
+					ImGui::SetCursorPosX(100 * .10);
+					if (ImGui::ButtonT(tab.first.c_str(), size, page, index, false, false)) {
+						page = index;
+					}
 				}
-
-				auto size = ImGui::CalcTextSize(helpers::tab_names[i]);
-				helpers::push_button_tab(menu::font_large_menu, helpers::tab_names[i], true, pos, ImVec2(size.x + 8, size.y), helpers::to_color({ 1, 0.321, 0.321, 1 }), color(255, 255, 255), i);
+				ImGui::PopFont();
 			}
-		}
-		ImGui::End();
+			ImGui::EndChild();
 
-		ImGui::SetNextWindowSize(menu_size);
-		ImGui::SetNextWindowPos(ImVec2(helpers::tab_window_pos.x, helpers::tab_window_pos.y + 47));
-		ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(8, 8));
-		ImGui::Begin("Overflow Main", &menu::open, ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_ShowBorders, ImGuiCorner_TopLeft | ImGuiCorner_TopRight);
-		{
-			ImGui::SetScrollY(0);
-			auto window = ImGui::GetCurrentWindow();
-			helpers::main_window_pos = window->Pos;
-
-			ImGui::PushFont(font_menu);
-			ImGui::PushStyleColor(ImGuiCol_Text, ImVec4(1, 1, 1, 1));
-			switch (helpers::page_number)
-			{
-			case 0:
-				legit_tab(); break;
-			case 1:
-				visuals_tab(); break;
-			case 2:
-				misc_tab(); break;
-			case 3:
-				skins_tab(); break;
-			case 4:
-				settings_tab(); break;
+			ImGui::SetCursorPos({ 20 + 100 + 15, 20 });
+			ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(13, 16));
+			ImGui::BeginChild("settings pane", { 345, 260 }, true); {
+				tabs.at(page).second();
 			}
-			ImGui::PopFont();
+			ImGui::EndChild();
+			ImGui::PopStyleVar();
+
 			ImGui::PopStyleColor();
-		}
-		ImGui::End();
-		ImGui::PopStyleVar();
-
-		ImGui::SetNextWindowSize(ImVec2(menu_size.x, 10));
-		ImGui::SetNextWindowPos(ImVec2(helpers::main_window_pos.x, helpers::main_window_pos.y + 500 + 4));
-		ImGui::Begin("Overflow Bottom", &menu::open, ImVec2(0.f, 0.f), .0, ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoInputs, ImGuiCorner_BottomLeft | ImGuiCorner_BottomRight);
-		{
-			auto window = ImGui::GetCurrentWindow();
-			auto bottom_window_pos = window->Pos;
-			window->DrawList->AddRect(ImVec2(bottom_window_pos.x, bottom_window_pos.y), ImVec2(bottom_window_pos.x + window->Size.x, bottom_window_pos.y + 19.5), ImGui::ColorConvertFloat4ToU32(ImVec4(1, 1, 1, .8)), 8, ImGuiCorner_BottomLeft | ImGuiCorner_BottomRight);
-
-			ImGui::SetCursorPosX(ImGui::GetCursorPosX() + 12);
-			helpers::push_text(menu::font_bottom_info, helpers::version, color(255, 255, 255));
-
-			auto get_fps = []() -> int
-			{
-				static float frame_rate = 0;
-				static auto old_fps = 0;
-				auto fps = 0;
-				frame_rate = 0.9 * frame_rate + (1.0 - 0.9) * interfaces::globals->absoluteframetime;
-				fps = int(1.f / frame_rate);
-				old_fps == 0 ? old_fps = fps : true;
-
-				if (abs(fps - old_fps) >= 9)
-				{
-					old_fps = fps = int(1.f / frame_rate);
-					return fps;
-				}
-				else
-					return old_fps;
-			};
-
-			helpers::push_text(menu::font_bottom_info, std::string("Fps: " + std::to_string(get_fps())), color(255, 255, 255), ImVec2(window->Size.x - ImGui::CalcTextSize(std::string("Fps: " + std::to_string(get_fps())).c_str()).x + 19, ImGui::GetCursorPosY() - 22.9));
-			//auto ping = "Ping: " + (interfaces::engine->is_connected() && interfaces::engine->is_in_game()) ? std::to_string(reinterpret_cast<i_net_channel_info*>(interfaces::engine->get_net_channel_info())->get_average_latency(1) * 1000) + "ms" : "0ms";
-			std::string ping = "Ping: 0ms";
-			helpers::push_text(menu::font_bottom_info, ping, color(255, 255, 255), ImVec2(window->Size.x - (ImGui::CalcTextSize(ping.c_str()).x + ImGui::CalcTextSize(std::string("Fps: " + std::to_string(get_fps())).c_str()).x) + 45, ImGui::GetCursorPosY() - 22.9));
+			ImGui::PopStyleColor();
 		}
 		ImGui::End();
 	}
 
-	void change_log() {
+	void aimbot_page() {
+		ImGui::Checkbox("enable aimbot", &settings::aimbot);
+		ImGui::SliderInt("fov", &settings::aimbot_fov, 0, 360);
+		ImGui::SliderFloat("smoothness", &settings::aimbot_smoothness, 0, 10, "%.1f");
+	}	
+	
+	void visuals_page() {
+		ImGui::Checkbox("enable visuals", &settings::visuals);
+
+		ImGui::Checkbox("box", &settings::box);
+		ImGui::ColorPicker("box color", &settings::box_color, ImGuiColorEditFlags_NoInputs);
+
+		ImGui::Checkbox("health bar", &settings::health_bar);
+
+		ImGui::Checkbox("skeleton", &settings::skeleton);
+		ImGui::ColorPicker("skeleton color", &settings::skeleton_color, ImGuiColorEditFlags_NoInputs);
+
+		ImGui::Checkbox("snap lines", &settings::snap_lines);
+		ImGui::ColorPicker("snap lines color", &settings::snap_lines_color, ImGuiColorEditFlags_NoInputs);
+
+		ImGui::Checkbox("direction lines", &settings::direction_line);
+		ImGui::ColorPicker("direction lines color", &settings::direction_line_color, ImGuiColorEditFlags_NoInputs);
+
+		ImGui::Checkbox("health text", &settings::health_text);
+
+		ImGui::Checkbox("class names", &settings::class_name);
+		ImGui::ColorPicker("class names color", &settings::class_name_color, ImGuiColorEditFlags_NoInputs);
+
+		ImGui::Checkbox("teleporter esp", &settings::teleporter_esp);
+		ImGui::ColorPicker("teleporter color", &settings::teleporter_esp_color, ImGuiColorEditFlags_NoInputs);
+
+		ImGui::Checkbox("turret esp", &settings::turret_esp);
+		ImGui::ColorPicker("turret color", &settings::turret_esp_color, ImGuiColorEditFlags_NoInputs);
+
+		ImGui::Checkbox("dispenser esp", &settings::dispenser_esp);
+		ImGui::ColorPicker("dispenser color", &settings::dispenser_esp_color, ImGuiColorEditFlags_NoInputs);
+
+		ImGui::Checkbox("health pack esp", &settings::health_pack_esp);
+		ImGui::ColorPicker("health pack color", &settings::health_pack_esp_color, ImGuiColorEditFlags_NoInputs);
+
+		ImGui::Checkbox("ammo pack esp", &settings::ammo_box_esp);
+		ImGui::ColorPicker("ammo pack color", &settings::ammo_box_esp_color, ImGuiColorEditFlags_NoInputs);
+
+		ImGui::Checkbox("chams", &settings::chams);
+	}
+	
+	void misc_page() {
+		ImGui::Checkbox("enable misc", &settings::misc);
+		ImGui::Checkbox("bunny hop", &settings::bunny_hop);
+		ImGui::Checkbox("auto backstab", &settings::auto_backstab);
+	}	
+	
+	void others_page() {
+
+	}
+	
+	void players_page() {
+
+	}	
+	
+	void settings_page() {
 
 	}
 

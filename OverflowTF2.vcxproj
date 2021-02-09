@@ -193,12 +193,6 @@
     <ClCompile Include="core\menu\imgui\imgui.cpp" />
     <ClCompile Include="core\menu\imgui\imgui_draw.cpp" />
     <ClCompile Include="core\menu\menu.cpp" />
-    <ClCompile Include="core\menu\tabs\legit_tab.cpp" />
-    <ClCompile Include="core\menu\tabs\misc_tab.cpp" />
-    <ClCompile Include="core\menu\tabs\rage_tab.cpp" />
-    <ClCompile Include="core\menu\tabs\settings_tab.cpp" />
-    <ClCompile Include="core\menu\tabs\skins_tab.cpp" />
-    <ClCompile Include="core\menu\tabs\visuals_tab.cpp" />
     <ClCompile Include="core\source-sdk\interfaces\c_base_combat_weapon.cpp" />
     <ClCompile Include="core\source-sdk\interfaces\c_key_values.cpp" />
     <ClCompile Include="core\source-sdk\interfaces\i_entity.cpp" />
@@ -222,7 +216,6 @@
     <ClInclude Include="core\menu\imgui\stb_textedit.h" />
     <ClInclude Include="core\menu\imgui\stb_truetype.h" />
     <ClInclude Include="core\menu\menu.hpp" />
-    <ClInclude Include="core\menu\menu_helpers.h" />
     <ClInclude Include="core\source-sdk\interfaces\c_base_combat_weapon.hpp" />
     <ClInclude Include="core\source-sdk\interfaces\c_game_movement.hpp" />
     <ClInclude Include="core\source-sdk\interfaces\c_key_values.hpp" />
@@ -251,7 +244,7 @@
     <ClInclude Include="core\utils\netvars\dt_common.hpp" />
     <ClInclude Include="core\utils\netvars\dt_recv.hpp" />
     <ClInclude Include="core\utils\netvars\netvars.hpp" />
-    <ClInclude Include="core\utils\settings\settings.h" />
+    <ClInclude Include="core\utils\settings\settings.hpp" />
     <ClInclude Include="core\utils\utils.hpp" />
     <ClInclude Include="core\utils\math\vector.hpp" />
     <ClInclude Include="core\utils\math\vmatrix.hpp" />

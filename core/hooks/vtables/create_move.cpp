@@ -2,7 +2,7 @@
 #include "..\..\interfaces\interfaces.hpp"
 #include "../../features/misc/misc.h"
 #include "../../features/aimbot/aimbot.h"
-#include "../../utils/settings/settings.h"
+#include "../../utils/settings/settings.hpp"
 
 bool __stdcall hooks::client_mode::create_move::fn(float input_sample_time, c_user_cmd* cmd)
 {
@@ -18,7 +18,7 @@ bool __stdcall hooks::client_mode::create_move::fn(float input_sample_time, c_us
 
 		auto local_player = interfaces::entity_list->get_client_entity(interfaces::engine->get_local_player());
 
-		if (local_player) {
+		if (local_player && settings::misc) {
 			if (settings::bunny_hop) {
 				misc::bunny_hop(local_player, cmd);
 			}

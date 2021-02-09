@@ -1,5 +1,6 @@
 #include "chams.hpp"
 #include "..\..\..\source-sdk\interfaces\c_key_values.hpp"
+#include "../../../utils/settings/settings.hpp"
 
 namespace chams {
 
@@ -23,6 +24,7 @@ namespace chams {
 
 		if (class_id == class_ids::CTFPlayer) {
 			if (entity->is_player() && entity->is_alive()) {
+				interfaces::render_view->set_color_modulation(settings::chams_color.base());
 				interfaces::model_render->forced_material_override(normal);
 			}
 		}

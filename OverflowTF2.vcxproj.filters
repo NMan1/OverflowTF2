@@ -63,24 +63,6 @@
     <ClCompile Include="core\menu\menu.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="core\menu\tabs\legit_tab.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="core\menu\tabs\misc_tab.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="core\menu\tabs\rage_tab.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="core\menu\tabs\settings_tab.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="core\menu\tabs\skins_tab.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="core\menu\tabs\visuals_tab.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="core\menu\imgui\imgui.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -191,9 +173,6 @@
     <ClInclude Include="core\source-sdk\interfaces\iv_render_view.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="core\utils\settings\settings.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="core\source-sdk\interfaces\c_game_movement.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -201,9 +180,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="core\source-sdk\interfaces\c_base_combat_weapon.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="core\menu\menu_helpers.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="core\menu\imgui\imconfig.h">
@@ -243,6 +219,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="core\features\visuals\esp\esp.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="core\utils\settings\settings.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

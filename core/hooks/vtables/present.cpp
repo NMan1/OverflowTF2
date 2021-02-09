@@ -3,7 +3,6 @@
 #include "../../menu/menu.hpp"
 
 extern LRESULT ImGui_ImplDX9_WndProcHandler(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
-bool menu_key_pressed = true;
 
 long __stdcall hooks::d3d::present::fn(IDirect3DDevice9* device, const RECT* source_rect, const RECT* dest_rect, HWND dest_window_override, const RGNDATA* dirty_region) {
 	static auto init = false;
