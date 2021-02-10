@@ -32,7 +32,9 @@ namespace esp {
 			return;
 		}
 
-		//fov_circle(local_player);
+		if (!local_player->is_in_valid_team()) {
+			return;
+		}
 
 		for (int i = 1; i <= interfaces::engine->get_max_clients(); i++) {
 			auto entity = interfaces::entity_list->get_client_entity(i);
@@ -45,8 +47,9 @@ namespace esp {
 				continue;
 			}
 
-			// box and health abr
-			box(entity);
+			if (settings::box) {
+				box(entity);
+			}
 
 			if (settings::skeleton) {
 				skeleton(entity);
@@ -206,7 +209,7 @@ namespace esp {
 	}
 
 	bool get_item_bounds(c_base_entity* entity, int& x, int& y, int& w, int& h) {
-		if (!entity) {
+		if (!interfaces::game_movement || !entity) {
 			return false;
 		}
 
@@ -216,13 +219,8 @@ namespace esp {
 		vector maxs = {};
 
 		if (entity->is_player()) {
-			if (interfaces::game_movement) {
-				mins = interfaces::game_movement->get_player_mins(entity->is_ducking());
-				maxs = interfaces::game_movement->get_player_maxs(entity->is_ducking());
-			}
-			else {
-				return false;
-			}
+			mins = interfaces::game_movement->get_player_mins(entity->is_ducking());
+			maxs = interfaces::game_movement->get_player_maxs(entity->is_ducking());
 		}
 		else {
 			mins = entity->get_collideable_mins();

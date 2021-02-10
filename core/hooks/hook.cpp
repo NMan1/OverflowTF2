@@ -35,8 +35,8 @@ namespace hooks {
 		m_client_mode->hook(client_mode::create_move::index, client_mode::create_move::fn);
 		
 		// Panel hooks
-		m_paint_traverse = std::make_unique<memory::hook_t>(interfaces::panels);
-		m_paint_traverse->hook(panel::paint_traverse::index, panel::paint_traverse::fn);
+		//m_paint_traverse = std::make_unique<memory::hook_t>(interfaces::panels);
+		//m_paint_traverse->hook(panel::paint_traverse::index, panel::paint_traverse::fn);
 
 		// EngineVGui hooks
 		m_paint = std::make_unique<memory::hook_t>(interfaces::engine_vgui);

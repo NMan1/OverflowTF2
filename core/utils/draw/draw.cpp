@@ -30,18 +30,36 @@ namespace draw {
 			text = text.substr(0, text.find("."));
 		}
 
-		auto w_text = std::wstring(text.begin(), text.end());
+		va_list va_alist;
+		char cbuffer[1024] = { '\0' };
+		wchar_t wstr[1024] = { '\0' };
+
+		va_start(va_alist, text);
+		vsprintf_s(cbuffer, text.c_str(), va_alist);
+		va_end(va_alist);
+
+		wsprintfW(wstr, L"%S", cbuffer);
+
 		int wide, tall;
 		interfaces::surface->set_font_glyph(font, "Tahoma", font_size, default_font_weight, 0, 0, font_flags::OUTLINE | font_flags::ANTIALIAS);
-		interfaces::surface->get_text_size(font, w_text.c_str(), wide, tall);
+		interfaces::surface->get_text_size(font, wstr, wide, tall);
 		return wide;
 	}
 	
 	int get_text_size_height(std::string text, int font_size) {
-		auto w_text = std::wstring(text.begin(), text.end());
+		va_list va_alist;
+		char cbuffer[1024] = { '\0' };
+		wchar_t wstr[1024] = { '\0' };
+
+		va_start(va_alist, text);
+		vsprintf_s(cbuffer, text.c_str(), va_alist);
+		va_end(va_alist);
+
+		wsprintfW(wstr, L"%S", cbuffer);	
+
 		int wide, tall;
 		interfaces::surface->set_font_glyph(font, "Tahoma", font_size, default_font_weight, 0, 0, font_flags::OUTLINE | font_flags::ANTIALIAS);
-		interfaces::surface->get_text_size(font, w_text.c_str(), wide, tall);
+		interfaces::surface->get_text_size(font, wstr, wide, tall);
 		return tall;
 	}
 
@@ -103,21 +121,30 @@ namespace draw {
 	}
 
 	void text(std::string text, vector_2d position, color color, int font_size, bool center) {
-		auto w_text = std::wstring(text.begin(), text.end());
+		va_list va_alist;
+		char cbuffer[1024] = { '\0' };
+		wchar_t wstr[1024] = { '\0' };
 
-		interfaces::surface->set_font_glyph(font, "Tahoma", font_size, default_font_weight, 0, 0, font_flags::OUTLINE | font_flags::ANTIALIAS);
+		va_start(va_alist, text);
+		vsprintf_s(cbuffer, text.c_str(), va_alist);
+		va_end(va_alist);
+
+		wsprintfW(wstr, L"%S", cbuffer);
+
+		if (font_size != default_font_size)
+			interfaces::surface->set_font_glyph(font, "Tahoma", font_size, default_font_weight, 0, 0, font_flags::OUTLINE | font_flags::ANTIALIAS);
 
 		if (!center) {
 			interfaces::surface->set_text_pos(position.x, position.y);
 		}
 		else {
 			int wide, tall;
-			interfaces::surface->get_text_size(font, w_text.c_str(), wide, tall);
+			interfaces::surface->get_text_size(font, wstr, wide, tall);
 			interfaces::surface->set_text_pos(position.x - (wide / 2), position.y - (tall / 2));
 		}
 
 		interfaces::surface->set_text_font(font);
 		interfaces::surface->set_text_color(color.r(), color.g(), color.b(), color.a());
-		interfaces::surface->print_text(w_text.c_str(), text.length());
+		interfaces::surface->print_text(wstr, wcslen(wstr));
 	}
 }

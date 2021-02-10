@@ -58,6 +58,12 @@ int c_base_entity::get_team_num() {
 	return get_value<int>(team_num);
 }
 
+bool c_base_entity::is_in_valid_team()
+{
+	int Team = this->get_team_num();
+	return (Team == 2 || Team == 3);
+}
+
 int c_base_entity::get_fov() {
 	static int i_fov = g_netvar->get_offset("DT_BasePlayer", "m_iFOV");
 	auto fov = get_value<int>(i_fov);

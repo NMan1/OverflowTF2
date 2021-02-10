@@ -30,6 +30,8 @@ public:
 
 	int get_team_num();
 
+    bool is_in_valid_team();
+
 	int get_fov();
 
 	vector get_origin();
