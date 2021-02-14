@@ -254,6 +254,8 @@ namespace menu {
 			ImGui::ColorPicker("class names color", &settings::class_name_color, ImGuiColorEditFlags_NoInputs);
 		}
 
+		ImGui::Checkbox("glow players", &settings::glow_players);
+				
 		ImGui::Checkbox("skeleton", &settings::skeleton);
 		ImGui::ColorPicker("skeleton color", &settings::skeleton_color, ImGuiColorEditFlags_NoInputs);
 
@@ -267,6 +269,9 @@ namespace menu {
 			ImGui::Checkbox("buildings", &settings::buildings);
 
 			ImGui::SetCursorPosX(ImGui::GetCursorPosX() + 17);
+
+			ImGui::Checkbox("glow buildings", &settings::glow_buildings);
+
 			ImGui::Checkbox("team buildings", &settings::team_buildings);
 
 			ImGui::SetCursorPosX(ImGui::GetCursorPosX() + 17);

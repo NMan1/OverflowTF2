@@ -143,4 +143,30 @@ namespace draw {
 			interfaces::surface->print_text(temp, wcslen(temp));
 		}
 	}
+	
+	void text(unsigned long font, const wchar_t* text, int x, int y, color color, bool center) {
+		int text_width, text_height;
+		interfaces::surface->set_text_font(font);
+		if (center) {
+			interfaces::surface->get_text_size(font, text, text_width, text_height);
+			interfaces::surface->set_text_pos(x - text_width / 2, y);
+		}
+		else
+			interfaces::surface->set_text_pos(x, y);
+		interfaces::surface->set_text_color(color.r(), color.g(), color.b(), color.a());
+		interfaces::surface->print_text(text, wcslen(text));
+	}
+	
+	void text(unsigned long font, const wchar_t* text, vector position, color color, bool center) {
+		int text_width, text_height;
+		interfaces::surface->set_text_font(font);
+		if (center) {
+			interfaces::surface->get_text_size(font, text, text_width, text_height);
+			interfaces::surface->set_text_pos(position.x - text_width / 2, position.y);
+		}
+		else
+			interfaces::surface->set_text_pos(position.x, position.y);
+		interfaces::surface->set_text_color(color.r(), color.g(), color.b(), color.a());
+		interfaces::surface->print_text(text, wcslen(text));
+	}
 }

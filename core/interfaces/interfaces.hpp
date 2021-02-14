@@ -15,6 +15,7 @@
 #include "../source-sdk/interfaces/i_entity_list.hpp"
 #include "../source-sdk/interfaces/c_model_render.hpp"
 #include "../source-sdk/interfaces/c_material_system.hpp"
+#include "../source-sdk/interfaces/c_glow_manager.hpp"
 
 namespace interfaces {
 	extern i_base_client_dll*		client_dll;
@@ -33,6 +34,7 @@ namespace interfaces {
 	extern c_game_movement*			game_movement;
 	extern c_model_render*			model_render;
 	extern c_material_system*		material_system;
+	extern glow_manager_t*			glow_manager;
 
 	void init_interfaces();
 }

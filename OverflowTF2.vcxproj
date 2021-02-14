@@ -218,6 +218,7 @@
     <ClInclude Include="core\menu\menu.hpp" />
     <ClInclude Include="core\source-sdk\interfaces\c_base_combat_weapon.hpp" />
     <ClInclude Include="core\source-sdk\interfaces\c_game_movement.hpp" />
+    <ClInclude Include="core\source-sdk\interfaces\c_glow_manager.hpp" />
     <ClInclude Include="core\source-sdk\interfaces\c_key_values.hpp" />
     <ClInclude Include="core\source-sdk\interfaces\c_material_system.hpp" />
     <ClInclude Include="core\source-sdk\interfaces\c_model_info.hpp" />

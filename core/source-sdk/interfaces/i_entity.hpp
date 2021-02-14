@@ -87,4 +87,11 @@ public:
 	vector get_collideable_max();
 
 	c_base_combat_weapon* get_active_weapon();
+
+    bool& glow_enabled();
+
+	void update_glow_effect();
+
+	void destroy_glow_effect();
+
 };

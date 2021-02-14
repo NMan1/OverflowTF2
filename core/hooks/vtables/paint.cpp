@@ -27,7 +27,7 @@ void __stdcall hooks::engine_vgui::paint::fn(int mode) {
 
 		start_drawing(interfaces::surface);
 		{
-			draw::text(draw::watermark_font, "Overflow", { 10, 10 }, { 255, 0, 0 });
+			draw::text(draw::watermark_font, L"Overflow", { 10, 10 }, { 255, 0, 0 });
 			
 			if (interfaces::engine->is_in_game() && interfaces::engine->is_connected() &&
 				!interfaces::engine->con_is_visible() && !interfaces::engine_vgui->is_game_ui_visible()) {

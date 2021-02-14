@@ -13,6 +13,8 @@ namespace esp {
 
 	void class_name(c_base_entity* entity, int x, int y, int w, int h);
 
+	void glow(c_base_entity* entity, bool toggle);
+
 	void snap_lines(c_base_entity* entity, int x, int y, int w, int h);
 
 	void skeleton(c_base_entity* entity);
@@ -65,6 +67,8 @@ namespace esp {
 			if (settings::class_name) {
 				class_name(entity, x, y, w, h);
 			}
+
+			glow(entity, settings::glow_players);
 
 			if (settings::snap_lines) {
 				snap_lines(entity, x, y, w, h);
@@ -119,6 +123,11 @@ namespace esp {
 		draw::text(draw::class_name_font, class_name, x + (w / 2), y - 15, settings::class_name_color, true);
 	}
 
+	void glow(c_base_entity* entity, bool toggle) {
+		entity->update_glow_effect();
+		entity->glow_enabled() = toggle;
+	}
+
 	void snap_lines(c_base_entity* entity, int x, int y, int w, int h) {
 		draw::line(utils::screen_x / 2, utils::screen_y, x + (w / 2), y + h, settings::snap_lines_color);
 	}
@@ -164,14 +173,14 @@ namespace esp {
 			int x, y, w, h;
 			if (get_item_bounds(entity, x, y, w, h)) {
 				draw::rect(x, y, w, h, settings::health_pack_esp_color);
-				draw::text(draw::pickup_font, "Health", x + (w / 2), y, settings::health_pack_esp_color, true);
+				draw::text(draw::pickup_font, L"Health", x + (w / 2), y, settings::health_pack_esp_color, true);
 			}
 		}
 		else if (settings::ammo_box_esp && entity->is_ammo_pack()) {
 			int x, y, w, h;
 			if (get_item_bounds(entity, x, y, w, h)) {
 				draw::rect(x, y, w, h, settings::ammo_box_esp_color);
-				draw::text(draw::pickup_font, "Ammo", x + (w / 2), y, settings::ammo_box_esp_color, true);
+				draw::text(draw::pickup_font, L"Ammo", x + (w / 2), y, settings::ammo_box_esp_color, true);
 			}
 		}
 	}
@@ -188,25 +197,27 @@ namespace esp {
 			if (get_item_bounds(entity, x, y, w, h)) {
 				color clr = (settings::team_buildings && entity->get_team_num() == local_player->get_team_num()) ? color(0, 255, 0) : settings::teleporter_esp_color;
 				draw::rect(x, y, w, h, clr);
-				draw::text(draw::pickup_font, "Teleporter", x + (w / 2), y, settings::teleporter_esp_color, true);
+				draw::text(draw::pickup_font, L"Teleporter", x + (w / 2), y, settings::teleporter_esp_color, true);
 			}
+			glow(entity, settings::glow_buildings);
 		}
 		else if (settings::turret_esp && class_id == class_ids::CObjectSentrygun) {
 			int x, y, w, h;
 			if (get_item_bounds(entity, x, y, w, h)) {
 				color clr = (settings::team_buildings && entity->get_team_num() == local_player->get_team_num()) ? color(0, 255, 0) : settings::turret_esp_color;
 				draw::rect(x, y, w, h, clr);
-				draw::text(draw::pickup_font, "Sentry", x + (w / 2), y, settings::turret_esp_color, true);
-
+				draw::text(draw::pickup_font, L"Sentry", x + (w / 2), y, settings::turret_esp_color, true);
 			}
+			glow(entity, settings::glow_buildings);
 		}
 		else if (settings::dispenser_esp && class_id == class_ids::CObjectDispenser) {
 			int x, y, w, h;
 			if (get_item_bounds(entity, x, y, w, h)) {
 				color clr = (settings::team_buildings && entity->get_team_num() == local_player->get_team_num()) ? color(0, 255, 0) : settings::dispenser_esp_color;
 				draw::rect(x, y, w, h, clr);
-				draw::text(draw::pickup_font, "Dispenser", x + (w / 2), y, settings::dispenser_esp_color, true);
+				draw::text(draw::pickup_font, L"Dispenser", x + (w / 2), y, settings::dispenser_esp_color, true);
 			}
+			glow(entity, settings::glow_buildings);
 		}
 	}
 

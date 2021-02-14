@@ -16,6 +16,8 @@ namespace settings {
 
 	extern bool health_bar;
 
+	extern bool glow_players;
+
 	extern bool skeleton;
 
 	extern color skeleton_color;
@@ -35,6 +37,8 @@ namespace settings {
 	extern color class_name_color;
 
 	extern bool buildings;
+
+	extern bool glow_buildings;
 
 	extern bool team_buildings;
 

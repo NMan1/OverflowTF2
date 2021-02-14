@@ -43,4 +43,8 @@ namespace draw {
 	void text(unsigned long font, std::string text, vector position, color color, bool center=false);
 
 	void text(unsigned long font, std::string text, int x, int y, color color, bool center=false);
+
+	void text(unsigned long font, const  wchar_t* text, int x, int y, color color, bool center=false);
+
+	void text(unsigned long font, const wchar_t* text, vector position, color color, bool center=false);
 }

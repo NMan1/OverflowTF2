@@ -256,3 +256,18 @@ c_base_combat_weapon* c_base_entity::get_active_weapon()
 	static int weapon = g_netvar->get_offset("DT_BaseCombatCharacter", "m_hActiveWeapon");
 	return reinterpret_cast<c_base_combat_weapon*>(interfaces::entity_list->get_client_entity_from_handle(get_value<int>(weapon)));
 }
+
+bool& c_base_entity::glow_enabled() {
+	static int offset = g_netvar->get_offset("DT_TFPlayer", "m_bGlowEnabled");
+	return *reinterpret_cast<bool*>(uintptr_t(this) + offset);
+}
+
+void c_base_entity::update_glow_effect() {
+	typedef void(__thiscall* t)(void*);
+	utils::get_vfunc<t>(this, 226)(this);
+}
+
+void c_base_entity::destroy_glow_effect() {
+	typedef void(__thiscall* t)(void*);
+	utils::get_vfunc<t>(this, 227)(this);
+}

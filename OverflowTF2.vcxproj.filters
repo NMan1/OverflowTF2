@@ -224,5 +224,8 @@
     <ClInclude Include="core\utils\settings\settings.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="core\source-sdk\interfaces\c_glow_manager.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

@@ -13,11 +13,13 @@ namespace settings {
 
 	bool health_bar = true;
 
+	bool glow_players = false;
+
 	bool skeleton = true;
 
 	color skeleton_color = { 238, 130, 238 };
 
-	bool snap_lines = true;
+	bool snap_lines = false;
 
 	color snap_lines_color = { 255, 255, 255 };
 
@@ -32,6 +34,8 @@ namespace settings {
 	color class_name_color = { 255, 255, 255 };
 
 	bool buildings = true;
+
+	bool glow_buildings = true;
 
 	bool team_buildings = true;
 
