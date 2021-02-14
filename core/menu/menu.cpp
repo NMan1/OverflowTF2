@@ -49,22 +49,7 @@ namespace menu {
 		font_normal = ImGui::GetIO().Fonts->AddFontFromFileTTF("C:\\Windows\\Fonts\\Tahoma.ttf", 14);
 	}
 
-	float clip(float n, float lower, float upper) {
-		n = (n > lower) * n + !(n > lower) * lower;
-		return (n < upper) * n + !(n < upper) * upper;
-	}
-
 	void __stdcall end_present(IDirect3DDevice9* device) {
-		//if (open) 
-		//{
-		//	if (ImGui::GetStyle().Alpha > 1.f)
-		//		ImGui::GetStyle().Alpha = 1.f;
-		//	else if (ImGui::GetStyle().Alpha != 1.f)
-		//		ImGui::GetStyle().Alpha += 0.008f;
-		//}
-		//else
-		//	ImGui::GetStyle().Alpha = 0.f;
-
 		ImGui::Render();
 
 		state_block->Apply();
@@ -111,7 +96,7 @@ namespace menu {
 		ImGui_ImplDX9_NewFrame();
 	}
 
-	void __stdcall setup_resent(IDirect3DDevice9* device) {
+	void __stdcall setup_present(IDirect3DDevice9* device) {
 		ImGui_ImplDX9_Init(utils::tf2_window, device);
 
 		ImGuiStyle& style = ImGui::GetStyle();
@@ -144,7 +129,7 @@ namespace menu {
 		//colors[ImGuiCol_Text] = ImVec4(.6f, .6f, .6f, 1.00f); // grey
 		colors[ImGuiCol_TextDisabled] = ImVec4(0.60f, 0.60f, 0.60f, 1.00f);
 		colors[ImGuiCol_TextSelectedBg] = ImVec4(0.00f, 0.00f, 1.00f, 0.35f);
-		colors[ImGuiCol_WindowBg] = { 0.133, 0.133, 0.133, 1.0f};
+		colors[ImGuiCol_WindowBg] = { 0.133, 0.133, 0.133, 1.0f };
 		colors[ImGuiCol_ChildWindowBg] = { 0.149, 0.149, 0.149, 1 };
 		colors[ImGuiCol_PopupBg] = ImVec4(0.05f, 0.05f, 0.10f, 0.90f);
 		colors[ImGuiCol_Border] = ImVec4(0, 0, 0, 1.f);
@@ -200,23 +185,23 @@ namespace menu {
 			ImGui::PopStyleColor();
 		}
 		ImGui::End();
-	
+
 		ImGui::SetNextWindowSize(window_size);
 		ImGui::Begin("overflow", &menu::open, ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_ShowBorders | ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoTitleBar); {
 			ImGui::PushStyleColor(ImGuiCol_Border, { 0.254, 0.254, 0.254, 1.0f });
-			ImGui::SetCursorPos({5, 5}); // our "margins"
+			ImGui::SetCursorPos({ 5, 5 }); // our "margins"
 			ImGui::BeginChild("background pane", { window_size.x - 10, window_size.y - 10 }, true); { // gives 5 pixel space on every side 
 				auto window_pos = ImGui::GetWindowPos();
-				ImGui::GetWindowDrawList()->AddRectFilled({ window_pos.x, window_pos.y }, { window_pos.x + window_size.x, window_pos.y  + 2 }, ImGui::ColorConvertFloat4ToU32({ 1, 0.027, 0.227, 1 }));
+				ImGui::GetWindowDrawList()->AddRectFilled({ window_pos.x, window_pos.y }, { window_pos.x + window_size.x, window_pos.y + 2 }, ImGui::ColorConvertFloat4ToU32({ 1, 0.027, 0.227, 1 }));
 			}
 			ImGui::EndChild();
 
 			ImGui::PushStyleColor(ImGuiCol_ChildWindowBg, { 0.176, 0.176, 0.176, 1.0 });
-			ImGui::SetCursorPos({ 20, 20 }); 
+			ImGui::SetCursorPos({ 20, 20 });
 			ImGui::BeginChild("tabs pane", { 100, 260 }, true); {
 				ImGui::PushFont(font_tabs);
 				ImGui::SetCursorPosY(ImGui::GetCursorPosY() + 100 * .10);
-				for (auto &tab : tabs) {
+				for (auto& tab : tabs) {
 					auto index = std::find(tabs.begin(), tabs.end(), tab) - tabs.begin();
 					auto size = ImGui::CalcTextSize(tab.first.c_str());
 					size = { size.x + 5, size.y + 4 };
@@ -248,8 +233,8 @@ namespace menu {
 		ImGui::Checkbox("enable aimbot", &settings::aimbot);
 		ImGui::SliderInt("fov", &settings::aimbot_fov, 0, 360);
 		ImGui::SliderFloat("smoothness", &settings::aimbot_smoothness, 0, 10, "%.1f");
-	}	
-	
+	}
+
 	void visuals_page() {
 		ImGui::Checkbox("enable visuals", &settings::visuals);
 		ImGui::Checkbox("team", &settings::team_visuals);
@@ -320,21 +305,21 @@ namespace menu {
 			ImGui::Checkbox("gold arm", &settings::gold_arm);
 		}
 	}
-	
+
 	void misc_page() {
 		ImGui::Checkbox("enable misc", &settings::misc);
 		ImGui::Checkbox("bunny hop", &settings::bunny_hop);
 		ImGui::Checkbox("auto backstab", &settings::auto_backstab);
-	}	
-	
+	}
+
 	void others_page() {
 
 	}
-	
+
 	void players_page() {
 
-	}	
-	
+	}
+
 	void settings_page() {
 
 	}

@@ -8,7 +8,7 @@ long __stdcall hooks::d3d::present::fn(IDirect3DDevice9* device, const RECT* sou
 	static auto init = false;
 	if (!init) {
 		menu::setup_fonts();
-		menu::setup_resent(device);
+		menu::setup_present(device);
 		init = true;
 	}
 

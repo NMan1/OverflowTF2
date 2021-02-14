@@ -51,6 +51,8 @@ class vector
 public:
 	float x, y, z;
 	vector(void);
+	vector(float X, float Y);
+	vector(int X, int Y);
 	vector(float X, float Y, float Z);
 	void init(float ix = 0.0f, float iy = 0.0f, float iz = 0.0f);
 	bool is_valid() const;
@@ -114,6 +116,18 @@ inline vector::vector(float X, float Y, float Z)
 }
 
 inline vector::vector(void) { }
+
+inline vector::vector(float X, float Y)
+{
+	x = X; y = Y; z = 0;
+	CHECK_VALID(*this);
+}
+
+inline vector::vector(int X, int Y)
+{
+	x = X; y = Y; z = 0;
+	CHECK_VALID(*this);
+}
 
 inline void vector::zero()
 {

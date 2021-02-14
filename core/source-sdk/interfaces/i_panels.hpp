@@ -4,6 +4,12 @@
 class i_panel
 {
 public:
+	D3DMATRIX& get_latest_view_matrix(void)
+	{
+		static D3DMATRIX m;
+		return m;
+	}
+
 	unsigned int get_panel(int type)
 	{
 		typedef unsigned int(__thiscall* fn)(void*, int type);

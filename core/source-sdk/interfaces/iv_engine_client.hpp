@@ -153,9 +153,9 @@ public:
 		return utils::get_vfunc<fn>(this, 28)(this);
 	}
 
-	const matrix3x4& world_to_screen_matrix(void)
+	const D3DMATRIX& world_to_screen_matrix(void)
 	{
-		typedef const matrix3x4& (__thiscall* fn)(void*);
+		typedef const D3DMATRIX& (__thiscall* fn)(void*);
 		return utils::get_vfunc<fn>(this, 36)(this);
 	}
 

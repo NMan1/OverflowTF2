@@ -4,7 +4,15 @@
 #include "..\..\interfaces\interfaces.hpp"
 
 namespace draw {
-	extern unsigned long font;
+	extern unsigned long health_font;
+
+	extern unsigned long pickup_font;
+
+	extern unsigned long object_font;
+
+	extern unsigned long class_name_font;
+
+	extern unsigned long watermark_font;
 
 	extern int default_font_size;
 
@@ -12,25 +20,27 @@ namespace draw {
 
 	void init();
 
-	int get_text_size_width(std::string text, int font_size=default_font_size);
+	int get_text_size_width(unsigned long font, std::string text);
 
-	int get_text_size_height(std::string text, int font_size=default_font_size);
+	int get_text_size_height(unsigned long font, std::string text);
 
-	bool w2s(const vector& origin, vector_2d& screen);
+	bool w2s(const vector& origin, vector& screen);
 
 	void line(int x1, int y1, int x2, int y2, color color);
 
-	void line(vector_2d point1, vector_2d point2, color color);
+	void line(vector point1, vector point2, color color);
 
-	void box(vector_2d top_left, vector_2d bottom_right, color color);
+	void rect(vector top_left, vector bottom_right, color color);
 
-	void box(int x, int y, int w, int h, color color);
+	void rect(int x, int y, int w, int h, color color);
 
-	void filled_box(int x, int y, int w, int h, color color);
+	void filled_rect(int x, int y, int w, int h, color color);
 
-	void filled_box(vector_2d top_left, vector_2d bottom_right, color color);
+	void filled_rect(vector top_left, vector bottom_right, color color);
 
-	void circle(vector_2d point, float radius, color color);
+	void circle(vector point, float radius, color color);
 
-	void text(std::string text, vector_2d position, color color, int font_size=default_font_size, bool center=false);
+	void text(unsigned long font, std::string text, vector position, color color, bool center=false);
+
+	void text(unsigned long font, std::string text, int x, int y, color color, bool center=false);
 }

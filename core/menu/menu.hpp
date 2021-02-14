@@ -10,7 +10,7 @@ namespace menu {
 
 	void __stdcall invalidate_objects();
 
-	void __stdcall setup_resent(IDirect3DDevice9* device);
+	void __stdcall setup_present(IDirect3DDevice9* device);
 
 	void setup_fonts();
 
