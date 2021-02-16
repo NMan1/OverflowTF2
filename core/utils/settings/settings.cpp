@@ -73,11 +73,15 @@ namespace settings {
 
 	bool aimbot = true;
 
+	int aimbot_key = 0;
+
 	int aimbot_fov = 20;
 
 	float aimbot_smoothness = .5;
 
 	bool trigger_bot = false;
+
+	int trigger_bot_key = 0;
 
 	int trigger_bot_bone = 0;
 

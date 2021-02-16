@@ -76,11 +76,15 @@ namespace settings {
 
 	extern bool aimbot;
 
+	extern int aimbot_key;
+
 	extern int aimbot_fov;
 
 	extern float aimbot_smoothness;
 
 	extern bool trigger_bot;
+
+	extern int trigger_bot_key;
 
 	extern int trigger_bot_bone;
 

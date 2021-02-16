@@ -2,6 +2,7 @@
 #include "..\..\utils\math\math.hpp"
 #include "..\..\utils\settings\settings.hpp"
 #include "..\..\interfaces\interfaces.hpp"
+#include "..\..\source-sdk\interfaces\c_base_combat_weapon.hpp"
 
 namespace triggerbot {
 	void run(c_base_entity* local_player, c_user_cmd* cmd) {
@@ -20,7 +21,7 @@ namespace triggerbot {
 		math::angle_vectors(view_angles, &forward);
 
 		vector start = local_player->get_eye_position();
-		vector end = forward * 10000 + start;
+		vector end = forward * 8192 + start; // normally i'd multiply by acitve weapon range but every weapon range in tf2 is 8192 for some reason
 
 		ray.init(start, end);
 

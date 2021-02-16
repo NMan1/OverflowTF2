@@ -233,6 +233,8 @@ namespace menu {
 		{
 			ImGui::Checkbox("enable aimbot", &settings::aimbot);
 
+			ImGui::Hotkey("##aimbot_key", &settings::aimbot_key, ImVec2(95, 20));
+
 			ImGui::SetCursorPosX(ImGui::GetCursorPosX() + 17);
 			ImGui::SliderInt("fov", &settings::aimbot_fov, 0, 360);
 
@@ -242,6 +244,8 @@ namespace menu {
 
 		{
 			ImGui::Checkbox("enable triggerbot", &settings::trigger_bot);
+
+			ImGui::Hotkey("##trigger_key", &settings::trigger_bot_key, ImVec2(95, 20));
 
 			ImGui::SetCursorPosX(ImGui::GetCursorPosX() + 17);
 			ImGui::Combo("bone", &settings::trigger_bot_bone, "all\0head");

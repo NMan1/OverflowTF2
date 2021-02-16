@@ -29,11 +29,11 @@ bool __stdcall hooks::client_mode::create_move::fn(float input_sample_time, c_us
 				misc::auto_backstab(local_player, cmd);
 			}
 
-			if (settings::aimbot && GetAsyncKeyState(VK_SHIFT) & 0x8000) {
+			if (settings::aimbot && GetAsyncKeyState(settings::aimbot_key) & 0x8000) {
 				aimbot::run(local_player, cmd);
 			}
 
-			if (settings::trigger_bot && (GetAsyncKeyState(VK_MENU) & 0x8000 || settings::trigger_bot_always_on)) {
+			if (settings::trigger_bot && (GetAsyncKeyState(settings::trigger_bot_key) & 0x8000 || settings::trigger_bot_always_on)) {
 				triggerbot::run(local_player, cmd);
 			}
 

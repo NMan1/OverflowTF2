@@ -8095,7 +8095,8 @@ bool ImGui::Hotkey(const char* label, int* k, const ImVec2& size_arg) {
 
 	const ImGuiID id = window->GetID(label);
 	const ImVec2 label_size = CalcTextSize(label, NULL, true);
-	ImVec2 size = ImVec2(183, 18);
+	//ImVec2 size = ImVec2(183, 18);
+	auto size = size_arg;
 	const ImRect frame_bb(window->DC.CursorPos + ImVec2(label_size.x + style.ItemInnerSpacing.x, 0.0f), window->DC.CursorPos + size);
 	const ImRect total_bb(window->DC.CursorPos, frame_bb.Max);
 
@@ -8179,11 +8180,11 @@ bool ImGui::Hotkey(const char* label, int* k, const ImVec2& size_arg) {
 	// Render
 	// Select which buffer we are going to display. When ImGuiInputTextFlags_NoLiveEdit is Set 'buf' might still be the old value. We Set buf to NULL to prevent accidental usage from now on.
 
-	char buf_display[64] = "none";
+	char buf_display[64] = "bind key";
 
-	RenderFrame(frame_bb.Min, frame_bb.Max, GetColorU32(ImGuiCol_FrameBg), true, style.FrameRounding);
+	RenderFrame(frame_bb.Min, frame_bb.Max, GetColorU32(ImGuiCol_Border), true, style.FrameRounding);
 	window->DrawList->AddRectFilled(frame_bb.Min - ImVec2(1, 1), frame_bb.Max + ImVec2(1, 1), GetColorU32(ImVec4(0 / 255.f, 0 / 255.f, 0 / 255.f, 0.1f)), style.FrameRounding);
-	window->DrawList->AddRectFilled(frame_bb.Min, frame_bb.Max, GetColorU32(ImGuiCol_FrameBg), style.FrameRounding);
+	window->DrawList->AddRectFilled(frame_bb.Min, frame_bb.Max, GetColorU32(ImGuiCol_Border), style.FrameRounding);
 
 	if (*k != 0 && g.ActiveId != id) {
 		strcpy(buf_display, KeyNames[*k]);
@@ -8194,7 +8195,7 @@ bool ImGui::Hotkey(const char* label, int* k, const ImVec2& size_arg) {
 
 	const ImRect clip_rect(frame_bb.Min.x, frame_bb.Min.y, frame_bb.Min.x + size.x, frame_bb.Min.y + size.y); // Not using frame_bb.Max because we have adjusted size
 	ImVec2 render_pos = frame_bb.Min + style.FramePadding;
-	RenderTextClipped(frame_bb.Min + style.FramePadding, frame_bb.Max - style.FramePadding, buf_display, NULL, NULL);
+	RenderTextClipped(frame_bb.Min + style.FramePadding - ImVec2(0, 3), frame_bb.Max - style.FramePadding, buf_display, NULL, NULL);
 	//draw_window->DrawList->AddText(g.Font, g.FontSize, render_pos, GetColorU32(ImGuiCol_Text), buf_display, NULL, 0.0f, &clip_rect);
 
 	if (label_size.x > 0)
