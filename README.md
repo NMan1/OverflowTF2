@@ -14,11 +14,17 @@ Code is relatively clean, written in snake_case
   - class name
   - object eso (dispenser, turrets, telporters)
   - heatlh and ammo pack esp
+  - Glow players and objects
 - Chams
   - Basic player and weapon chams
 - Aimbot
   - basic fov
   - basic smoothing
+- Trigger bot
+  - bone
+  - always on
+  - scoped only
+  - ignore cloaked
 - Misc
   - bunny hop
   - auto backstab
