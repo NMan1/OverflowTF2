@@ -80,6 +80,16 @@ namespace settings {
 
 	extern float aimbot_smoothness;
 
+	extern bool trigger_bot;
+
+	extern int trigger_bot_bone;
+
+	extern bool trigger_bot_always_on;
+
+	extern bool trigger_bot_scoped_only;
+
+	extern bool trigger_bot_ignore_cloaked;
+
 	// misc
 
 	extern bool misc;

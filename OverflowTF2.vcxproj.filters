@@ -84,6 +84,12 @@
     <ClCompile Include="core\features\visuals\esp\esp.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="core\features\visuals\walkbot\visualize_walkbot.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="core\features\triggerbot\triggerbot.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="core\utils\netvars\netvars.hpp">
@@ -105,12 +111,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="core\utils\color.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="core\features\aimbot\aimbot.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="core\features\misc\misc.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="core\utils\memory\memory.hpp">
@@ -225,6 +225,18 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="core\source-sdk\interfaces\c_glow_manager.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="core\features\visuals\walkbot\visualize_walkbot.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="core\features\aimbot\aimbot.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="core\features\misc\misc.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="core\features\triggerbot\triggerbot.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -1,4 +1,5 @@
-#include "aimbot.h"
+#include "aimbot.hpp"
+#include "..\..\interfaces\interfaces.hpp"
 #include "..\..\utils\math\math.hpp"
 #include "../../utils/settings/settings.hpp"
 
@@ -43,12 +44,7 @@ namespace aimbot {
 		return nullptr;
 	}
 
-	void run(c_user_cmd* cmd) {
-		auto local_player = interfaces::entity_list->get_client_entity(interfaces::engine->get_local_player());
-		if (!local_player || !local_player->is_alive()) {
-			return;
-		}
-
+	void run(c_base_entity* local_player, c_user_cmd* cmd) {
 		if (local_player->is_bonked() || local_player->is_taunting()) {
 			return;
 		}

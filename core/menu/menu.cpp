@@ -230,9 +230,31 @@ namespace menu {
 	}
 
 	void aimbot_page() {
-		ImGui::Checkbox("enable aimbot", &settings::aimbot);
-		ImGui::SliderInt("fov", &settings::aimbot_fov, 0, 360);
-		ImGui::SliderFloat("smoothness", &settings::aimbot_smoothness, 0, 10, "%.1f");
+		{
+			ImGui::Checkbox("enable aimbot", &settings::aimbot);
+
+			ImGui::SetCursorPosX(ImGui::GetCursorPosX() + 17);
+			ImGui::SliderInt("fov", &settings::aimbot_fov, 0, 360);
+
+			ImGui::SetCursorPosX(ImGui::GetCursorPosX() + 17);
+			ImGui::SliderFloat("smoothness", &settings::aimbot_smoothness, 0, 10, "%.1f");
+		}
+
+		{
+			ImGui::Checkbox("enable triggerbot", &settings::trigger_bot);
+
+			ImGui::SetCursorPosX(ImGui::GetCursorPosX() + 17);
+			ImGui::Combo("bone", &settings::trigger_bot_bone, "all\0head");
+
+			ImGui::SetCursorPosX(ImGui::GetCursorPosX() + 17);
+			ImGui::Checkbox("always on", &settings::trigger_bot_always_on);
+			
+			ImGui::SetCursorPosX(ImGui::GetCursorPosX() + 17);
+			ImGui::Checkbox("scoped only", &settings::trigger_bot_scoped_only);
+		
+			ImGui::SetCursorPosX(ImGui::GetCursorPosX() + 17);
+			ImGui::Checkbox("ignore cloaked", &settings::trigger_bot_ignore_cloaked);
+		}
 	}
 
 	void visuals_page() {
@@ -322,7 +344,17 @@ namespace menu {
 	}
 
 	void players_page() {
+		for (int i = 1; i <= interfaces::engine->get_max_clients(); i++) {
+			auto entity = interfaces::entity_list->get_client_entity(i);
+			if (!entity) {
+				continue;
+			}
 
+			player_info info;
+			if (interfaces::engine->get_player_info(entity, &info)) {
+				ImGui::Text(info.name);
+			}
+		}
 	}
 
 	void settings_page() {

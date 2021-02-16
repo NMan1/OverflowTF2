@@ -11,6 +11,7 @@ typedef float matrix3x4[3][4];
 typedef struct InputContextHandle_t__ *InputContextHandle_t;
 struct client_textmessage_t;
 struct model_t;
+struct player_info;
 class SurfInfo;
 class i_material;
 class CSentence;
@@ -187,5 +188,10 @@ public:
 	{
 		typedef void(__thiscall* fn)(void*, void*);
 		utils::get_vfunc<fn>(this, 127)(this, kv);
+	}
+
+	bool get_player_info(c_base_entity* player, player_info* play_info) {
+		typedef bool(__thiscall* fn)(PVOID, int, player_info*);
+		return utils::get_vfunc<fn>(this, 8)(this, player->get_entity_index(), play_info);
 	}
 };

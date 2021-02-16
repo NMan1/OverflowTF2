@@ -180,8 +180,10 @@
     <ClCompile Include="core\dllmain.cpp" />
     <ClCompile Include="core\features\aimbot\aimbot.cpp" />
     <ClCompile Include="core\features\misc\misc.cpp" />
+    <ClCompile Include="core\features\triggerbot\triggerbot.cpp" />
     <ClCompile Include="core\features\visuals\chams\chams.cpp" />
     <ClCompile Include="core\features\visuals\esp\esp.cpp" />
+    <ClCompile Include="core\features\visuals\walkbot\visualize_walkbot.cpp" />
     <ClCompile Include="core\hooks\hook.cpp" />
     <ClCompile Include="core\hooks\vtables\create_move.cpp" />
     <ClCompile Include="core\hooks\vtables\dme.cpp" />
@@ -202,10 +204,12 @@
     <ClCompile Include="core\utils\settings\settings.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="core\features\aimbot\aimbot.h" />
-    <ClInclude Include="core\features\misc\misc.h" />
+    <ClInclude Include="core\features\aimbot\aimbot.hpp" />
+    <ClInclude Include="core\features\misc\misc.hpp" />
+    <ClInclude Include="core\features\triggerbot\triggerbot.hpp" />
     <ClInclude Include="core\features\visuals\chams\chams.hpp" />
     <ClInclude Include="core\features\visuals\esp\esp.hpp" />
+    <ClInclude Include="core\features\visuals\walkbot\visualize_walkbot.hpp" />
     <ClInclude Include="core\hooks\hook.hpp" />
     <ClInclude Include="core\interfaces\interfaces.hpp" />
     <ClInclude Include="core\menu\imgui\dx9\imgui_impl_dx9.h" />

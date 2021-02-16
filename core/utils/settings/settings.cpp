@@ -51,7 +51,7 @@ namespace settings {
 
 	color turret_esp_color = { 255, 255, 255 };
 
-	bool pickups = true;
+	bool pickups = false;
 
 	bool health_pack_esp = true;
 
@@ -77,6 +77,16 @@ namespace settings {
 
 	float aimbot_smoothness = .5;
 
+	bool trigger_bot = false;
+
+	int trigger_bot_bone = 0;
+
+	bool trigger_bot_always_on = false;
+
+	bool trigger_bot_scoped_only = true;
+
+	bool trigger_bot_ignore_cloaked = true;
+	
 	// misc
 
 	bool misc = true;

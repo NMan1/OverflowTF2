@@ -58,6 +58,8 @@ public:
 
 	bool is_ubered();
 
+	bool is_scoped();
+
 	bool is_bonked();
 
 	bool is_cloaked();
@@ -93,5 +95,7 @@ public:
 	void update_glow_effect();
 
 	void destroy_glow_effect();
+
+    int get_entity_index();
 
 };

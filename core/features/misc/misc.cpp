@@ -1,13 +1,10 @@
-#include "misc.h"
+#include "misc.hpp"
+#include "..\..\interfaces\interfaces.hpp"
 #include "..\..\source-sdk\interfaces\c_base_combat_weapon.hpp"
 
 namespace misc {
 	void bunny_hop(c_base_entity* local_player, c_user_cmd* cmd) {
 		static bool released = true;
-
-		if (!local_player) {
-			return;
-		}
 
 		if (cmd->buttons & IN_JUMP) {
 			if (!released) {

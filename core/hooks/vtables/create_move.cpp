@@ -1,8 +1,11 @@
 #include "..\hook.hpp"
+#include "..\..\utils\settings\settings.hpp"
 #include "..\..\interfaces\interfaces.hpp"
-#include "../../features/misc/misc.h"
-#include "../../features/aimbot/aimbot.h"
-#include "../../utils/settings/settings.hpp"
+
+#include "../../features/misc/misc.hpp"
+#include "../../features/aimbot/aimbot.hpp"
+#include "../../features/triggerbot/triggerbot.hpp"
+#include "../../features/visuals/walkbot/visualize_walkbot.hpp"
 
 bool __stdcall hooks::client_mode::create_move::fn(float input_sample_time, c_user_cmd* cmd)
 {
@@ -17,8 +20,7 @@ bool __stdcall hooks::client_mode::create_move::fn(float input_sample_time, c_us
 		!interfaces::engine->con_is_visible() && !interfaces::engine_vgui->is_game_ui_visible()) {
 
 		auto local_player = interfaces::entity_list->get_client_entity(interfaces::engine->get_local_player());
-
-		if (local_player && settings::misc) {
+		if (local_player && local_player->is_alive() && settings::misc) {
 			if (settings::bunny_hop) {
 				misc::bunny_hop(local_player, cmd);
 			}
@@ -27,13 +29,16 @@ bool __stdcall hooks::client_mode::create_move::fn(float input_sample_time, c_us
 				misc::auto_backstab(local_player, cmd);
 			}
 
-			if (GetAsyncKeyState(VK_SHIFT) & 0x8000) {
-				if (settings::aimbot) {
-					aimbot::run(cmd);
-				}
+			if (settings::aimbot && GetAsyncKeyState(VK_SHIFT) & 0x8000) {
+				aimbot::run(local_player, cmd);
 			}
-		}
 
+			if (settings::trigger_bot && (GetAsyncKeyState(VK_MENU) & 0x8000 || settings::trigger_bot_always_on)) {
+				triggerbot::run(local_player, cmd);
+			}
+
+			//visualize_walkbot::move();
+		}
 	}
 
 	return original_return_value;

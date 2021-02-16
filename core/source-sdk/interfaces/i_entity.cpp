@@ -133,6 +133,10 @@ bool c_base_entity::is_ubered() {
 	return (this->get_condition() & conditions::UBERCHARGED);
 }
 
+bool c_base_entity::is_scoped() {
+	return (this->get_condition() & conditions::ZOOMED);
+}
+
 bool c_base_entity::is_bonked() {
 	return (this->get_condition() & conditions::BONKED);
 }
@@ -270,4 +274,10 @@ void c_base_entity::update_glow_effect() {
 void c_base_entity::destroy_glow_effect() {
 	typedef void(__thiscall* t)(void*);
 	utils::get_vfunc<t>(this, 227)(this);
+}
+
+int c_base_entity::get_entity_index() {
+	PVOID pNetworkable = (PVOID)(this + 0x8);
+	typedef int(__thiscall* FN)(PVOID);
+	return utils::get_vfunc<FN>(pNetworkable, 9)(pNetworkable);
 }

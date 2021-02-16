@@ -6371,7 +6371,7 @@ bool ImGui::SliderFloat(const char* label, float* v, float v_min, float v_max, c
 	const float w = 177;
 
 	const ImVec2 label_size = CalcTextSize(label, NULL, true);
-	const ImRect frame_bb(window->DC.CursorPos - ImVec2(-17-4, 2), window->DC.CursorPos + ImVec2(w + 17, label_size.y + style.FramePadding.y* 0.f - 5));
+	const ImRect frame_bb(window->DC.CursorPos - ImVec2(0, 2), window->DC.CursorPos + ImVec2(w + 0, label_size.y + style.FramePadding.y* 0.f - 5));
 	const ImRect total_bb(frame_bb.Min, frame_bb.Max + ImVec2(label_size.x > 0.0f ? style.ItemInnerSpacing.x + label_size.x : 0.0f, 2.0f));
 
 	// NB- we don't call ItemSize() yet because we may turn into a text edit box below
@@ -8320,9 +8320,9 @@ bool ImGui::BeginCombo(const char* label, const char* preview_value, ImVec2 popu
 	bool popup_open = IsPopupOpen(id);
 
 	const ImRect value_bb(frame_bb.Min, frame_bb.Max - ImVec2(arrow_size, 0.0f));
-	RenderFrame(frame_bb.Min, frame_bb.Max, GetColorU32(ImGuiCol_FrameBg), true, style.FrameRounding);
+	RenderFrame(frame_bb.Min, frame_bb.Max, GetColorU32(ImGuiCol_Border), true, style.FrameRounding);
 	window->DrawList->AddRectFilled(frame_bb.Min - ImVec2(1, 1), frame_bb.Max + ImVec2(1, 1), GetColorU32(ImVec4(0 / 255.f, 0 / 255.f, 0 / 255.f, 0.1f)), style.FrameRounding);
-	window->DrawList->AddRectFilled(frame_bb.Min, frame_bb.Max, GetColorU32(ImGuiCol_FrameBg), style.FrameRounding);
+	window->DrawList->AddRectFilled(frame_bb.Min, frame_bb.Max, GetColorU32(ImGuiCol_Border), style.FrameRounding);
 	// lambda for the arrow
 	auto arrow = [window](int x, int y, float clr = 0.59) {
 		for (auto i = 5; i >= 2; --i) {
@@ -8336,10 +8336,10 @@ bool ImGui::BeginCombo(const char* label, const char* preview_value, ImVec2 popu
 	arrow(frame_bb.Max.x - 10, frame_bb.Max.y - 10);
 
 	if (preview_value != NULL)
-		RenderTextClipped(frame_bb.Min + style.FramePadding, value_bb.Max, preview_value, NULL, NULL, ImVec2(0.0f, 0.0f));
+		RenderTextClipped(frame_bb.Min + style.FramePadding - ImVec2(0, 2), value_bb.Max, preview_value, NULL, NULL, ImVec2(0.0f, 0.0f));
 
 	if (label_size.x > 0)
-		RenderText(ImVec2(frame_bb.Min.x, frame_bb.Min.y - 17), label);
+		RenderText(ImVec2(frame_bb.Min.x, frame_bb.Min.y - 19), label);
 
 	if (pressed && !popup_open)
 	{
@@ -8416,7 +8416,7 @@ bool ImGui::Combo(const char* label, int* current_item, bool(*items_getter)(void
 	const ImRect value_bb(frame_bb.Min, frame_bb.Max - ImVec2(arrow_size, 0.0f));
 
 	window->DrawList->AddRectFilled(frame_bb.Min - ImVec2(1, 1), frame_bb.Max + ImVec2(1, 1), GetColorU32(ImVec4(0 / 255.f, 0 / 255.f, 0 / 255.f, 0.1f)), style.FrameRounding);
-	window->DrawList->AddRectFilled(frame_bb.Min, frame_bb.Max, GetColorU32(ImGuiCol_FrameBg), style.FrameRounding);
+	window->DrawList->AddRectFilled(frame_bb.Min, frame_bb.Max, GetColorU32(ImGuiCol_Border), style.FrameRounding);
 
 	if (*current_item >= 0 && *current_item < items_count) {
 		const char* item_text;
@@ -8437,7 +8437,7 @@ bool ImGui::Combo(const char* label, int* current_item, bool(*items_getter)(void
 	arrow(frame_bb.Max.x - 10, frame_bb.Max.y - 10);
 
 	if (label_size.x > 0)
-		RenderText(ImVec2(frame_bb.Min.x, frame_bb.Min.y - 17), label);
+		RenderText(ImVec2(frame_bb.Min.x, frame_bb.Min.y - 19), label);
 
 	if (hovered) {
 		SetHoveredID(id);
