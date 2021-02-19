@@ -28,6 +28,7 @@ Code is relatively clean, written in snake_case
 - Misc
   - bunny hop
   - auto backstab
+- Player list
 
 ### Menu
 (https://github.com/NMan1/CSGOMenuTemplate))
