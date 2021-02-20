@@ -9,6 +9,9 @@
 #include "../utils/color.hpp"
 #include "../interfaces/interfaces.hpp"
 #include "../utils/settings/settings.hpp"
+#include "../features/misc/misc.hpp"
+#include "../utils/helpers.hpp"
+#include "../features/other/others.hpp"
 
 void* utils::tf2_window;
 
@@ -146,7 +149,7 @@ namespace menu {
 		colors[ImGuiCol_ScrollbarGrabHovered] = ImVec4(1, 0.321, 0.321, .80f);
 		colors[ImGuiCol_ScrollbarGrabActive] = ImVec4(1, 0.321, 0.321, .80f);
 		colors[ImGuiCol_ComboBg] = ImVec4(0.20f, 0.20f, 0.20f, 0.99f);
-		colors[ImGuiCol_Separator] = ImVec4(0.654, 0.094, 0.278, 1.f);
+		colors[ImGuiCol_Separator] = ImVec4(1, 0.027, 0.227, .75f);
 		//colors[ImGuiCol_CheckMark] = { 1, 1, 1, .6 };
 		colors[ImGuiCol_CheckMark] = { 1, 0.027, 0.227, 1 };
 		colors[ImGuiCol_SliderGrab] = ImVec4(1.00f, 1.00f, 1.00f, 0.30f);
@@ -236,6 +239,9 @@ namespace menu {
 			ImGui::Hotkey("##aimbot_key", &settings::aimbot_key, ImVec2(95, 20));
 
 			ImGui::SetCursorPosX(ImGui::GetCursorPosX() + 17);
+			ImGui::Combo("bone ##aimbot", &settings::aimbot_bone, "all\0head");
+
+			ImGui::SetCursorPosX(ImGui::GetCursorPosX() + 17);
 			ImGui::SliderInt("fov", &settings::aimbot_fov, 0, 360);
 
 			ImGui::SetCursorPosX(ImGui::GetCursorPosX() + 17);
@@ -243,21 +249,21 @@ namespace menu {
 		}
 
 		{
-			ImGui::Checkbox("enable triggerbot", &settings::trigger_bot);
+			ImGui::Checkbox("enable triggerbot", &settings::triggerbot);
 
-			ImGui::Hotkey("##trigger_key", &settings::trigger_bot_key, ImVec2(95, 20));
-
-			ImGui::SetCursorPosX(ImGui::GetCursorPosX() + 17);
-			ImGui::Combo("bone", &settings::trigger_bot_bone, "all\0head");
+			ImGui::Hotkey("##trigger_key", &settings::triggerbot_key, ImVec2(95, 20));
 
 			ImGui::SetCursorPosX(ImGui::GetCursorPosX() + 17);
-			ImGui::Checkbox("always on", &settings::trigger_bot_always_on);
+			ImGui::Combo("bone ##triggerbot", &settings::triggerbot_bone, "all\0head");
+
+			ImGui::SetCursorPosX(ImGui::GetCursorPosX() + 17);
+			ImGui::Checkbox("always on", &settings::triggerbot_always_on);
 			
 			ImGui::SetCursorPosX(ImGui::GetCursorPosX() + 17);
-			ImGui::Checkbox("scoped only", &settings::trigger_bot_scoped_only);
+			ImGui::Checkbox("scoped only", &settings::triggerbot_scoped_only);
 		
 			ImGui::SetCursorPosX(ImGui::GetCursorPosX() + 17);
-			ImGui::Checkbox("ignore cloaked", &settings::trigger_bot_ignore_cloaked);
+			ImGui::Checkbox("ignore cloaked", &settings::triggerbot_ignore_cloaked);
 		}
 	}
 
@@ -295,10 +301,10 @@ namespace menu {
 			ImGui::Checkbox("buildings", &settings::buildings);
 
 			ImGui::SetCursorPosX(ImGui::GetCursorPosX() + 17);
-
-			ImGui::Checkbox("glow buildings", &settings::glow_buildings);
-
 			ImGui::Checkbox("team buildings", &settings::team_buildings);
+
+			ImGui::SetCursorPosX(ImGui::GetCursorPosX() + 17);
+			ImGui::Checkbox("glow buildings", &settings::glow_buildings);
 
 			ImGui::SetCursorPosX(ImGui::GetCursorPosX() + 17);
 			ImGui::Checkbox("teleporter esp", &settings::teleporter_esp);
@@ -344,25 +350,79 @@ namespace menu {
 	}
 
 	void others_page() {
-
+		ImGui::Checkbox("spectator list", &settings::spectator_list);
 	}
 
 	void players_page() {
+		if (!interfaces::engine->is_in_game()) {
+			return;
+		}
+
+		static const char* teams[4] = { "none", "spec", "red", "blue" };
+
+		ImGui::SetCursorPosY(4);
+		ImGui::Columns(4, "mycolumns");
+		ImGui::Separator();
+		ImGui::Text("name"); ImGui::NextColumn();
+		ImGui::Text("team"); ImGui::NextColumn();
+		ImGui::Text("class"); ImGui::NextColumn();
+		ImGui::Text("name steal"); ImGui::NextColumn();
+		ImGui::Separator();
 		for (int i = 1; i <= interfaces::engine->get_max_clients(); i++) {
-			auto entity = interfaces::entity_list->get_client_entity(i);
-			if (!entity) {
+			auto player = interfaces::entity_list->get_client_entity(i);
+			if (!player) {
 				continue;
 			}
 
 			player_info info;
-			if (interfaces::engine->get_player_info(entity, &info)) {
-				ImGui::Text(info.name);
+			if (interfaces::engine->get_player_info(player, &info)) {
+
+				int team_num = player->get_team_num();
+				if (team_num > 3)
+					team_num = 0;
+
+				ImGui::Text(info.name); ImGui::NextColumn();
+				ImGui::Text(teams[team_num]); ImGui::NextColumn();
+				ImGui::Text(get_class_name_string(player->get_class_name())); ImGui::NextColumn();
+				if (ImGui::Button((std::string("steal name ##") + std::to_string(i)).c_str(), ImVec2(75, 25))) {
+					misc::change_name(info.name);
+				}
+
+				ImGui::NextColumn();
 			}
 		}
+		ImGui::Columns(1);
+		ImGui::Separator();
 	}
 
 	void settings_page() {
 
 	}
 
+	void spectator_window() {
+		auto spectators = others::get_spectators();
+		auto height = 30;
+
+		if (spectators.size() > 0)
+			height = 41 + ((ImGui::CalcTextSize(spectators[0].c_str()).y + 5) * spectators.size());
+		else
+			height = 30;
+
+		ImGui::SetNextWindowSize(ImVec2(175, height));
+		ImGui::SetNextWindowPos(ImVec2(1700, 260), ImGuiCond_Once);
+		ImGui::Begin("spectators", 0, ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoTitleBar);
+		{
+			ImGui::SetCursorPosX((175 - ImGui::CalcTextSize("spectators").x) * .5);
+			ImGui::SetCursorPosY(ImGui::GetCursorPosY() + 2.5);
+			ImGui::Text("spectators");
+			ImGui::Separator();
+			if (!spectators.empty()) {
+				for (auto spectator : spectators) {
+					ImGui::SetCursorPosX((175 - ImGui::CalcTextSize(spectator.c_str()).x) * .5);
+					ImGui::Text(spectator.c_str());
+				}
+			}
+		}
+		ImGui::End();
+	}
 }

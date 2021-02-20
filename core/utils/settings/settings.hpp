@@ -78,21 +78,23 @@ namespace settings {
 
 	extern int aimbot_key;
 
+	extern int aimbot_bone;
+
 	extern int aimbot_fov;
 
 	extern float aimbot_smoothness;
 
-	extern bool trigger_bot;
+	extern bool triggerbot;
 
-	extern int trigger_bot_key;
+	extern int triggerbot_key;
 
-	extern int trigger_bot_bone;
+	extern int triggerbot_bone;
 
-	extern bool trigger_bot_always_on;
+	extern bool triggerbot_always_on;
 
-	extern bool trigger_bot_scoped_only;
+	extern bool triggerbot_scoped_only;
 
-	extern bool trigger_bot_ignore_cloaked;
+	extern bool triggerbot_ignore_cloaked;
 
 	// misc
 
@@ -102,4 +104,7 @@ namespace settings {
 
 	extern bool auto_backstab;
 
+	// others
+
+	extern bool spectator_list;
 }

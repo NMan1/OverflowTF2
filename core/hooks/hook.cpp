@@ -67,7 +67,7 @@ namespace hooks {
 	void unhook() {
 		menu::open = false;
 
-		std::this_thread::sleep_for(std::chrono::milliseconds(200));
+		std::this_thread::sleep_for(std::chrono::milliseconds(800));
 
 		m_client_mode->unhook();
 		//m_paint_traverse->unhook();

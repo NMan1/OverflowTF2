@@ -90,6 +90,9 @@
     <ClCompile Include="core\features\triggerbot\triggerbot.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="core\features\other\others.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="core\utils\netvars\netvars.hpp">
@@ -239,5 +242,17 @@
     <ClInclude Include="core\features\triggerbot\triggerbot.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="core\source-sdk\interfaces\c_convar.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="core\source-sdk\interfaces\c_net_channel.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="core\features\other\others.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="core\source-sdk\interfaces\c_convar.cpp" />
   </ItemGroup>
 </Project>

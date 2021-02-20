@@ -1,6 +1,7 @@
 #include "misc.hpp"
 #include "..\..\interfaces\interfaces.hpp"
 #include "..\..\source-sdk\interfaces\c_base_combat_weapon.hpp"
+#include "..\..\utils\memory\memory.hpp"
 
 namespace misc {
 	void bunny_hop(c_base_entity* local_player, c_user_cmd* cmd) {
@@ -29,4 +30,11 @@ namespace misc {
 			}
 		}
 	}
+
+    void change_name(const char* name) {
+		auto name_var = interfaces::convar->find_var("name");
+		name_var->set_value(name);
+
+		//interfaces::engine->get_net_channel_info()->send_net_msg(msg_SetConVar);
+    }
 }

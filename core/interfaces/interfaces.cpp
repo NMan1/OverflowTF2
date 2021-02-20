@@ -19,6 +19,7 @@ namespace interfaces {
 	c_model_render*				model_render = nullptr;
 	c_material_system*			material_system = nullptr;
 	glow_manager_t*				glow_manager = nullptr;
+	i_cvar*						convar = nullptr;
 
 	template <typename t = void*>
 	t get_interface(const char* module_name, const char* interface_name) {
@@ -42,6 +43,7 @@ namespace interfaces {
 		game_movement	= get_interface<c_game_movement*>("client.dll", "GameMovement001");
 		model_render	= get_interface<c_model_render*>("engine.dll", "VEngineModel016");
 		material_system = get_interface<c_material_system*>("MaterialSystem.dll", "VMaterialSystem081");
+		convar			= get_interface<i_cvar*>("vstdlib.dll", "VEngineCvar004");
 		//glow_manager	= *reinterpret_cast<glow_manager_t**>(memory::find_pattern("client.dll", "C1 E0 05 03 05") + 5);
 
 		const auto dw_chl_client_table = reinterpret_cast<DWORD*>(*reinterpret_cast<DWORD*>(client_dll));

@@ -167,16 +167,16 @@ client_class* c_base_entity::get_client_class() {
 	return utils::get_vfunc <fn>(pNetworkable, 2)(pNetworkable);
 }
 
-bool c_base_entity::is_visible(c_base_entity* local_player, int hitbox) {
+bool c_base_entity::is_visible(c_base_entity* local_player) {
 	trace_t trace;
 	ray_t ray;			 // the future of variable naming
 	c_trace_filter filter;
 
 	filter.skip = local_player;
 
-	auto eye = local_player->get_eye_position();
-	auto hit_box = this->get_hitbox_pos(hitbox);
-	ray.init(eye, hit_box);
+	auto local_eye = local_player->get_eye_position();
+	auto entity_eye = this->get_eye_position();
+	ray.init(local_eye, entity_eye);
 
 	interfaces::trace->trace_ray(ray, MASK_SOLID, &filter, &trace);
 
@@ -280,4 +280,14 @@ int c_base_entity::get_entity_index() {
 	PVOID pNetworkable = (PVOID)(this + 0x8);
 	typedef int(__thiscall* FN)(PVOID);
 	return utils::get_vfunc<FN>(pNetworkable, 9)(pNetworkable);
+}
+	
+int c_base_entity::get_observer_target() {
+	static int offset = g_netvar->get_offset("DT_BasePlayer", "m_hObserverTarget");
+	return get_value<int>(offset);
+}
+
+int c_base_entity::get_observer_mode() {
+	static int offset = g_netvar->get_offset("DT_BasePlayer", "m_iObserverMode");
+	return get_value<int>(offset);
 }

@@ -70,7 +70,7 @@ public:
 
 	client_class* get_client_class();
 
-	bool is_visible(c_base_entity* local_player, int hitbox);
+	bool is_visible(c_base_entity* local_player);
 
 	int get_hitbox_set();
 
@@ -97,5 +97,9 @@ public:
 	void destroy_glow_effect();
 
     int get_entity_index();
+
+    int get_observer_target();
+
+    int get_observer_mode();
 
 };

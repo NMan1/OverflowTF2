@@ -180,6 +180,7 @@
     <ClCompile Include="core\dllmain.cpp" />
     <ClCompile Include="core\features\aimbot\aimbot.cpp" />
     <ClCompile Include="core\features\misc\misc.cpp" />
+    <ClCompile Include="core\features\other\others.cpp" />
     <ClCompile Include="core\features\triggerbot\triggerbot.cpp" />
     <ClCompile Include="core\features\visuals\chams\chams.cpp" />
     <ClCompile Include="core\features\visuals\esp\esp.cpp" />
@@ -206,6 +207,7 @@
   <ItemGroup>
     <ClInclude Include="core\features\aimbot\aimbot.hpp" />
     <ClInclude Include="core\features\misc\misc.hpp" />
+    <ClInclude Include="core\features\other\others.hpp" />
     <ClInclude Include="core\features\triggerbot\triggerbot.hpp" />
     <ClInclude Include="core\features\visuals\chams\chams.hpp" />
     <ClInclude Include="core\features\visuals\esp\esp.hpp" />
@@ -221,11 +223,13 @@
     <ClInclude Include="core\menu\imgui\stb_truetype.h" />
     <ClInclude Include="core\menu\menu.hpp" />
     <ClInclude Include="core\source-sdk\interfaces\c_base_combat_weapon.hpp" />
+    <ClInclude Include="core\source-sdk\interfaces\c_convar.hpp" />
     <ClInclude Include="core\source-sdk\interfaces\c_game_movement.hpp" />
     <ClInclude Include="core\source-sdk\interfaces\c_glow_manager.hpp" />
     <ClInclude Include="core\source-sdk\interfaces\c_key_values.hpp" />
     <ClInclude Include="core\source-sdk\interfaces\c_material_system.hpp" />
     <ClInclude Include="core\source-sdk\interfaces\c_model_info.hpp" />
+    <ClInclude Include="core\source-sdk\interfaces\c_net_channel.hpp" />
     <ClInclude Include="core\source-sdk\interfaces\iv_render_view.hpp" />
     <ClInclude Include="core\source-sdk\interfaces\i_entity_list.hpp" />
     <ClInclude Include="core\source-sdk\interfaces\c_model_render.hpp" />
@@ -253,6 +257,9 @@
     <ClInclude Include="core\utils\utils.hpp" />
     <ClInclude Include="core\utils\math\vector.hpp" />
     <ClInclude Include="core\utils\math\vmatrix.hpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="core\source-sdk\interfaces\c_convar.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

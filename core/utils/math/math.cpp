@@ -40,17 +40,21 @@ namespace math {
 		}
 	}
 
-	vector calc_angle(const vector& source, const vector& destination) {
-		vector angles = vector(0.0f, 0.0f, 0.0f);
-		vector delta = (source - destination);
-		float fHyp = FastSqrt((delta.x * delta.x) + (delta.y * delta.y));
-
-		angles.x = (atanf(delta.z / fHyp) * M_RADPI);
-		angles.y = (atanf(delta.y / delta.x) * M_RADPI);
+	vector calc_angle(const vector& source, const vector& destination, const vector& view_angles) {
+		vector delta = source - destination;
+		auto radians_to_degrees = [](float radians) { return radians * 180 / static_cast<float>(M_PI); };
+		vector angles;
+		angles.x = radians_to_degrees(atanf(delta.z / std::hypotf(delta.x, delta.y))) - view_angles.x;
+		angles.y = radians_to_degrees(atanf(delta.y / delta.x)) - view_angles.y;
 		angles.z = 0.0f;
 
-		if (delta.x >= 0.0f)
+		if (delta.x >= 0.0)
 			angles.y += 180.0f;
+
+		// normalize
+		angles.x = std::isfinite(angles.x) ? std::remainderf(angles.x, 360.0f) : 0.0f;
+		angles.y = std::isfinite(angles.y) ? std::remainderf(angles.y, 360.0f) : 0.0f;
+		angles.z = 0.0f;
 
 		return angles;
 	}
@@ -67,17 +71,33 @@ namespace math {
 		return aiming_at.dist_to(aim_to);
 	}
 
-	float normalize_angle(float ang)
+	void normalize_angle(vector& angle)
 	{
-		if (!std::isfinite(ang))
-			return 0.0f;
-
-		return std::remainder(ang, 360.0f);
+		while (angle.x > 89.f)
+		{
+			angle.x -= 180.f;
+		}
+		while (angle.x < -89.f)
+		{
+			angle.x += 180.f;
+		}
+		if (angle.y > 180)
+		{
+			angle.y -= (round(angle.y / 360) * 360.f);
+		}
+		else if (angle.y < -180)
+		{
+			angle.y += (round(angle.y / 360) * -360.f);
+		}
+		if ((angle.z > 50) || (angle.z < 50))
+		{
+			angle.z = 0;
+		}
 	}
 
 	void clamp_angles(vector& v) {
-		v.x = std::max(-89.0f, std::min(89.0f, normalize_angle(v.x)));
-		v.y = normalize_angle(v.y);
-		v.z = 0.0f;
+		v.x = std::clamp(v.x, -89.0f, 89.0f);
+		v.y = std::clamp(std::remainder(v.y, 360.0f), -180.0f, 180.0f);
+		v.z = std::clamp(v.z, -50.0f, 50.0f);
 	}
 }

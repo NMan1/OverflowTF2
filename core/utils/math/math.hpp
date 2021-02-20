@@ -10,11 +10,11 @@ namespace math {
 
 	void angle_vectors(const vector& angles, vector* forward);
 
-	vector calc_angle(const vector& source, const vector& destination);
+	vector calc_angle(const vector& source, const vector& destination, const vector& view_angles);
 
 	float calc_fov(float distance, const vector& src, const vector& dst);
 
-	float normalize_angle(float ang);
+	void normalize_angle(vector& angle);
 
 	void clamp_angles(vector& v);
 }

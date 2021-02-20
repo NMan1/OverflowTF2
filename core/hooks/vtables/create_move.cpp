@@ -6,6 +6,7 @@
 #include "../../features/aimbot/aimbot.hpp"
 #include "../../features/triggerbot/triggerbot.hpp"
 #include "../../features/visuals/walkbot/visualize_walkbot.hpp"
+#include "../../menu/menu.hpp"
 
 bool __stdcall hooks::client_mode::create_move::fn(float input_sample_time, c_user_cmd* cmd)
 {
@@ -29,11 +30,11 @@ bool __stdcall hooks::client_mode::create_move::fn(float input_sample_time, c_us
 				misc::auto_backstab(local_player, cmd);
 			}
 
-			if (settings::aimbot && GetAsyncKeyState(settings::aimbot_key) & 0x8000) {
+			if (!menu::open && settings::aimbot && GetAsyncKeyState(settings::aimbot_key) & 0x8000) {
 				aimbot::run(local_player, cmd);
 			}
 
-			if (settings::trigger_bot && (GetAsyncKeyState(settings::trigger_bot_key) & 0x8000 || settings::trigger_bot_always_on)) {
+			if (settings::triggerbot && (GetAsyncKeyState(settings::triggerbot_key) & 0x8000 || settings::triggerbot_always_on)) {
 				triggerbot::run(local_player, cmd);
 			}
 

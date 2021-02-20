@@ -1,6 +1,7 @@
 #include "..\hook.hpp"
 #include "../../interfaces/interfaces.hpp"
 #include "../../menu/menu.hpp"
+#include "../../utils/settings/settings.hpp"
 
 extern LRESULT ImGui_ImplDX9_WndProcHandler(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
 
@@ -22,6 +23,10 @@ long __stdcall hooks::d3d::present::fn(IDirect3DDevice9* device, const RECT* sou
 
 	if (menu::open) {
 		menu::render();
+	}
+
+	if (settings::spectator_list) {
+		menu::spectator_window();
 	}
 
 	menu::end_present(device);

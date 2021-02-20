@@ -6,7 +6,7 @@
 
 namespace triggerbot {
 	void run(c_base_entity* local_player, c_user_cmd* cmd) {
-		if (settings::trigger_bot_scoped_only && !local_player->is_scoped()) {
+		if (settings::triggerbot_scoped_only && !local_player->is_scoped()) {
 			return;
 		}
 
@@ -28,11 +28,11 @@ namespace triggerbot {
 		interfaces::trace->trace_ray(ray, (MASK_SHOT | CONTENTS_GRATE), &filter, &trace);
 
 		if (trace.entity && trace.entity->is_player()) {
-			if (trace.entity->get_team_num() == local_player->get_team_num() || (trace.entity->is_cloaked() && settings::trigger_bot_ignore_cloaked)) {
+			if (trace.entity->get_team_num() == local_player->get_team_num() || (trace.entity->is_cloaked() && settings::triggerbot_ignore_cloaked)) {
 				return;
 			}
 
-			if (settings::trigger_bot_bone == 0 ? true : trace.hitbox == hitboxes::HEAD) {  
+			if (settings::triggerbot_bone == 0 ? true : trace.hitbox == hitboxes::HEAD) {  
 				cmd->buttons |= IN_ATTACK;
 			}
 		}

@@ -429,11 +429,13 @@ inline vector vector::operator/(const vector& v) const
 	res.z = z / v.z;
 	return res;
 }
-inline float vector::dot(const vector& vOther) const
+inline float vector::dot(const vector& b) const
 {
-	const vector& a = *this;
+	if (b.x == NULL && b.y == NULL && b.z == NULL) {
+		return NULL;
+	}
 
-	return(a.x*vOther.x + a.y*vOther.y + a.z*vOther.z);
+	return (x * b.x + y * b.y + z * b.z);
 }
 
 //-----------------------------------------------------------------------------

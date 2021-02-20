@@ -1,5 +1,45 @@
 ﻿#pragma once
 
+enum class ConVarFlags_t
+{
+	FCVAR_NONE = 0, // The default, no flags at all
+
+	FCVAR_UNREGISTERED = (1 << 0), // If this is set, don't add to linked list, etc.
+	FCVAR_DEVELOPMENT_ONLY = (1 << 1), // Hidden in released products. Flag is removed automatically if ALLOW_DEVELOPMENT_CVARS is defined.
+	FCVAR_GAME_DLL = (1 << 2), // defined by the game DLL
+	FCVAR_CLIENT_DLL = (1 << 3), // defined by the client DLL
+	FCVAR_HIDDEN = (1 << 4), // Hidden. Doesn't appear in find or autocomplete. Like DEVELOPMENTONLY, but can't be compiled out.
+
+	FCVAR_PROTECTED = (1 << 5),  // It's a server cvar, but we don't send the data since it's a password, etc.  Sends 1 if it's not bland/zero, 0 otherwise as value
+	FCVAR_SP_ONLY = (1 << 6),  // This cvar cannot be changed by clients connected to a multiplayer server.
+	FCVAR_ARCHIVE = (1 << 7),  // set to cause it to be saved to vars.rc
+	FCVAR_NOTIFY = (1 << 8),  // notifies players when changed
+	FCVAR_USER_INFO = (1 << 9),  // changes the client's info string
+	FCVAR_CHEAT = (1 << 14), // Only useable in singleplayer / debug / multiplayer & sv_cheats
+
+	FCVAR_PRINTABLE_ONLY = (1 << 10), // This cvar's string cannot contain unprintable characters ( e.g., used for player name etc ).
+	FCVAR_UN_LOGGED = (1 << 11), // If this is a FCVAR_SERVER, don't log changes to the log file / console if we are creating a log
+	FCVAR_NEVER_AS_STRING = (1 << 12), // never try to print that cvar
+
+	FCVAR_REPLICATED = (1 << 13), // server setting enforced on clients, TODO rename to FCAR_SERVER at some time
+	FCVAR_DEMO = (1 << 16), // record this cvar when starting a demo file
+	FCVAR_DONT_RECORD = (1 << 17), // don't record these command in demofiles
+	FCVAR_RELOAD_MATERIALS = (1 << 20), // If this cvar changes, it forces a material reload
+	FCVAR_RELOAD_TEXTURES = (1 << 21), // If this cvar changes, if forces a texture reload
+
+	FCVAR_NOT_CONNECTED = (1 << 22), // cvar cannot be changed by a client that is connected to a server
+	FCVAR_MATERIAL_SYSTEM_THREAD = (1 << 23), // Indicates this cvar is read from the material system thread
+	FCVAR_ARCHIVE_XBOX = (1 << 24), // cvar written to config.cfg on the Xbox
+
+	FCVAR_ACCESSIBLE_FROM_THREADS = (1 << 25), // used as a debugging tool necessary to check material system thread convars
+
+	FCVAR_SERVER_CAN_EXECUTE = (1 << 28), // the server is allowed to execute this command on clients via ClientCommand/NET_StringCmd/CBaseClientState::ProcessStringCmd.
+	FCVAR_SERVER_CANNOT_QUERY = (1 << 29), // If this is set, then the server is not allowed to query this cvar's value (via IServerPluginHelpers::StartQueryCvarValue).
+	FCVAR_CLIENT_CMD_CAN_EXECUTE = (1 << 30), // IVEngineClient::ClientCmd is allowed to execute this command.
+
+	FCVAR_MATERIAL_THREAD_MASK = (FCVAR_RELOAD_MATERIALS | FCVAR_RELOAD_TEXTURES | FCVAR_MATERIAL_SYSTEM_THREAD)
+};
+
 enum material_var_flags
 {
 	MATERIAL_VAR_DEBUG = (1 << 0),
@@ -95,6 +135,18 @@ enum class image_format
 	IMAGE_FORMAT_DXT5_RUNTIME,
 	NUM_IMAGE_FORMATS
 };
+
+enum observer_modes
+{
+	OBS_MODE_NONE = 0,		// not in spectator mode
+	OBS_MODE_DEATHCAM,		// special mode for death cam animation
+	OBS_MODE_FREEZECAM,		// zooms to a target, and freeze-frames on them
+	OBS_MODE_FIXED,			// view from a fixed camera position
+	OBS_MODE_FIRSTPERSON,	// follow a player in first person view
+	OBS_MODE_THIRDPERSON,	// follow a player in third person view
+	OBS_MODE_ROAMING,		// free roaming
+};
+
 
 enum weapon_type
 {

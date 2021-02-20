@@ -16,6 +16,7 @@
 #include "../source-sdk/interfaces/c_model_render.hpp"
 #include "../source-sdk/interfaces/c_material_system.hpp"
 #include "../source-sdk/interfaces/c_glow_manager.hpp"
+#include "../source-sdk/interfaces/c_convar.hpp"
 
 namespace interfaces {
 	extern i_base_client_dll*		client_dll;
@@ -35,6 +36,7 @@ namespace interfaces {
 	extern c_model_render*			model_render;
 	extern c_material_system*		material_system;
 	extern glow_manager_t*			glow_manager;
+	extern i_cvar*					convar;
 
 	void init_interfaces();
 }

@@ -75,21 +75,23 @@ namespace settings {
 
 	int aimbot_key = 0;
 
+	int aimbot_bone = 1;
+
 	int aimbot_fov = 20;
 
 	float aimbot_smoothness = .5;
 
-	bool trigger_bot = false;
+	bool triggerbot = false;
 
-	int trigger_bot_key = 0;
+	int triggerbot_key = 0;
 
-	int trigger_bot_bone = 0;
+	int triggerbot_bone = 0;
 
-	bool trigger_bot_always_on = false;
+	bool triggerbot_always_on = false;
 
-	bool trigger_bot_scoped_only = true;
+	bool triggerbot_scoped_only = true;
 
-	bool trigger_bot_ignore_cloaked = true;
+	bool triggerbot_ignore_cloaked = true;
 	
 	// misc
 
@@ -98,4 +100,8 @@ namespace settings {
 	bool bunny_hop = true;
 
 	bool auto_backstab = true;
+
+	// others
+
+	bool spectator_list = true;
 }

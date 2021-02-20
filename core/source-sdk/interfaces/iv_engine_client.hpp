@@ -2,6 +2,7 @@
 #include <d3d9.h>
 #include "../../utils/color.hpp"
 #include "../../utils/utils.hpp"
+#include "c_net_channel.hpp"
 
 #define FLOW_OUTGOING	0
 #define FLOW_INCOMING	1
@@ -193,5 +194,11 @@ public:
 	bool get_player_info(c_base_entity* player, player_info* play_info) {
 		typedef bool(__thiscall* fn)(PVOID, int, player_info*);
 		return utils::get_vfunc<fn>(this, 8)(this, player->get_entity_index(), play_info);
+	}
+
+	CNetChan* get_net_channel_info(void)
+	{
+		typedef CNetChan* (__thiscall* OriginalFn)(PVOID);
+		return utils::get_vfunc<OriginalFn>(this, 72)(this);
 	}
 };

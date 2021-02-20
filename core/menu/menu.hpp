@@ -21,4 +21,6 @@ namespace menu {
 	void __stdcall post_render();
 
 	void render();
+
+	void spectator_window();
 }
