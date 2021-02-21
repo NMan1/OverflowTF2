@@ -35,21 +35,15 @@ namespace settings {
 
 	bool buildings = true;
 
+	color buildings_color = { 255, 255, 255 };
+
 	bool glow_buildings = true;
 
 	bool team_buildings = true;
 
-	bool teleporter_esp = true;
+	color team_buildings_color = { 255, 255, 255 };
 
-	color teleporter_esp_color = { 255, 255, 255 };
-
-	bool dispenser_esp = true;
-
-	color dispenser_esp_color = { 255, 255, 255 };
-
-	bool turret_esp = true;
-
-	color turret_esp_color = { 255, 255, 255 };
+	bool health_bar_buildings = true;
 
 	bool pickups = false;
 

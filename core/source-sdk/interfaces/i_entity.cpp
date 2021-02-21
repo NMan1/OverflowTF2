@@ -44,8 +44,8 @@ bool c_base_entity::is_player() {
 }
 
 int c_base_entity::get_health() {
-	static int health = g_netvar->get_offset("DT_BasePlayer", "m_iHealth");
-	return get_value<int>(health);
+	static int offset = g_netvar->get_offset("DT_BasePlayer", "m_iHealth");
+	return get_value<int>(offset);
 }
 
 int c_base_entity::get_max_health() {
@@ -53,9 +53,19 @@ int c_base_entity::get_max_health() {
 	return utils::get_vfunc<fn>(this, 107)(this);
 }
 
+int c_base_entity::get_object_max_health() {
+	static int offset = g_netvar->get_offset("DT_BaseObject", "m_iHealth");
+	return get_value<int>(offset);
+}
+
+int c_base_entity::get_object_health() {
+	static int offset = g_netvar->get_offset("DT_BaseObject", "m_iHealth");
+	return get_value<int>(offset);
+}
+
 int c_base_entity::get_team_num() {
-	static int team_num = g_netvar->get_offset("DT_BaseEntity", "m_iTeamNum");
-	return get_value<int>(team_num);
+	static int offset = g_netvar->get_offset("DT_BaseEntity", "m_iTeamNum");
+	return get_value<int>(offset);
 }
 
 bool c_base_entity::is_in_valid_team()
@@ -290,4 +300,16 @@ int c_base_entity::get_observer_target() {
 int c_base_entity::get_observer_mode() {
 	static int offset = g_netvar->get_offset("DT_BasePlayer", "m_iObserverMode");
 	return get_value<int>(offset);
+}
+
+bool c_base_entity::is_dispenser()  {
+	return get_client_class()->class_id == CObjectDispenser;
+}
+
+bool c_base_entity::is_sentry()  {
+	return get_client_class()->class_id == CObjectSentrygun;
+}
+
+bool c_base_entity::is_teleporter()  {
+	return get_client_class()->class_id == CObjectTeleporter;
 }

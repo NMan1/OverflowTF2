@@ -299,24 +299,17 @@ namespace menu {
 
 		{
 			ImGui::Checkbox("buildings", &settings::buildings);
+			ImGui::ColorPicker("buildings color", &settings::buildings_color, ImGuiColorEditFlags_NoInputs);
 
 			ImGui::SetCursorPosX(ImGui::GetCursorPosX() + 17);
 			ImGui::Checkbox("team buildings", &settings::team_buildings);
+			ImGui::ColorPicker("team buildings color", &settings::team_buildings_color, ImGuiColorEditFlags_NoInputs);
+
+			ImGui::SetCursorPosX(ImGui::GetCursorPosX() + 17);
+			ImGui::Checkbox("health bar ##buildngs", &settings::health_bar_buildings);
 
 			ImGui::SetCursorPosX(ImGui::GetCursorPosX() + 17);
 			ImGui::Checkbox("glow buildings", &settings::glow_buildings);
-
-			ImGui::SetCursorPosX(ImGui::GetCursorPosX() + 17);
-			ImGui::Checkbox("teleporter esp", &settings::teleporter_esp);
-			ImGui::ColorPicker("teleporter color", &settings::teleporter_esp_color, ImGuiColorEditFlags_NoInputs);
-
-			ImGui::SetCursorPosX(ImGui::GetCursorPosX() + 17);
-			ImGui::Checkbox("turret esp", &settings::turret_esp);
-			ImGui::ColorPicker("turret color", &settings::turret_esp_color, ImGuiColorEditFlags_NoInputs);
-
-			ImGui::SetCursorPosX(ImGui::GetCursorPosX() + 17);
-			ImGui::Checkbox("dispenser esp", &settings::dispenser_esp);
-			ImGui::ColorPicker("dispenser color", &settings::dispenser_esp_color, ImGuiColorEditFlags_NoInputs);
 		}
 
 		{
@@ -400,6 +393,8 @@ namespace menu {
 	}
 
 	void spectator_window() {
+		// from my csgo source, much better way to do this
+
 		auto spectators = others::get_spectators();
 		auto height = 30;
 
@@ -410,8 +405,7 @@ namespace menu {
 
 		ImGui::SetNextWindowSize(ImVec2(175, height));
 		ImGui::SetNextWindowPos(ImVec2(1700, 260), ImGuiCond_Once);
-		ImGui::Begin("spectators", 0, ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoTitleBar);
-		{
+		ImGui::Begin("spectators", 0, ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoTitleBar); {
 			ImGui::SetCursorPosX((175 - ImGui::CalcTextSize("spectators").x) * .5);
 			ImGui::SetCursorPosY(ImGui::GetCursorPosY() + 2.5);
 			ImGui::Text("spectators");

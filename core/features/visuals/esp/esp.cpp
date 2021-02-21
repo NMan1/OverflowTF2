@@ -190,32 +190,39 @@ namespace esp {
 			return;
 		}
 
-		auto class_id = entity->get_client_class()->class_id;
+		auto model_name = entity->get_model_name();
+		if (model_name[7] == 'b' && model_name[11] == 'd' && model_name[16] == 's') {
+			// models/buildables/
 
-		if (settings::teleporter_esp && class_id == class_ids::CObjectTeleporter) {
-			int x, y, w, h;
-			if (get_item_bounds(entity, x, y, w, h)) {
-				color clr = (settings::team_buildings && entity->get_team_num() == local_player->get_team_num()) ? color(0, 255, 0) : settings::teleporter_esp_color;
-				draw::rect(x, y, w, h, clr);
-				draw::text(draw::pickup_font, L"Teleporter", x + (w / 2), y, settings::teleporter_esp_color, true);
+			const char* display_name = "";
+			if (entity->is_dispenser()) {
+				display_name = "dispenser";
 			}
-			glow(entity, settings::glow_buildings);
-		}
-		else if (settings::turret_esp && class_id == class_ids::CObjectSentrygun) {
-			int x, y, w, h;
-			if (get_item_bounds(entity, x, y, w, h)) {
-				color clr = (settings::team_buildings && entity->get_team_num() == local_player->get_team_num()) ? color(0, 255, 0) : settings::turret_esp_color;
-				draw::rect(x, y, w, h, clr);
-				draw::text(draw::pickup_font, L"Sentry", x + (w / 2), y, settings::turret_esp_color, true);
+			else if (entity->is_sentry()) {
+				display_name = "sentry";
 			}
-			glow(entity, settings::glow_buildings);
-		}
-		else if (settings::dispenser_esp && class_id == class_ids::CObjectDispenser) {
+			else if (entity->is_teleporter()) {
+				display_name = "teleporter";
+			}
+			else {
+				return;
+			}
+
 			int x, y, w, h;
 			if (get_item_bounds(entity, x, y, w, h)) {
-				color clr = (settings::team_buildings && entity->get_team_num() == local_player->get_team_num()) ? color(0, 255, 0) : settings::dispenser_esp_color;
-				draw::rect(x, y, w, h, clr);
-				draw::text(draw::pickup_font, L"Dispenser", x + (w / 2), y, settings::dispenser_esp_color, true);
+				color color = (settings::team_buildings && entity->get_team_num() == local_player->get_team_num()) ? 
+					settings::team_buildings_color : settings::buildings_color;
+
+				draw::rect(x, y, w, h, color);
+				draw::text(draw::pickup_font, display_name, x + (w / 2), y - 15, { 255, 255, 255 }, true);
+
+				if (settings::health_bar_buildings) {
+					float current_health = entity->get_object_health();
+					float max_health = entity->get_object_max_health();
+					auto health_height = current_health <= max_health ? h * (current_health / max_health) : h;
+
+					draw::filled_rect(x - 6 - 1, y + (h - health_height), 2, health_height, { 0, 255, 0 });
+				}
 			}
 			glow(entity, settings::glow_buildings);
 		}

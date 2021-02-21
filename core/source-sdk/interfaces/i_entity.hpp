@@ -28,6 +28,10 @@ public:
 
 	int get_max_health();
 
+    int get_object_max_health();
+
+    int get_object_health();
+
 	int get_team_num();
 
     bool is_in_valid_team();
@@ -102,4 +106,9 @@ public:
 
     int get_observer_mode();
 
+	bool is_dispenser();
+
+	bool is_sentry();
+
+	bool is_teleporter();
 };

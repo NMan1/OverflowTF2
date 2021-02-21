@@ -38,21 +38,15 @@ namespace settings {
 
 	extern bool buildings;
 
+	extern color buildings_color;
+
 	extern bool glow_buildings;
 
 	extern bool team_buildings;
 
-	extern bool teleporter_esp;
+	extern color team_buildings_color;
 
-	extern color teleporter_esp_color;
-
-	extern bool dispenser_esp;
-
-	extern color dispenser_esp_color;
-
-	extern bool turret_esp;
-
-	extern color turret_esp_color;
+	extern bool health_bar_buildings;
 
 	extern bool pickups;
 
