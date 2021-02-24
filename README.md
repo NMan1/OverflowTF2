@@ -32,8 +32,8 @@ Code is relatively clean, written in snake_case
 - Player list & Spectator list
 
 ### Menu
-<img src="https://i.imgur.com/YOecQKO.png">
-<img src="https://i.imgur.com/IRAtViU.png">
+<img src="https://i.imgur.com/fbQ9C2f.png">
+<img src="https://i.imgur.com/UloEoSo.png">
 <img src="https://i.imgur.com/5zQv4gM.png">
 
 ### In game:
