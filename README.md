@@ -32,12 +32,12 @@ Code is relatively clean, written in snake_case
 - Player list & Spectator list
 
 ### Menu
-<img src="https://i.imgur.com/wQGgSiL.png">>
-
-
-### In game:
 <img src="https://i.imgur.com/YOecQKO.png">
 <img src="https://i.imgur.com/IRAtViU.png">
+<img src="https://i.imgur.com/5zQv4gM.png">
+
+### In game:
+<img src="https://i.imgur.com/tWhsWPI.png">
 
 ### Todo/Bugs:
 1. ~~color picker for menu is fucked, cant be bothered to fix it.~~
