@@ -6415,7 +6415,7 @@ bool ImGui::SliderFloat(const char* label, float* v, float v_min, float v_max, c
 	// RenderTextClipped( frame_bb.Min - ImVec2( 0, 17 ), frame_bb.Max - ImVec2( 0, 14 ), value_buf, value_buf_end, NULL, ImVec2( 1.f, 1.f ) );
 
 	if (label_size.x > 0.0f)
-		RenderText(ImVec2(frame_bb.Min.x + 1, frame_bb.Min.y - 17), label);
+		RenderText(ImVec2(frame_bb.Min.x + 1, frame_bb.Min.y - 19), label);
 
 	return value_changed;
 }

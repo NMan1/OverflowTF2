@@ -1,10 +1,12 @@
 #pragma once
 #include "..\..\utils\utils.hpp"
 #include "i_entity.hpp"
+#include "c_base_combat_weapon.hpp"
 
 struct weapon_data;
 class c_game_trace;
 class vector;
+class c_base_entity;
 
 class c_base_combat_weapon : public c_base_entity
 {

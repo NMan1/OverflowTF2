@@ -1,5 +1,19 @@
 ﻿#pragma once
 
+enum tf_classes
+{
+	CLASS_NONE = 0,
+	CLASS_SCOUT,
+	CLASS_SNIPER,
+	CLASS_SOLDIER,
+	CLASS_DEMOMAN,
+	CLASS_MEDIC,
+	CLASS_HEAVY,
+	CLASS_PYRO,
+	CLASS_SPY,
+	CLASS_ENGINEER
+};
+
 enum class ConVarFlags_t
 {
 	FCVAR_NONE = 0, // The default, no flags at all

@@ -1,6 +1,7 @@
 #include "..\hook.hpp"
 #include "..\..\utils\settings\settings.hpp"
 #include "..\..\interfaces\interfaces.hpp"
+#include "..\..\source-sdk\interfaces\c_base_combat_weapon.hpp"
 
 #include "../../features/misc/misc.hpp"
 #include "../../features/aimbot/aimbot.hpp"

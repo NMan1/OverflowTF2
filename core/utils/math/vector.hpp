@@ -97,6 +97,7 @@ public:
 	vector	operator/(const vector& v) const;
 	vector	operator*(float fl) const;
 	vector	operator/(float fl) const;
+	vector	operator+(float fl) const;
 	// Base address...
 	float* Base();
 	float const* Base() const;
@@ -419,6 +420,11 @@ inline vector vector::operator/(float fl) const
 	res.y = y / fl;
 	res.z = z / fl;
 	return res;
+}
+
+inline vector vector::operator+(float fl) const
+{
+	return vector(x + fl, y + fl, z + fl);
 }
 
 inline vector vector::operator/(const vector& v) const

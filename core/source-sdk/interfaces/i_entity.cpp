@@ -1,14 +1,13 @@
 #pragma once
 #include "i_entity.hpp"
 #include "..\..\utils\netvars\netvars.hpp"
-#include "..\..\utils\helpers.hpp"
+#include "..\..\utils\game\helpers.hpp"
 #include "..\..\utils\math\vector.hpp"
 #include "..\..\utils\utils.hpp"
 #include "..\..\utils\memory\memory.hpp"
 #include "..\structs\structs.hpp"
 #include "..\..\utils\math\math.hpp"
 #include "..\..\interfaces\interfaces.hpp"
-#include "c_base_combat_weapon.hpp"
 
 template<class t>
 t c_base_entity::get_value(const int offset) {
@@ -54,7 +53,7 @@ int c_base_entity::get_max_health() {
 }
 
 int c_base_entity::get_object_max_health() {
-	static int offset = g_netvar->get_offset("DT_BaseObject", "m_iHealth");
+	static int offset = g_netvar->get_offset("DT_BaseObject", "m_iMaxHealth");
 	return get_value<int>(offset);
 }
 
@@ -100,12 +99,22 @@ vector c_base_entity::get_eye_position() {
 	return get_value<vector>(eye_position) + this->get_abs_origin();
 }
 
+vector c_base_entity::get_velocity() {
+	typedef void(__thiscall* EstimateAbsVelocityFn)(c_base_entity*, vector&);
+	static DWORD dwFn = memory::find_pattern("client.dll", "E8 ? ? ? ? F3 0F 10 4D ? 8D 85 ? ? ? ? F3 0F 10 45 ? F3 0F 59 C9 56 F3 0F 59 C0 F3 0F 58 C8 0F 2F 0D ? ? ? ? 76 07") + 0x1;
+	static DWORD dwEstimate = ((*(PDWORD)(dwFn)) + dwFn + 0x4);
+	EstimateAbsVelocityFn vel = (EstimateAbsVelocityFn)dwEstimate;
+	vector v;
+	vel(this, v);
+	return v;
+}
+
 vector c_base_entity::get_view_angles() {
 	static int offset = g_netvar->get_offset("DT_TFPlayer", "tfnonlocaldata", "m_angEyeAngles[0]");
 	return get_value<vector>(offset);
 }
 
-int c_base_entity::get_class_name() {
+int c_base_entity::get_class_id() {
 	static int player_class = g_netvar->get_offset("DT_TFPlayer", "m_PlayerClass", "m_iClass");
 	return get_value<int>(player_class);
 }
@@ -153,6 +162,10 @@ bool c_base_entity::is_bonked() {
 
 bool c_base_entity::is_cloaked() {
 	return (this->get_condition() & conditions::CLOAKED);
+}
+
+bool c_base_entity::is_on_ground() {
+	return (this->get_condition() & entity_flags::GROUND);
 }
 
 bool c_base_entity::is_health_pack() {

@@ -77,6 +77,16 @@ namespace settings {
 	extern int aimbot_fov;
 
 	extern float aimbot_smoothness;
+	
+	extern float aimbot_smoothness;
+
+	extern bool aimbot_proj;
+
+	extern int aimbot_proj_fov;
+
+	extern float aimbot_proj_smoothness;
+
+	extern int aimbot_proj_launcher_bone;
 
 	extern bool triggerbot;
 

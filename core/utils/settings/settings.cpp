@@ -71,9 +71,17 @@ namespace settings {
 
 	int aimbot_bone = 1;
 
-	int aimbot_fov = 20;
+	int aimbot_fov = 5;
 
-	float aimbot_smoothness = .5;
+	float aimbot_smoothness = .1;
+
+	bool aimbot_proj = true;
+
+	int aimbot_proj_fov = 30;
+
+	float aimbot_proj_smoothness = 0;
+
+	int aimbot_proj_launcher_bone = 0;
 
 	bool triggerbot = false;
 

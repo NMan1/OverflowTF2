@@ -44,9 +44,11 @@ public:
 
 	vector get_eye_position();
 
+    vector get_velocity();
+
     vector get_view_angles();
 
-	int get_class_name();
+	int get_class_id();
 
 	int get_condition();
 
@@ -67,6 +69,8 @@ public:
 	bool is_bonked();
 
 	bool is_cloaked();
+
+	bool is_on_ground();
 
     bool is_health_pack();
 

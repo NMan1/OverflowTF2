@@ -78,6 +78,12 @@
     <ClCompile Include="core\source-sdk\interfaces\c_key_values.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="core\features\triggerbot\triggerbot.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="core\features\other\others.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="core\features\visuals\chams\chams.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -87,10 +93,7 @@
     <ClCompile Include="core\features\visuals\walkbot\visualize_walkbot.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="core\features\triggerbot\triggerbot.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="core\features\other\others.cpp">
+    <ClCompile Include="core\utils\game\helpers.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -167,9 +170,6 @@
     <ClInclude Include="core\utils\draw\draw.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="core\utils\helpers.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="core\source-sdk\structs\enums.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -218,19 +218,10 @@
     <ClInclude Include="core\source-sdk\interfaces\c_key_values.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="core\features\visuals\chams\chams.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="core\features\visuals\esp\esp.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="core\utils\settings\settings.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="core\source-sdk\interfaces\c_glow_manager.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="core\features\visuals\walkbot\visualize_walkbot.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="core\features\aimbot\aimbot.hpp">
@@ -249,6 +240,18 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="core\features\other\others.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="core\features\visuals\chams\chams.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="core\features\visuals\esp\esp.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="core\features\visuals\walkbot\visualize_walkbot.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="core\utils\game\helpers.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

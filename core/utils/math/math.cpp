@@ -58,6 +58,21 @@ namespace math {
 
 		return angles;
 	}
+	
+	vector calc_angle_projectile(const vector& source, const vector& destination) {
+		vector angles = vector(0.0f, 0.0f, 0.0f);
+		vector delta = (source - destination);
+		float fHyp = FastSqrt((delta.x * delta.x) + (delta.y * delta.y));
+
+		angles.x = (atanf(delta.z / fHyp) * M_RADPI);
+		angles.y = (atanf(delta.y / delta.x) * M_RADPI);
+		angles.z = 0.0f;
+
+		if (delta.x >= 0.0f)
+			angles.y += 180.0f;
+
+		return angles;
+	}
 
 	float calc_fov(float distance, const vector& current_view_angles, const vector& angle_to_enemy) {
 		vector aiming_at = {};
@@ -95,9 +110,16 @@ namespace math {
 		}
 	}
 
+	inline float normalize_clamp(float ang) {
+		if (!std::isfinite(ang))
+			return 0.0f;
+
+		return std::remainder(ang, 360.0f);
+	}
+
 	void clamp_angles(vector& v) {
-		v.x = std::clamp(v.x, -89.0f, 89.0f);
-		v.y = std::clamp(std::remainder(v.y, 360.0f), -180.0f, 180.0f);
-		v.z = std::clamp(v.z, -50.0f, 50.0f);
+		v.x = std::max(-89.0f, std::min(89.0f, normalize_clamp(v.x)));
+		v.y = normalize_clamp(v.y);
+		v.z = 0.0f;
 	}
 }

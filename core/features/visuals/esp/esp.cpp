@@ -1,7 +1,7 @@
 #define NOMINMAX
 #include "esp.hpp"
 #include "..\..\..\utils\draw\draw.hpp"
-#include "..\..\..\utils\helpers.hpp"
+#include "..\..\..\utils\game\helpers.hpp"
 #include "..\..\..\utils\math\math.hpp"
 #include "..\..\..\utils\settings\settings.hpp"
 #include "..\..\..\source-sdk\interfaces\c_base_combat_weapon.hpp"
@@ -119,7 +119,7 @@ namespace esp {
 	}
 
 	void class_name(c_base_entity* entity, int x, int y, int w, int h) {
-		auto class_name = get_class_name_string(entity->get_class_name());
+		auto class_name = get_class_name_string(entity->get_class_id());
 		draw::text(draw::class_name_font, class_name, x + (w / 2), y - 15, settings::class_name_color, true);
 	}
 

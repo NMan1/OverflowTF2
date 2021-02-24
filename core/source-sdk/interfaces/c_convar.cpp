@@ -117,7 +117,7 @@ const char* convar::GetBaseName(void) const
 	return m_pParent->m_pszName;
 }
 
-float convar::GetFloat(void) const
+float convar::get_float(void) const
 {
 	return m_pParent->m_Value.m_fValue;
 }

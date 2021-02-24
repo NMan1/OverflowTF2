@@ -5,12 +5,12 @@
 
 #include <vector>
 
-#include "..\utils\utils.hpp"
+#include "../utils/utils.hpp"
 #include "../utils/color.hpp"
 #include "../interfaces/interfaces.hpp"
 #include "../utils/settings/settings.hpp"
 #include "../features/misc/misc.hpp"
-#include "../utils/helpers.hpp"
+#include "../utils/game/helpers.hpp"
 #include "../features/other/others.hpp"
 
 void* utils::tf2_window;
@@ -236,16 +236,28 @@ namespace menu {
 		{
 			ImGui::Checkbox("enable aimbot", &settings::aimbot);
 
+			ImGui::SetCursorPosX(ImGui::GetCursorPosX() + 17);
+			ImGui::Checkbox("projectile aimbot", &settings::aimbot_proj);
+
 			ImGui::Hotkey("##aimbot_key", &settings::aimbot_key, ImVec2(95, 20));
 
 			ImGui::SetCursorPosX(ImGui::GetCursorPosX() + 17);
 			ImGui::Combo("bone ##aimbot", &settings::aimbot_bone, "all\0head");
 
 			ImGui::SetCursorPosX(ImGui::GetCursorPosX() + 17);
+			ImGui::Combo("rocket launcher bone", &settings::aimbot_proj_launcher_bone, "feet\0chest");
+
+			ImGui::SetCursorPosX(ImGui::GetCursorPosX() + 17);
 			ImGui::SliderInt("fov", &settings::aimbot_fov, 0, 360);
 
 			ImGui::SetCursorPosX(ImGui::GetCursorPosX() + 17);
-			ImGui::SliderFloat("smoothness", &settings::aimbot_smoothness, 0, 10, "%.1f");
+			ImGui::SliderFloat("smoothing", &settings::aimbot_smoothness, 0, 10, "%.1f");			
+			
+			ImGui::SetCursorPosX(ImGui::GetCursorPosX() + 17);
+			ImGui::SliderInt("projectile fov", &settings::aimbot_proj_fov, 0, 360);
+
+			ImGui::SetCursorPosX(ImGui::GetCursorPosX() + 17);
+			ImGui::SliderFloat("projectile smoothing", &settings::aimbot_proj_smoothness, 0, 10, "%.1f");
 		}
 
 		{
@@ -376,7 +388,7 @@ namespace menu {
 
 				ImGui::Text(info.name); ImGui::NextColumn();
 				ImGui::Text(teams[team_num]); ImGui::NextColumn();
-				ImGui::Text(get_class_name_string(player->get_class_name())); ImGui::NextColumn();
+				ImGui::Text(get_class_name_string(player->get_class_id())); ImGui::NextColumn();
 				if (ImGui::Button((std::string("steal name ##") + std::to_string(i)).c_str(), ImVec2(75, 25))) {
 					misc::change_name(info.name);
 				}

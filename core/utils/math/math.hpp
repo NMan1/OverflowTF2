@@ -12,6 +12,8 @@ namespace math {
 
 	vector calc_angle(const vector& source, const vector& destination, const vector& view_angles);
 
+	vector calc_angle_projectile(const vector& source, const vector& destination);
+
 	float calc_fov(float distance, const vector& src, const vector& dst);
 
 	void normalize_angle(vector& angle);

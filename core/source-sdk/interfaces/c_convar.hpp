@@ -99,7 +99,7 @@ public:
 	//----------------------------
 	// Non-virtual helper methods
 	//----------------------------
-	float					GetFloat(void) const;
+	float					get_float(void) const;
 	int						GetInt(void) const;
 	//DWORD					GetColor(void) const;
 	const char* GetString(void) const;

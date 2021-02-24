@@ -200,6 +200,7 @@
     <ClCompile Include="core\source-sdk\interfaces\c_key_values.cpp" />
     <ClCompile Include="core\source-sdk\interfaces\i_entity.cpp" />
     <ClCompile Include="core\utils\draw\draw.cpp" />
+    <ClCompile Include="core\utils\game\helpers.cpp" />
     <ClCompile Include="core\utils\math\math.cpp" />
     <ClCompile Include="core\utils\netvars\netvars.cpp" />
     <ClCompile Include="core\utils\settings\settings.cpp" />
@@ -248,7 +249,7 @@
     <ClInclude Include="core\source-sdk\interfaces\i_panels.hpp" />
     <ClInclude Include="core\utils\color.hpp" />
     <ClInclude Include="core\utils\draw\draw.hpp" />
-    <ClInclude Include="core\utils\helpers.hpp" />
+    <ClInclude Include="core\utils\game\helpers.hpp" />
     <ClInclude Include="core\utils\math\math.hpp" />
     <ClInclude Include="core\utils\netvars\dt_common.hpp" />
     <ClInclude Include="core\utils\netvars\dt_recv.hpp" />
