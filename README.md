@@ -18,8 +18,9 @@ Code is relatively clean, written in snake_case
 - Chams
   - Basic player and weapon chams
 - Aimbot
-  - basic fov
-  - basic smoothing
+  - fov
+  - smoothing
+  - projectile aimbot
 - Trigger bot
   - bone
   - always on
