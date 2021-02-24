@@ -32,7 +32,6 @@ Code is relatively clean, written in snake_case
 - Player list & Spectator list
 
 ### Menu
-(https://github.com/NMan1/CSGOMenuTemplate))
 <img src="https://i.imgur.com/wQGgSiL.png">>
 
 
