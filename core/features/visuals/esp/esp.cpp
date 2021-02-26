@@ -23,9 +23,11 @@ namespace esp {
 
 	void fov_circle(c_base_entity* local_player);
 
+	void buildings(c_base_entity* entity, c_base_entity* local_player);
+
 	void pickups(c_base_entity* entity);
 
-	void buildings(c_base_entity* entity, c_base_entity* local_player);
+	void projectiles(c_base_entity* entity, c_base_entity* local_player);
 
 	bool get_item_bounds(c_base_entity* entity, int& x, int& y, int& w, int& h);
 
@@ -85,7 +87,7 @@ namespace esp {
 
 		for (int i = 1; i <= interfaces::entity_list->get_max_entitys(); i++) {
 			auto entity = interfaces::entity_list->get_client_entity(i);
-			if (!entity || entity->is_player() || !entity->is_alive() || entity->is_dormant()) {
+			if (!entity || entity->is_player() || entity->is_dormant()) {
 				continue;
 			}
 
@@ -95,6 +97,10 @@ namespace esp {
 
 			if (settings::pickups) {
 				pickups(entity);
+			}
+
+			if (settings::projectile_esp) {
+				projectiles(entity, local_player);
 			}
 		}
 	}
@@ -119,7 +125,7 @@ namespace esp {
 	}
 
 	void class_name(c_base_entity* entity, int x, int y, int w, int h) {
-		auto class_name = get_class_name_string(entity->get_class_id());
+		auto class_name = get_class_name_string(entity->get_class_number());
 		draw::text(draw::class_name_font, class_name, x + (w / 2), y - 15, settings::class_name_color, true);
 	}
 
@@ -168,23 +174,6 @@ namespace esp {
 		//draw::circle(vector_2d(utils::screen_x / 2, utils::screen_y / 2), fuck_me, color(255, 0, 0));
 	}
 
-	void pickups(c_base_entity* entity) {
-		if (settings::health_pack_esp && entity->is_health_pack()) {
-			int x, y, w, h;
-			if (get_item_bounds(entity, x, y, w, h)) {
-				draw::rect(x, y, w, h, settings::health_pack_esp_color);
-				draw::text(draw::pickup_font, L"Health", x + (w / 2), y, settings::health_pack_esp_color, true);
-			}
-		}
-		else if (settings::ammo_box_esp && entity->is_ammo_pack()) {
-			int x, y, w, h;
-			if (get_item_bounds(entity, x, y, w, h)) {
-				draw::rect(x, y, w, h, settings::ammo_box_esp_color);
-				draw::text(draw::pickup_font, L"Ammo", x + (w / 2), y, settings::ammo_box_esp_color, true);
-			}
-		}
-	}
-
 	void buildings(c_base_entity* entity, c_base_entity* local_player) {
 		if (!settings::team_buildings && entity->get_team_num() == local_player->get_team_num()) {
 			return;
@@ -210,7 +199,7 @@ namespace esp {
 
 			int x, y, w, h;
 			if (get_item_bounds(entity, x, y, w, h)) {
-				color color = (settings::team_buildings && entity->get_team_num() == local_player->get_team_num()) ? 
+				color color = (settings::team_buildings && entity->get_team_num() == local_player->get_team_num()) ?
 					settings::team_buildings_color : settings::buildings_color;
 
 				draw::rect(x, y, w, h, color);
@@ -225,6 +214,56 @@ namespace esp {
 				}
 			}
 			glow(entity, settings::glow_buildings);
+		}
+	}
+
+	void pickups(c_base_entity* entity) {
+		if (settings::health_pack_esp && entity->is_health_pack()) {
+			int x, y, w, h;
+			if (get_item_bounds(entity, x, y, w, h)) {
+				draw::rect(x, y, w, h, settings::health_pack_esp_color);
+				draw::text(draw::pickup_font, L"Health", x + (w / 2), y, settings::health_pack_esp_color, true);
+			}
+		}
+		else if (settings::ammo_box_esp && entity->is_ammo_pack()) {
+			int x, y, w, h;
+			if (get_item_bounds(entity, x, y, w, h)) {
+				draw::rect(x, y, w, h, settings::ammo_box_esp_color);
+				draw::text(draw::pickup_font, L"Ammo", x + (w / 2), y, settings::ammo_box_esp_color, true);
+			}
+		}
+	}
+
+	void projectiles(c_base_entity* entity, c_base_entity* local_player) {
+		if (!settings::projectile_esp || entity->get_team_num() == local_player->get_team_num()) {
+			return;
+		}
+
+		auto class_id = entity->get_class_id();
+		if (class_id == CTFProjectile_Rocket ||
+			class_id == CTFProjectile_Arrow ||
+			class_id == CTFProjectile_Flare ||
+			class_id == CTFGrenadePipebombProjectile) {
+
+			const char* display_name = "";
+			if (class_id == CTFProjectile_Rocket) {
+				display_name = "rocket";
+			}
+			else if (class_id == CTFProjectile_Arrow) {
+				display_name = "arrow";
+			}
+			else if (class_id == CTFProjectile_Flare) {
+				display_name = "flare";
+			}
+			else if (class_id == CTFGrenadePipebombProjectile) {
+				display_name = "pipe";
+			}
+
+			int x, y, w, h;
+			if (get_item_bounds(entity, x, y, w, h)) {
+				draw::rect(x, y, w, h, settings::projectile_esp_color);
+				draw::text(draw::object_font, display_name, x + (w / 2), y - 15, { 255, 255, 255 }, true);
+			}
 		}
 	}
 

@@ -240,7 +240,7 @@ namespace menu {
 			ImGui::Checkbox("projectile aimbot", &settings::aimbot_proj);
 
 			ImGui::Hotkey("##aimbot_key", &settings::aimbot_key, ImVec2(95, 20));
-
+			
 			ImGui::SetCursorPosX(ImGui::GetCursorPosX() + 17);
 			ImGui::Combo("bone ##aimbot", &settings::aimbot_bone, "all\0head");
 
@@ -345,6 +345,23 @@ namespace menu {
 
 			ImGui::SetCursorPosX(ImGui::GetCursorPosX() + 17);
 			ImGui::Checkbox("gold arm", &settings::gold_arm);
+		}
+
+		{
+			ImGui::Checkbox("projectiles", &settings::projectile_esp);
+			ImGui::ColorPicker("projectiles color", &settings::projectile_esp_color, ImGuiColorEditFlags_NoInputs);
+
+			ImGui::SetCursorPosX(ImGui::GetCursorPosX() + 17);
+			ImGui::Checkbox("rockets", &settings::rocket_esp);
+
+			ImGui::SetCursorPosX(ImGui::GetCursorPosX() + 17);
+			ImGui::Checkbox("arrows", &settings::arrow_esp);
+
+			ImGui::SetCursorPosX(ImGui::GetCursorPosX() + 17);
+			ImGui::Checkbox("flares", &settings::flare_esp);
+
+			ImGui::SetCursorPosX(ImGui::GetCursorPosX() + 17);
+			ImGui::Checkbox("pipe bombs", &settings::pipe_bomb_esp);
 		}
 	}
 

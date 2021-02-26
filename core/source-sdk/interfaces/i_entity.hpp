@@ -50,6 +50,8 @@ public:
 
 	int get_class_id();
 
+    int get_class_number();
+
 	int get_condition();
 
 	int get_flags();

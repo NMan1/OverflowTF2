@@ -115,8 +115,12 @@ vector c_base_entity::get_view_angles() {
 }
 
 int c_base_entity::get_class_id() {
-	static int player_class = g_netvar->get_offset("DT_TFPlayer", "m_PlayerClass", "m_iClass");
-	return get_value<int>(player_class);
+	return get_client_class()->class_id;
+}
+
+int c_base_entity::get_class_number() {
+	static int offset = g_netvar->get_offset("DT_TFPlayer", "m_PlayerClass", "m_iClass");
+	return get_value<int>(offset);
 }
 
 int c_base_entity::get_condition() {

@@ -97,7 +97,7 @@ namespace aimbot {
 			// projectile
 
 			auto target_position = target->get_hitbox_pos(hitbox_id);
-			if (local_player->get_class_id() == tf_classes::CLASS_SOLDIER) {
+			if (local_player->get_class_number() == tf_classes::CLASS_SOLDIER) {
 				target_position = settings::aimbot_proj_launcher_bone == 1 ? target->get_abs_origin() + vector(0, 0, 15.0f) : target->get_abs_origin();
 			}
 

@@ -66,6 +66,18 @@ namespace settings {
 
 	extern bool gold_arm;
 
+	extern bool projectile_esp;
+
+	extern color projectile_esp_color;
+
+	extern bool rocket_esp;
+
+	extern bool arrow_esp;
+
+	extern bool flare_esp;
+
+	extern bool pipe_bomb_esp;
+
 	// aimbot
 
 	extern bool aimbot;

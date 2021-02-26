@@ -43,8 +43,8 @@ namespace hooks {
 		m_paint->hook(engine_vgui::paint::index, engine_vgui::paint::fn);
 
 		// Model render hooks
-		//m_dme = std::make_unique<memory::hook_t>(interfaces::model_render);
-		//m_dme->hook(model_render::dme::index, model_render::dme::fn);
+		m_dme = std::make_unique<memory::hook_t>(interfaces::model_render);
+		m_dme->hook(model_render::dme::index, model_render::dme::fn);
 
 		// D3D hooks
 		m_present = std::make_unique<memory::hook_t>(present);
@@ -72,7 +72,7 @@ namespace hooks {
 		m_client_mode->unhook();
 		//m_paint_traverse->unhook();
 		m_paint->unhook();
-		//m_dme->unhook();
+		m_dme->unhook();
 		m_present->unhook();
 		m_reset->unhook();
 		m_lock_cursor->unhook();

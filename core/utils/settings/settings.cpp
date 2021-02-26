@@ -35,16 +35,16 @@ namespace settings {
 
 	bool buildings = true;
 
-	color buildings_color = { 255, 255, 255 };
+	color buildings_color = { 255, 0, 0 };
 
 	bool glow_buildings = true;
 
 	bool team_buildings = true;
 
-	color team_buildings_color = { 255, 255, 255 };
+	color team_buildings_color = { 0, 244, 0 };
 
 	bool health_bar_buildings = true;
-
+	
 	bool pickups = false;
 
 	bool health_pack_esp = true;
@@ -63,17 +63,29 @@ namespace settings {
 
 	bool gold_arm = true;
 
+	bool projectile_esp = false;
+
+	color projectile_esp_color = { 111, 242, 253 };
+
+	bool rocket_esp = false;
+
+	bool arrow_esp = false;
+
+	bool flare_esp = false;
+
+	bool pipe_bomb_esp = false;
+
 	// aimbot
 
 	bool aimbot = true;
 
-	int aimbot_key = 0;
+	int aimbot_key = 0x10; // VK_SHIFT
 
 	int aimbot_bone = 1;
 
 	int aimbot_fov = 5;
 
-	float aimbot_smoothness = .1;
+	float aimbot_smoothness = 0.0f;
 
 	bool aimbot_proj = true;
 
@@ -101,7 +113,7 @@ namespace settings {
 
 	bool bunny_hop = true;
 
-	bool auto_backstab = true;
+	bool auto_backstab = false;
 
 	// others
 
