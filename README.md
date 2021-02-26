@@ -15,6 +15,7 @@ Code is relatively clean, written in snake_case
   - object eso (dispenser, turrets, telporters)
   - heatlh and ammo pack esp
   - Glow players and objects
+  - Projectile esp
 - Chams
   - Basic player and weapon chams
 - Aimbot
