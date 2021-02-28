@@ -179,6 +179,7 @@
   <ItemGroup>
     <ClCompile Include="core\dllmain.cpp" />
     <ClCompile Include="core\features\aimbot\aimbot.cpp" />
+    <ClCompile Include="core\features\backtrack\backtrack.cpp" />
     <ClCompile Include="core\features\misc\misc.cpp" />
     <ClCompile Include="core\features\other\others.cpp" />
     <ClCompile Include="core\features\triggerbot\triggerbot.cpp" />
@@ -207,6 +208,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="core\features\aimbot\aimbot.hpp" />
+    <ClInclude Include="core\features\backtrack\backtrack.hpp" />
     <ClInclude Include="core\features\misc\misc.hpp" />
     <ClInclude Include="core\features\other\others.hpp" />
     <ClInclude Include="core\features\triggerbot\triggerbot.hpp" />

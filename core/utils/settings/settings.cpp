@@ -75,6 +75,10 @@ namespace settings {
 
 	bool pipe_bomb_esp = false;
 
+	bool visualize_backtrack = false;
+
+	color visualize_backtrack_color = { 238, 130, 238 };
+
 	// aimbot
 
 	bool aimbot = true;
@@ -107,6 +111,8 @@ namespace settings {
 
 	bool triggerbot_ignore_cloaked = true;
 	
+	bool legit_backtrack = true;
+
 	// misc
 
 	bool misc = true;

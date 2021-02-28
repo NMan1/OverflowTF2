@@ -78,6 +78,10 @@ namespace settings {
 
 	extern bool pipe_bomb_esp;
 
+	extern bool visualize_backtrack;
+
+	extern color visualize_backtrack_color;
+
 	// aimbot
 
 	extern bool aimbot;
@@ -111,6 +115,8 @@ namespace settings {
 	extern bool triggerbot_scoped_only;
 
 	extern bool triggerbot_ignore_cloaked;
+
+	extern bool legit_backtrack;
 
 	// misc
 

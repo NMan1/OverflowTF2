@@ -5,6 +5,7 @@
 #include "..\..\..\utils\math\math.hpp"
 #include "..\..\..\utils\settings\settings.hpp"
 #include "..\..\..\source-sdk\interfaces\c_base_combat_weapon.hpp"
+#include "../../backtrack/backtrack.hpp"
 
 namespace esp {
 	void box(c_base_entity* entity, int x, int y, int w, int h);
@@ -20,6 +21,8 @@ namespace esp {
 	void skeleton(c_base_entity* entity);
 
 	void direction_line(c_base_entity* entity);
+
+	void backtrack_point(c_base_entity* entity);
 
 	void fov_circle(c_base_entity* local_player);
 
@@ -82,6 +85,10 @@ namespace esp {
 
 			if (settings::direction_line) {
 				direction_line(entity);
+			}
+
+			if (settings::visualize_backtrack && settings::legit_backtrack && !local_player->is_scoped()) {
+				backtrack_point(entity);
 			}
 		}
 
@@ -166,6 +173,20 @@ namespace esp {
 		vector screen_start, screen_end;
 		if (draw::w2s(start, screen_start) && draw::w2s(forward_vector * 50 + start, screen_end)) {
 			draw::line(screen_start, screen_end, settings::direction_line_color);
+		}
+	}
+
+	void backtrack_point(c_base_entity* entity) {
+		auto &ticks = backtrack::player_ticks[entity->get_entity_index()];
+		if (ticks.size() < 1) {
+			return;
+		}
+
+		auto point = ticks.at(ticks.size() - 1).head_position;
+
+		vector screen;
+		if (draw::w2s(point, screen)) {
+			draw::circle(screen, 4, settings::visualize_backtrack_color);
 		}
 	}
 

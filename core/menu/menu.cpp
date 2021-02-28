@@ -277,6 +277,10 @@ namespace menu {
 			ImGui::SetCursorPosX(ImGui::GetCursorPosX() + 17);
 			ImGui::Checkbox("ignore cloaked", &settings::triggerbot_ignore_cloaked);
 		}
+
+		{
+			ImGui::Checkbox("legit backtrack", &settings::legit_backtrack);
+		}
 	}
 
 	void visuals_page() {
@@ -363,6 +367,9 @@ namespace menu {
 			ImGui::SetCursorPosX(ImGui::GetCursorPosX() + 17);
 			ImGui::Checkbox("pipe bombs", &settings::pipe_bomb_esp);
 		}
+
+		ImGui::Checkbox("visualize backtrack", &settings::visualize_backtrack);
+		ImGui::ColorPicker("visualize backtrack color", &settings::visualize_backtrack_color, ImGuiColorEditFlags_NoInputs);
 	}
 
 	void misc_page() {
