@@ -22,6 +22,7 @@ Code is relatively clean, written in snake_case
   - fov
   - smoothing
   - projectile aimbot
+  - legit backtrack
 - Trigger bot
   - bone
   - always on
