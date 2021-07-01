@@ -15,8 +15,8 @@ namespace hooks {
 	WNDPROC d3d::wnd_proc::old_wnd_proc = nullptr;
 
 	bool hook() {
-		auto present = memory::find_pattern("gameoverlayrenderer.dll", "FF 15 ? ? ? ? 8B F8 85 DB");
-		auto reset = memory::find_pattern("gameoverlayrenderer.dll", "FF 15 ? ? ? ? 8B F8 85 FF 78 18");
+		auto present = memory::find_pattern("gameoverlayrenderer.dll", "FF 15 ? ? ? ? 8B F0 EB 1B");
+		auto reset = memory::find_pattern("gameoverlayrenderer.dll", "FF 15 ? ? ? ? 8B D8 85 DB 78 18");
 		if (!present || !reset) {
 			utils::log("[-] Present or Reset Nullptr");
 			std::this_thread::sleep_for(std::chrono::milliseconds(3000));
